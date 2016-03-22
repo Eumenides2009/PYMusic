@@ -1,0 +1,28 @@
+html {
+	height: 100%;
+}
+body {
+	background-color: rgb(241, 242, 246);
+	height: 100%;
+}
+.selecter {
+	display: inline;
+	float: left;
+	width: 80px;
+	margin-right: 10px;
+}
+/*.selecter .selecter-selected {
+    display: inline; 
+    min-width: 30px;
+}*/
+.search-only .search-icon {
+    left: 92.5px;
+}
+.form-search input.search-query {
+	padding-left: 28px;
+}
+.navbar-inverse {
+    background-color: #000;
+    border-color: #333;
+    border-bottom-color: rgba(255, 255, 255, 0.75);
+}

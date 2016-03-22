@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Home</title>
+		
+	</head>
+
+	<body>
+
+		<form action="upload" method="post" enctype="multipart/form-data">
+			<input type="text" name="name">
+			<input type="file" name="music">
+			<input type="submit" name="submit" value="upload music">
+			{% csrf_token %}
+		</form>
+		<audio controls>
+  		<source src="{% url 'musicsharing.views.get_audio' music_name %}  " type="audio/mpeg">
+		Your browser does not support the audio element.
+		</audio>
+
+
+	</body>
+
+</html> 

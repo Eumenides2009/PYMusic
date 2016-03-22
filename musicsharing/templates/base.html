@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Minimal Bootflat example</title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "css/site.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    {% block css %}{% endblock %}
+</head>
+
+<body>
+    <div class="list-bg">
+        <div class="bg">
+        </div>
+    </div>
+    <div class="list-bg black">
+        <div class="bg">
+        </div>
+    </div>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">PYMusic</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Player <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Friend Stream</a></li>
+                    <li><a href="#">Add Post</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-search search-only">
+                            <!-- <ul class="nav navbar-nav"> -->
+                            <select name="selecter_basic" class="selecter_3" data-selecter-options='{"cover":"true"}'>
+                                <option value="1">User</option>
+                                <option value="2">Song</option>
+                            </select>
+                            <!-- </ul> -->
+                            <input type="text" class="form-control search-query">
+                            <i class="search-icon glyphicon glyphicon-search"></i>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </div>
+                    </form>
+                    <li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Link <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">My Profile</a></li>
+                            <li><a href="#">My Post</a></li>
+                            <li><a href="#">My Friends</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Sign out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    <!-- Bootstrap -->
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="{% static "js/site.min.js" %}"></script>
+    <!-- Bootflat's JS files.-->
+    <script src="{% static "js/icheck.min.js" %}"></script>
+    <script src="{% static "js/jquery.fs.selecter.min.js" %}"></script>
+    <script src="{% static "js/jquery.fs.stepper.min.js" %}"></script>
+    {% block js %}{% endblock %}
+</body>
+</h

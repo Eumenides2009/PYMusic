@@ -1,25 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Home</title>
-		
-	</head>
-
-	<body>
-
-		<form action="upload" method="post" enctype="multipart/form-data">
-			<input type="text" name="name">
-			<input type="file" name="music">
-			<input type="submit" name="submit" value="upload music">
-			{% csrf_token %}
-		</form>
-		<audio controls>
-  		<source src="{% url 'musicsharing.views.get_audio' music_name %}  " type="audio/mpeg">
-		Your browser does not support the audio element.
-		</audio>
-
-
-	</body>
-
-</html> 
+{% extends "base.html" %} 
+{% block css %} 
+ {% load staticfiles %}
+<link rel="stylesheet" href="{% static "css/APlayer.min.css" %}">
+<link rel="stylesheet" href="{% static "css/playerstyle.css" %}">
+{% endblock %}
+{% block content %}
+<div id="player4" class="aplayer"></div>
+{% endblock %}
+{% block js %}
+<!-- {% load staticfiles %} -->
+<script src="{% static "js/APlayer.min.js" %}"></script>
+    <script>
+    var ap4 = new APlayer({
+        element: document.getElementById('player4'),
+        narrow: false,
+        autoplay: false,
+        showlrc: false,
+        theme: '#ad7a86',
+        music: [{
+            title: 'Cry me a river',
+            author: 'Justin Timberlake',
+            url: 'http://7xq131.com1.z0.glb.clouddn.com/secret base~.mp3',
+            pic: 'http://7xq131.com1.z0.glb.clouddn.com/あっちゅ～ま青春!.jpg'
+        }, {
+            title: 'lie',
+            author: 'Bigbang',
+            url: 'http://7xq131.com1.z0.glb.clouddn.com/secret base~.mp3',
+            pic: 'http://7xq131.com1.z0.glb.clouddn.com/secret base~.jpg'
+        }, {
+            title: 'Cakes by the ocean',
+            author: 'DDDD',
+            url: 'http://7xq131.com1.z0.glb.clouddn.com/回レ！雪月花.mp3',
+            pic: 'http://7xq131.com1.z0.glb.clouddn.com/回レ！雪月花.jpg'
+        }, {
+            title: 'Cry me a river',
+            author: 'Justin Timberlake',
+            url: 'http://7xq131.com1.z0.glb.clouddn.com/secret base~.mp3',
+            pic: 'http://7xq131.com1.z0.glb.clouddn.com/あっちゅ～ま青春!.jpg'
+        }, {
+            title: 'lie',
+            author: 'Bigbang',
+            url: 'http://7xq131.com1.z0.glb.clouddn.com/secret base~.mp3',
+            pic: 'http://7xq131.com1.z0.glb.clouddn.com/secret base~.jpg'
+        }, {
+            title: 'Cakes by the ocean',
+            author: 'DDDD',
+            url: 'http://7xq131.com1.z0.glb.clouddn.com/回レ！雪月花.mp3',
+            pic: 'http://7xq131.com1.z0.glb.clouddn.com/回レ！雪月花.jpg'
+        }, {
+            title: 'Cry me a river',
+            author: 'Justin Timberlake',
+            url: 'http://7xq131.com1.z0.glb.clouddn.com/secret base~.mp3',
+            pic: 'http://7xq131.com1.z0.glb.clouddn.com/あっちゅ～ま青春!.jpg'
+        }, {
+            title: 'lie',
+            author: 'Bigbang',
+            url: 'http://7xq131.com1.z0.glb.clouddn.com/secret base~.mp3',
+            pic: 'http://7xq131.com1.z0.glb.clouddn.com/secret base~.jpg'
+        }, {
+            title: 'Cakes by the ocean',
+            author: 'DDDD',
+            url: 'http://7xq131.com1.z0.glb.clouddn.com/回レ！雪月花.mp3',
+            pic: 'http://7xq131.com1.z0.glb.clouddn.com/回レ！雪月花.jpg'
+        }, {
+            title: 'Cry me a river',
+            author: 'Justin Timberlake',
+            url: 'http://7xq131.com1.z0.glb.clouddn.com/secret base~.mp3',
+            pic: 'http://7xq131.com1.z0.glb.clouddn.com/あっちゅ～ま青春!.jpg'
+        }, {
+            title: 'lie',
+            author: 'Bigbang',
+            url: 'http://7xq131.com1.z0.glb.clouddn.com/secret base~.mp3',
+            pic: 'http://7xq131.com1.z0.glb.clouddn.com/secret base~.jpg'
+        }, {
+            title: 'Cakes by the ocean',
+            author: 'DDDD',
+            url: 'http://7xq131.com1.z0.glb.clouddn.com/回レ！雪月花.mp3',
+            pic: 'http://7xq131.com1.z0.glb.clouddn.com/回レ！雪月花.jpg'
+        }]
+    });
+    ap4.init();
+    </script>
+{% endblock %}
