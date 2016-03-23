@@ -35,22 +35,25 @@ def get_picture(request,audio_name):
 	content_type = guess_type(music.picture.name)
 
 	return HttpResponse(music.picture,content_type=content_type)
-	
+
 @login_required
 @transaction.atomic
 def upload(request):
 	try:
 		music = Music.objects.get(name=request.POST['name'],user=request.user)
 	except Music.DoesNotExist:
-		if not request.POST.get('picture'):
+		if not request.FILES.get('music'):
+			print 'dont contain files or music'
+			return render(request,'home.html',{})
+
+		if not request.FILES.get('picture'):
 			new_music = Music(name=request.POST['name'],content=request.FILES['music'],user=request.user)
 		else:
-			print 'upload image'
 			new_music = Music(name=request.POST['name'],content=request.FILES['music'],picture=request.FILES['picture'],user=request.user)
 		
 		new_music.save()	
 
-	return render(request,'home.html',{'music_name':request.POST['name']})
+	return render(request,'home.html',{})
 
 
 
