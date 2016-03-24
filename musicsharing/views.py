@@ -82,7 +82,7 @@ def get_audio_index(request):
 	for music in music_list:
 		new_meta = {}
 		new_meta['title'] = music.name
-		new_meta['artist'] = music.artist
+		new_meta['author'] = music.artist
 		new_meta['album'] = music.album
 
 		name_list.append(new_meta)
