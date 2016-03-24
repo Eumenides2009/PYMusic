@@ -49,7 +49,7 @@
 {% endblock %}
 {% block js %}
 <!-- {% load staticfiles %} -->
-<script src="{% static "js/APlayer.min.js" %}"></script>
+<script src="{% static "js/APlayer.js" %}"></script>
     <script>
     var ap4 = new APlayer({
         element: document.getElementById('player4'),
@@ -58,26 +58,6 @@
         showlrc: false,
         theme: '#ad7a86',
         music: [{
-            title: '剑魄琴心',
-            author: '骆集益',
-            url: 'http://127.0.0.1:8000/music/jianpoqinxin',
-            pic: 'http://127.0.0.1:8000/picture/jianpoqinxin'
-        }, {
-            title: '七里香',
-            author: '周杰伦',
-            url: 'http://127.0.0.1:8000/music/qilixiang',
-            pic: 'http://7xq131.com1.z0.glb.clouddn.com/secret base~.jpg'
-        }, {
-            title: '东风破',
-            author: '周杰伦',
-            url: 'http://127.0.0.1:8000/music/dongfengpo',
-            pic: 'http://7xq131.com1.z0.glb.clouddn.com/回レ！雪月花.jpg'
-        }, {
-            title: '夜曲',
-            author: '周杰伦',
-            url: 'http://127.0.0.1:8000/music/yequ',
-            pic: 'http://7xq131.com1.z0.glb.clouddn.com/あっちゅ～ま青春!.jpg'
-        }, {
             title: 'Uptown Funk',
             author: 'Mark Ronson',
             url: 'http://127.0.0.1:8000/music/Uptown Funk',
