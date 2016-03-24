@@ -15,7 +15,26 @@ from musicsharing.models import *
 import eyed3
 import json
 
+temp_upload_path = "/tmp/django_upload"
 # Create your views here.
+
+def get_music_metadata(file):
+	with open(os.path.join(temp_upload_path,file.name),'wb+') as destination:
+		for chunk in file.chunks():
+			destination.write(chunk)
+
+	meta = {}
+	music = eyed3.load(os.path.join(temp_upload_path,file.name)) 
+
+	meta['title'] = music.tag.title
+	meta['author'] = music.tag.artist
+	meta['album'] = music.tag.album
+
+	print meta
+	os.remove(os.path.join(temp_upload_path,file.name))
+
+	return meta
+
 
 @login_required
 def home(request):
@@ -40,27 +59,18 @@ def get_picture(request,audio_name):
 @login_required
 @transaction.atomic
 def upload(request):
-	try:
-		music = Music.objects.get(name=request.POST['name'],user=request.user)
-	except Music.DoesNotExist:
-		if not request.FILES.get('music'):
-			print 'dont contain files or music'
-			return render(request,'home.html',{})
+	
+	if not request.FILES.get('music'):
+		return render(request,'home.html',{})
 
-		# print request.FILES['music'].temporary_file_path()
+	meta = get_music_metadata(request.FILES['music'])
 
-		# music = eyed3.load(request.FILES['music'].temporary_file_path())
-
-		# print music.tag.artist
- 	# 	print music.tag.album
- 	# 	print music.tag.title
-
-		if not request.FILES.get('picture'):
-			new_music = Music(name=request.POST['name'],content=request.FILES['music'],user=request.user)
-		else:
-			new_music = Music(name=request.POST['name'],content=request.FILES['music'],picture=request.FILES['picture'],user=request.user)
+	if not request.FILES.get('picture'):
+		new_music = Music(name=meta['title'],artist=meta['author'],album=meta['album'],content=request.FILES['music'],user=request.user)
+	else:
+		new_music = Music(name=meta['title'],artist=meta['author'],album=meta['album'],content=request.FILES['music'],picture=request.FILES['picture'],user=request.user)
 		
-		new_music.save()	
+	new_music.save()	
 
 	return render(request,'home.html',{})
 
@@ -70,9 +80,14 @@ def get_audio_index(request):
 	name_list = []
 
 	for music in music_list:
-		name_list.append(music.name)
+		new_meta = {}
+		new_meta['title'] = music.name
+		new_meta['artist'] = music.artist
+		new_meta['album'] = music.album
 
-	print name_list
+		name_list.append(new_meta)
+
+	
 	data = json.dumps({'name':name_list})
 
 	return HttpResponse(data,content_type="application/json")
