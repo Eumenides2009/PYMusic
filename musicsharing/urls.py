@@ -5,6 +5,7 @@ urlpatterns = [
 	url(r'^$',views.home),
 	url(r'^upload$',views.upload),
 	url(r'^music/(?P<audio_name>.+)$',views.get_audio),
-	url(r'picture/(?P<audio_name>.+)$',views.get_picture),
+	url(r'^get_audio_index$',views.get_audio_index),
+	url(r'^picture/(?P<audio_name>.+)$',views.get_picture),
 	url(r'^accounts/',include('allauth.urls')),
 ]

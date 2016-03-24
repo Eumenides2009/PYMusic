@@ -27,8 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+EMAIL_HOST = 'smtp.google.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'pymusic001@gmail.com'
+EMAIL_HOST_PASSWORD = 'pymusic1234'
+EMAIL_USE_SSL = True
 # Application definition
+
+ACCOUNT_UNIQUE_EMAIL = False
 
 INSTALLED_APPS = [
     'django.contrib.sites',

@@ -18,5 +18,13 @@ class Music(models.Model):
 	content = models.FileField(upload_to='music',validators=[validate_music_file])
 	picture = models.ImageField(upload_to='music_image',default='music_image/default.jpg')
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
+
+
 	def __unicode__(self):
 		return "Music Name: " + self.name + "  Owner: " +self.user.username
+
+
+class Profile(models.Model):
+	user = models.ForeignKey(User,on_delete=models.CASCADE)
+	bio = models.CharField(max_length=400)
+	

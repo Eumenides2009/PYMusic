@@ -10,9 +10,10 @@ from django.http import HttpResponseRedirect
 from django.db import transaction
 from django.shortcuts import render, get_object_or_404
 from mimetypes import guess_type
+from django.core import serializers
 from musicsharing.models import *
-
-
+import eyed3
+import json
 
 # Create your views here.
 
@@ -46,6 +47,14 @@ def upload(request):
 			print 'dont contain files or music'
 			return render(request,'home.html',{})
 
+		# print request.FILES['music'].temporary_file_path()
+
+		# music = eyed3.load(request.FILES['music'].temporary_file_path())
+
+		# print music.tag.artist
+ 	# 	print music.tag.album
+ 	# 	print music.tag.title
+
 		if not request.FILES.get('picture'):
 			new_music = Music(name=request.POST['name'],content=request.FILES['music'],user=request.user)
 		else:
@@ -55,6 +64,18 @@ def upload(request):
 
 	return render(request,'home.html',{})
 
+@login_required
+def get_audio_index(request):
+	music_list = Music.objects.filter(user=request.user)
+	name_list = []
+
+	for music in music_list:
+		name_list.append(music.name)
+
+	print name_list
+	data = json.dumps({'name':name_list})
+
+	return HttpResponse(data,content_type="application/json")
 
 
 @login_required
