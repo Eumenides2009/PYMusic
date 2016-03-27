@@ -9,5 +9,6 @@ urlpatterns = [
 	url(r'^picture/(?P<audio_name>.+)$',views.get_picture),
 	url(r'^profile/(?P<username>.+)$',views.profile),
 	url(r'^edit-profile$',views.edit_profile),
+	url(r'messages/',include('postman.urls',namespace='postman',app_name='postman')),
 	url(r'^accounts/',include('allauth.urls')),
 ]

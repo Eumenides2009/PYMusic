@@ -155,4 +155,4 @@ MEDIA_URL = '/media/'
 
 # settings for postman
 POSTMAN_DISALLOW_ANONYMOUS = True
-
+POSTMAN_AUTO_MODERATE_AS = True
