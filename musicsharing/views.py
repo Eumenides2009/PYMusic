@@ -6,10 +6,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, FileResponse
 from django.db import transaction
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from mimetypes import guess_type
 from django.core import serializers
 from musicsharing.models import *
+from musicsharing.forms import *
 import eyed3
 import json
 
@@ -105,6 +107,27 @@ def get_audio_index(request):
 
 	return HttpResponse(data,content_type="application/json")
 
+@login_required
+def profile(request,username):
+	if request.method == 'POST':
+		return reverse('home')
+
+	pass
+
+@login_required
+def edit_profile(request):
+
+	if request.method == 'GET':
+		storage = messages.get_messages(request)
+		for message in storage:
+			print message.message
+		profile_form = EditProfileForm()
+		messages.success(request,'profile has been updated')
+
+	else:
+		pass
+
+	return render(request,'profile.html',{'form':profile_form})
 
 @login_required
 def auth_return(request):

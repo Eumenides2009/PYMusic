@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 def validate_music_file(file):
@@ -26,8 +27,19 @@ class Music(models.Model):
 
 
 class Profile(models.Model):
+	gender_choice = (
+		('M','Male'),
+		('F','Female'),
+		('G','Gay'),
+		('L','Lesbian'),
+		('B','Bisexual'),
+		('T','transgender'),
+		('D','undefined :)')
+		)
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
-	bio = models.CharField(max_length=400)
+	bio = models.CharField(max_length=400,null=True)
+	gender = models.CharField(max_length=10,choices=gender_choice,default='D')
+	age = models.IntegerField(default=1,validators=[MaxValueValidator(100),MinValueValidator(1)])
 
 
 class PlayList(models.Model):
@@ -35,6 +47,7 @@ class PlayList(models.Model):
 	picture = models.ImageField(upload_to='list_image',null=True)
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
 	music = models.ManyToManyField(Music)
+	intro = models.CharField(max_length=300,null=True)
 
 	def __unicode__(self):
 		return "Playlist: " + self.name + " Owner: " + self.user.username

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
+    'postman',
 
 ]
 
@@ -80,6 +81,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
+                'postman.context_processors.inbox',
             ],
         },
     },
@@ -135,7 +137,7 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
+ 
 USE_L10N = True
 
 USE_TZ = True
@@ -150,3 +152,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = BASE_DIR + '/musicsharing/media/'
 
 MEDIA_URL = '/media/'
+
+# settings for postman
+POSTMAN_DISALLOW_ANONYMOUS = True
+

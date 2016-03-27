@@ -7,5 +7,7 @@ urlpatterns = [
 	url(r'^music/(?P<audio_name>.+)$',views.get_audio),
 	url(r'^get_audio_index$',views.get_audio_index),
 	url(r'^picture/(?P<audio_name>.+)$',views.get_picture),
+	url(r'^profile/(?P<username>.+)$',views.profile),
+	url(r'^edit-profile$',views.edit_profile),
 	url(r'^accounts/',include('allauth.urls')),
 ]
