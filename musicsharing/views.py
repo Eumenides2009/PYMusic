@@ -4,9 +4,7 @@ import httplib2
 
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse
-from django.http import HttpResponseBadRequest
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, FileResponse
 from django.db import transaction
 from django.shortcuts import render, get_object_or_404
 from mimetypes import guess_type
@@ -44,9 +42,19 @@ def home(request):
 def get_audio(request,audio_name):
 	music = get_object_or_404(Music,name=audio_name,user=request.user)
 
-	content_type = guess_type(music.content.name)
+	start_pos = (int)(request.META['HTTP_RANGE'].split("=")[1].split("-")[0])
 
-	return HttpResponse(music.content,content_type=content_type)
+	music.content.seek(start_pos)
+
+	response = FileResponse(music.content,status=206)
+	response['Content-Length'] = music.content.size - start_pos
+	response['Content-Type'] = 'audio/mpeg'
+	response['Accept-Ranges'] = 'bytes'
+	response['Content-Range'] = 'bytes %d-%d/%d' % (start_pos, music.content.size-1, music.content.size)
+	response['Cache-Control'] = 'max-age:31556926'
+ 	response['Content-Disposition'] = 'attachment; filename=%s.mp3 ' % music.name.encode("utf8","ignore")
+	
+	return response
 
 @login_required
 def get_picture(request,audio_name):
