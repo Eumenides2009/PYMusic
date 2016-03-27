@@ -28,7 +28,9 @@ def get_music_metadata(file):
 	meta['author'] = music.tag.artist
 	meta['album'] = music.tag.album
 
-	print meta
+	if not meta['title']:
+		meta['title'] = file.name
+
 	os.remove(os.path.join(temp_upload_path,file.name))
 
 	return meta
@@ -78,6 +80,9 @@ def upload(request):
 	else:
 		new_music = Music(name=meta['title'],artist=meta['author'],album=meta['album'],content=request.FILES['music'],picture=request.FILES['picture'],user=request.user)
 		
+	if request.FILES.get('lyric'):
+		new_music.lyric = request.FILES['lyric']
+
 	new_music.save()	
 
 	return render(request,'home.html',{})

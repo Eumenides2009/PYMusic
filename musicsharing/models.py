@@ -18,6 +18,7 @@ class Music(models.Model):
 	content = models.FileField(upload_to='music',validators=[validate_music_file])
 	picture = models.ImageField(upload_to='music_image',default='music_image/default.jpg')
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
+	lyric = models.FileField(upload_to='music_lyric',null=True)
 
 
 	def __unicode__(self):
@@ -27,3 +28,13 @@ class Music(models.Model):
 class Profile(models.Model):
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
 	bio = models.CharField(max_length=400)
+
+
+class PlayList(models.Model):
+	name = models.CharField(max_length=160,primary_key=True)
+	picture = models.ImageField(upload_to='list_image',null=True)
+	user = models.ForeignKey(User,on_delete=models.CASCADE)
+	music = models.ManyToManyField(Music)
+
+	def __unicode__(self):
+		return "Playlist: " + self.name + " Owner: " + self.user.username
