@@ -40,7 +40,7 @@ def get_music_metadata(file):
 
 @login_required
 def home(request):
-	return render(request,'home.html',{'music_name':'jianpoqinxin'})
+	return render(request,'home.html',{})
 
 @login_required
 def get_audio(request,audio_name):

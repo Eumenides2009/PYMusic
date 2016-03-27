@@ -2,12 +2,16 @@
 <html>
 
 <head>
-    <title>PYMusic</title>
+    <title>
+    {% block title %}
+    {% endblock %}
+    </title>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static "css/site.min.css" %}">
     <link rel="stylesheet" href="{% static "css/style.css" %}">
     {% block css %}{% endblock %}
+    {% block extrahead %}{% endblock %}
 </head>
 
 <body>
@@ -70,6 +74,7 @@
         <!-- /.container-fluid -->
     </nav>
     <div class="container">
+        {% block postman_menu %}{% endblock %}
         {% block content %}{% endblock %}
     </div>
     <!-- Bootstrap -->
