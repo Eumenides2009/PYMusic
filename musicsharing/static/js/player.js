@@ -2,7 +2,7 @@ var ap4 = new APlayer({
         element: document.getElementById('player4'),
         narrow: false,
         autoplay: false,
-        showlrc: false,
+        showlrc: true,
         theme: '#ad7a86',
         music: [{
             title: 'Uptown Funk',

@@ -7,8 +7,6 @@
 (function () {
     function APlayer(option) {
 
-        console.log(option);
-
         $.ajax({
             url : "/get_audio_index",
             type : "get",
@@ -23,19 +21,17 @@
                 console.log(json);
                 
                 for (var i = 0; i < json.length; i++) {
-                //    console.log(option.music[i]);
+            
                     option.music[i] = json[i];
                     option.music[i].url = "http://127.0.0.1:8000/music/" + json[i].title
                     option.music[i].pic = "http://127.0.0.1:8000/picture/" + json[i].title
-                 //   console.log(option.music[i]);
-                    // option.music[i]['author'] = json['artist'];
-                    // option.music[i]['title'] = json['title'];
+                 
                 }
-                console.log(option.music);
+            
             }
             },
             error: function() {
-            console.log("???")
+            
             }
         });
 
@@ -50,7 +46,7 @@
             element: document.getElementsByClassName('aplayer')[0],
             narrow: false,
             autoplay: false,
-            showlrc: false,
+            showlrc: true,
             theme: '#b7daff'
         };
         for (var defaultKey in defaultOption) {
@@ -59,8 +55,8 @@
             }
         }
 
-        console.log(option.music)
-        // multiple music
+        console.log(option);
+      
        
 
 
@@ -80,11 +76,14 @@
         var i;
         // parser lrc
         if (this.option.showlrc) {
-            var lrcs = [];
+            var lrcs = [];   
+            
             for (i = 0; i < this.element.getElementsByClassName('aplayer-lrc-content').length; i++) {
+                console.log(this.element.getElementsByClassName('aplayer-lrc-content')[i].innerHTML);
                 lrcs.push(this.element.getElementsByClassName('aplayer-lrc-content')[i].innerHTML);
             }
             this.lrcs = this.parseLrc(lrcs);
+            console.log(this.lrcs);
         }
 
         // fill in HTML
@@ -134,7 +133,7 @@
             // + '</div>'
             + '<div class="aplayer-list">'
             +     '<ol>';
-            console.log(eleHTML);
+        
             for (i = 0; i < this.option.music.length; i++) {
                 console.log(this.option.music[i]);
                 eleHTML += ''
@@ -416,7 +415,7 @@
 
         // fill in lrc
         if (this.option.showlrc) {
-            this.lrc = this.playIndex > -1 ? this.lrcs[indexMusic] : this.lrcs[0];
+            this.lrc = this.lrcs[0];
             this.element.classList.add('aplayer-withlrc');
             var lrcHTML = '';
             this.lrcContents = this.element.getElementsByClassName('aplayer-lrc-contents')[0];
@@ -509,6 +508,7 @@
         if (typeof(arguments[0]) === 'undefined') {
             currentTime = this.audio.currentTime;
         }
+        
         if (this.lrcIndex > this.lrc.length - 1 || currentTime < this.lrc[this.lrcIndex][0] || (!this.lrc[this.lrcIndex + 1] || currentTime >= this.lrc[this.lrcIndex + 1][0])) {
             for (var i = 0; i < this.lrc.length; i++) {
                 if (currentTime >= this.lrc[i][0] && (!this.lrc[i + 1] || currentTime < this.lrc[i + 1][0])) {
