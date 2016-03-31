@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
     'postman',
+    'ajax_select',
+    'pinax.notifications',
 
 ]
 
@@ -156,3 +158,10 @@ MEDIA_URL = '/media/'
 # settings for postman
 POSTMAN_DISALLOW_ANONYMOUS = True
 POSTMAN_AUTO_MODERATE_AS = True
+
+AJAX_LOOKUP_CHANNELS = {
+    'postman_users': ('musicsharing.lookups','UserLookup')
+}
+POSTMAN_AUTOCOMPLETER_APP = {
+    'arg_default': 'postman_users',
+}
