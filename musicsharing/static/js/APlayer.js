@@ -359,7 +359,8 @@
 
         // fill in lrc
         if (this.option.showlrc) {
-
+            var element = this.element;
+            var obj = this;
             $.ajax({
                 url: "/get_lyric/" + this.music.title,
                 type: "get",
@@ -370,43 +371,29 @@
                     } else {
                         var music = "";
                         var json = data['content'];
-                        console.log(json);
-                        this.lrc = parseLrc(json);
-                        console.log(this.element.classList);
-                        // for (var i = 0; i < json.length; i++) {
+                        
+                        obj.lrc = parseLrc(json);
 
-                        //     option.music[i] = json[i];
-                        //     option.music[i].url = "http://127.0.0.1:8000/music/" + json[i].title
-                        //     option.music[i].pic = "http://127.0.0.1:8000/picture/" + json[i].title
+                        element.classList.add('aplayer-withlrc');
+                        var lrcHTML = '';
+                        obj.lrcContents = element.getElementsByClassName('aplayer-lrc-contents')[0];
 
-                        // }
-
-
+                        for (var i = 0; i < obj.lrc.length; i++) {
+                            lrcHTML += '<p>' + obj.lrc[i][1] + '</p>';
+                        }
+                        obj.lrcContents.innerHTML = lrcHTML;
+                        if (!obj.lrcIndex) {
+                            obj.lrcIndex = 0;
+                        }
+                        obj.lrcContents.getElementsByTagName('p')[0].classList.add('aplayer-lrc-current');
+                        obj.lrcContents.style.transform = 'translateY(0px)';
+                        obj.lrcContents.style.webkitTransform = 'translateY(0px)';
                     }
                 },
                 error: function() {
 
                 }
             });
-
-            console.log(this.element.classList);
-            this.element.classList.add('aplayer-withlrc');
-            var lrcHTML = '';
-            this.lrcContents = this.element.getElementsByClassName('aplayer-lrc-contents')[0];
-
-            console.log(this.lrc);
-
-            for (var i = 0; i < this.lrc.length; i++) {
-                lrcHTML += '<p>' + this.lrc[i][1] + '</p>';
-            }
-            this.lrcContents.innerHTML = lrcHTML;
-            if (!this.lrcIndex) {
-                this.lrcIndex = 0;
-            }
-            this.lrcContents.getElementsByTagName('p')[0].classList.add('aplayer-lrc-current');
-            this.lrcContents.style.transform = 'translateY(0px)';
-            this.lrcContents.style.webkitTransform = 'translateY(0px)';
-            // this.lrc = this.lrcs[0];
 
         }
         // set duration time
@@ -486,7 +473,7 @@
         if (typeof(arguments[0]) === 'undefined') {
             currentTime = this.audio.currentTime;
         }
-
+        console.log(this.lrc);
         if (this.lrcIndex > this.lrc.length - 1 || currentTime < this.lrc[this.lrcIndex][0] || (!this.lrc[this.lrcIndex + 1] || currentTime >= this.lrc[this.lrcIndex + 1][0])) {
             for (var i = 0; i < this.lrc.length; i++) {
                 if (currentTime >= this.lrc[i][0] && (!this.lrc[i + 1] || currentTime < this.lrc[i + 1][0])) {
