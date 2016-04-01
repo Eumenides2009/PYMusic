@@ -42,6 +42,7 @@ def get_music_metadata(file):
 def home(request):
 	return render(request,'home.html',{})
 
+# music section
 @login_required
 def get_audio(request,audio_name):
 	music = get_object_or_404(Music,name=audio_name,user=request.user)
@@ -59,6 +60,24 @@ def get_audio(request,audio_name):
  	response['Content-Disposition'] = 'attachment; filename=%s.mp3 ' % music.name.encode("utf8","ignore")
 	
 	return response
+
+@login_required
+def get_lyric(request,lyric_name):
+	if request.method == 'POST':
+		return HttpResponse(status=400)
+	else:
+		music = get_object_or_404(Music,name=lyric_name,user=request.user)
+
+		if music.lyric:
+			lyric_file = music.lyric.open()
+			lyric = lyric_file.read()
+		else:
+			return HttpResponse(status=404)
+
+		return HttpResponse(json.dumps({'content':lyric}),'application/json')
+
+
+
 
 @login_required
 def get_picture(request,audio_name):
@@ -107,6 +126,7 @@ def get_audio_index(request):
 
 	return HttpResponse(data,content_type="application/json")
 
+# profile section
 @login_required
 def profile(request,username):
 	if request.method == 'POST':
@@ -116,7 +136,6 @@ def profile(request,username):
 
 @login_required
 def edit_profile(request):
-
 	if request.method == 'GET':
 		storage = messages.get_messages(request)
 		for message in storage:
@@ -128,6 +147,23 @@ def edit_profile(request):
 		pass
 
 	return render(request,'profile.html',{'form':profile_form})
+
+
+# playlist section
+
+@login_required
+@transaction.atomic
+def create_list(request):
+	pass
+
+@login_required
+def get_list(request,list_name):
+	pass
+
+@login_required
+@transaction.atomic
+def delete_list(request,list_name):
+	pass
 
 @login_required
 def auth_return(request):
