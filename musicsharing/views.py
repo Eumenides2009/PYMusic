@@ -14,6 +14,7 @@ from musicsharing.models import *
 from musicsharing.forms import *
 import eyed3
 import json
+import chardet
 
 temp_upload_path = "/tmp/django_upload"
 # Create your views here.
@@ -73,10 +74,11 @@ def get_lyric(request,lyric_name):
 
 		if music.lyric:
 			lyric = music.lyric.read()
+			encoding = chardet.detect(lyric)
 		else:
 			return HttpResponse(status=404)
 
-		return HttpResponse(json.dumps({'content':lyric},ensure_ascii=False),'application/json')
+		return HttpResponse(json.dumps({'content':lyric},ensure_ascii=False),content_type='application/json;charset=' + encoding['encoding'])
 
 
 

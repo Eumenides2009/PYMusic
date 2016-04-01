@@ -371,6 +371,8 @@
                     } else {
                         var music = "";
                         var json = data['content'];
+
+                        console.log(json);
                         
                         obj.lrc = parseLrc(json);
 
@@ -473,7 +475,7 @@
         if (typeof(arguments[0]) === 'undefined') {
             currentTime = this.audio.currentTime;
         }
-        console.log(this.lrc);
+        //console.log(this.lrc);
         if (this.lrcIndex > this.lrc.length - 1 || currentTime < this.lrc[this.lrcIndex][0] || (!this.lrc[this.lrcIndex + 1] || currentTime >= this.lrc[this.lrcIndex + 1][0])) {
             for (var i = 0; i < this.lrc.length; i++) {
                 if (currentTime >= this.lrc[i][0] && (!this.lrc[i + 1] || currentTime < this.lrc[i + 1][0])) {
