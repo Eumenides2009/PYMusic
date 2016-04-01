@@ -69,12 +69,11 @@ def get_lyric(request,lyric_name):
 		music = get_object_or_404(Music,name=lyric_name,user=request.user)
 
 		if music.lyric:
-			lyric_file = music.lyric.open()
-			lyric = lyric_file.read()
+			lyric = music.lyric.read()
 		else:
 			return HttpResponse(status=404)
 
-		return HttpResponse(json.dumps({'content':lyric}),'application/json')
+		return HttpResponse(json.dumps({'content':lyric},ensure_ascii=False),'application/json')
 
 
 
@@ -154,7 +153,11 @@ def edit_profile(request):
 @login_required
 @transaction.atomic
 def create_list(request):
-	pass
+	if request.method == 'GET':
+		return render(request,"create_list.html",{})
+	else:
+		pass
+	
 
 @login_required
 def get_list(request,list_name):
