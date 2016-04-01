@@ -24,6 +24,7 @@ urlpatterns =  patterns('postman.views',
 	url(r'^accounts/',include('allauth.urls')),
 	
 	url(r'^playlist$',views.playlist),
+	url(r'^edit-playlist$',views.edit_playlist),
 	url(r'^manage-songs$',views.manage_songs),
 ] 
 

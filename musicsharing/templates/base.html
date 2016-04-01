@@ -45,6 +45,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="/playlist">Basic Info</a></li>
                             <li><a href="/manage-songs">Manage Songs</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#addPlaylist">Add Playlist</a></li>
                         </ul>
                     </li>
                     <li><a href="#">Friend Stream</a></li>
@@ -85,6 +86,43 @@
         {% block postman_menu %}{% endblock %}
         {% block content %}{% endblock %}
     </div>
+
+<!-- Modal -->
+<div class="modal fade" id="addPlaylist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Add Playlist</h4>
+            </div>
+            <div class="modal-body">
+              <form method="post" action="{% url 'musicsharing.views.create_list' %}" id="upload_music" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label>Name of Playlist</label>
+                            <input type="text" name="playlistName" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Brief Introduction</label>
+                            <textarea name="playlistIntro" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                {% csrf_token %}
+              </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div> 
     <!-- Bootstrap -->
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="{% static "js/site.min.js" %}"></script>
@@ -93,5 +131,6 @@
     <script src="{% static "js/jquery.fs.selecter.min.js" %}"></script>
     <script src="{% static "js/jquery.fs.stepper.min.js" %}"></script>
     {% block js %}{% endblock %}
+
 </body>
 </h

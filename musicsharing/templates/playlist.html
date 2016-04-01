@@ -63,6 +63,7 @@
                 <h4 class="modal-title">Edit Playlist Info</h4>
             </div>
             <div class="modal-body">
+            	<form method="post" action="{% url 'musicsharing.views.edit_playlist' %}" id="upload_music" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="form-group">
@@ -79,6 +80,69 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                    	<label>Songs</label>
+                        <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>#</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Date</th>
+                <th>Album</th>
+                <th>Playlist</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td>弱水</td>
+                <td>1</td>
+                <td>2016/04/01</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>
+                    <a href="#" data-toggle="modal" data-target="#myModal">
+                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td>三千</td>
+                <td>2</td>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                <td>
+                    <a href="#" data-toggle="modal" data-target="#myModal">
+                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td>1</td>
+                <td>3</td>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+                <td>
+                    <a href="#" data-toggle="modal" data-target="#myModal">
+                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+                    </div>
+                </div>
+
+                {% csrf_token %}
+            </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -54,6 +54,10 @@ def playlist(request):
 def manage_songs(request):
 	return render(request,'manage_songs.html',{})
 
+@login_required
+def edit_playlist(request):
+	return render(request,'playlist.html',{})
+
 # music section
 @login_required
 def get_audio(request,audio_name):
