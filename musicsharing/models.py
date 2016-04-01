@@ -48,6 +48,7 @@ class PlayList(models.Model):
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
 	music = models.ManyToManyField(Music)
 	intro = models.CharField(max_length=300,null=True)
+	date = models.DateTimeField(auto_now=False)
 
 	def __unicode__(self):
 		return "Playlist: " + self.name + " Owner: " + self.user.username
