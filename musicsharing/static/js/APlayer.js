@@ -4,34 +4,33 @@
  * @param {Object} option - See README
  * @constructor
  */
-(function () {
+(function() {
     function APlayer(option) {
 
         $.ajax({
-            url : "/get_audio_index",
-            type : "get",
+            url: "/get_audio_index",
+            type: "get",
             async: false,
-            success : function(data) {
-            if (data['name'] == null) {
-                console.log("No names");
-            }
-            else {
-                var music = "";
-                var json = data['name'];
-                console.log(json);
-                
-                for (var i = 0; i < json.length; i++) {
-            
-                    option.music[i] = json[i];
-                    option.music[i].url = "http://127.0.0.1:8000/music/" + json[i].title
-                    option.music[i].pic = "http://127.0.0.1:8000/picture/" + json[i].title
-                 
+            success: function(data) {
+                if (data['name'] == null) {
+                    console.log("No names");
+                } else {
+                    var music = "";
+                    var json = data['name'];
+                    console.log(json);
+
+                    for (var i = 0; i < json.length; i++) {
+
+                        option.music[i] = json[i];
+                        option.music[i].url = "http://127.0.0.1:8000/music/" + json[i].title
+                        option.music[i].pic = "http://127.0.0.1:8000/picture/" + json[i].title
+
+                    }
+
                 }
-            
-            }
             },
             error: function() {
-            
+
             }
         });
 
@@ -56,8 +55,8 @@
         }
 
         console.log(option);
-      
-       
+
+
 
 
         this.option = option;
@@ -69,15 +68,15 @@
     /**
      * AutoLink initialization function
      */
-    APlayer.prototype.init = function () {
+    APlayer.prototype.init = function() {
         this.element = this.option.element;
         this.music = this.playIndex > -1 ? this.option.music[this.playIndex] : this.option.music;
-
+        console.log(this.lrc);
         var i;
         // parser lrc
         if (this.option.showlrc) {
-            var lrcs = [];   
-            
+            var lrcs = [];
+
             for (i = 0; i < this.element.getElementsByClassName('aplayer-lrc-content').length; i++) {
                 console.log(this.element.getElementsByClassName('aplayer-lrc-content')[i].innerHTML);
                 lrcs.push(this.element.getElementsByClassName('aplayer-lrc-content')[i].innerHTML);
@@ -87,66 +86,20 @@
         }
 
         // fill in HTML
-        var eleHTML = ''
-            + '<div class="aplayer-pic">'
-            +     '<div class="aplayer-button aplayer-play">'
-            +         '<i class="demo-icon aplayer-icon-play"></i>'
-            +     '</div>'
-            + '</div>'
-            + '<div class="aplayer-info">'
-            +     '<div class="aplayer-music">'
-            +         '<span class="aplayer-title"></span>'
-            +         '<span class="aplayer-author"></span>'
-            +     '</div>'
-            +     '<div class="aplayer-lrc">'
-            +         '<div class="aplayer-lrc-contents" style="transform: translateY(0); -webkit-transform: translateY(0);"></div>'
-            +     '</div>'
-            +     '<div class="aplayer-controller">'
-            +         '<div class="aplayer-bar-wrap">'
-            +             '<div class="aplayer-bar">'
-            +                 '<div class="aplayer-loaded" style="width: 0"></div>'
-            +                 '<div class="aplayer-played" style="width: 0; background: ' + this.option.theme + ';">'
-            +                     '<span class="aplayer-thumb" style="border: 1px solid ' + this.option.theme + ';"></span>'
-            +                 '</div>'
-            +             '</div>'
-            +         '</div>'
-            +         '<div class="aplayer-time">'
-            +             ' - <span class="aplayer-ptime">00:00</span> / <span class="aplayer-dtime">00:00</span>'
-            +             '<div class="aplayer-volume-wrap">'
-            +                 '<i class="demo-icon aplayer-icon-volume-down"></i>'
-            +                 '<div class="aplayer-volume-bar-wrap">'
-            +                     '<div class="aplayer-volume-bar">'
-            +                         '<div class="aplayer-volume" style="height: 80%; background: ' + this.option.theme + ';"></div>'
-            +                     '</div>'
-            +                 '</div>'
-            +             '</div>'
-            +             '<i class="demo-icon aplayer-icon-loop"></i>'
-            +             (this.playIndex > -1 ? '<i class="demo-icon aplayer-icon-menu"></i>' : '')
-            +         '</div>'
-            +     '</div>'
-            + '</div>';
+        var eleHTML = '' + '<div class="aplayer-pic">' + '<div class="aplayer-button aplayer-play">' + '<i class="demo-icon aplayer-icon-play"></i>' + '</div>' + '</div>' + '<div class="aplayer-info">' + '<div class="aplayer-music">' + '<span class="aplayer-title"></span>' + '<span class="aplayer-author"></span>' + '</div>' + '<div class="aplayer-lrc">' + '<div class="aplayer-lrc-contents" style="transform: translateY(0); -webkit-transform: translateY(0);"></div>' + '</div>' + '<div class="aplayer-controller">' + '<div class="aplayer-bar-wrap">' + '<div class="aplayer-bar">' + '<div class="aplayer-loaded" style="width: 0"></div>' + '<div class="aplayer-played" style="width: 0; background: ' + this.option.theme + ';">' + '<span class="aplayer-thumb" style="border: 1px solid ' + this.option.theme + ';"></span>' + '</div>' + '</div>' + '</div>' + '<div class="aplayer-time">' + ' - <span class="aplayer-ptime">00:00</span> / <span class="aplayer-dtime">00:00</span>' + '<div class="aplayer-volume-wrap">' + '<i class="demo-icon aplayer-icon-volume-down"></i>' + '<div class="aplayer-volume-bar-wrap">' + '<div class="aplayer-volume-bar">' + '<div class="aplayer-volume" style="height: 80%; background: ' + this.option.theme + ';"></div>' + '</div>' + '</div>' + '</div>' + '<i class="demo-icon aplayer-icon-loop"></i>' + (this.playIndex > -1 ? '<i class="demo-icon aplayer-icon-menu"></i>' : '') + '</div>' + '</div>' + '</div>';
         if (this.playIndex > -1) {
             eleHTML += ''
-            // + '<div class="list-bg">'
-            // +   '<div class="bg">'
-            // +   '</div>'
-            // + '</div>'
-            + '<div class="aplayer-list">'
-            +     '<ol>';
-        
+                // + '<div class="list-bg">'
+                // +   '<div class="bg">'
+                // +   '</div>'
+                // + '</div>'
+                + '<div class="aplayer-list">' + '<ol>';
+
             for (i = 0; i < this.option.music.length; i++) {
                 console.log(this.option.music[i]);
-                eleHTML += ''
-            +         '<li>'
-            +             '<span class="aplayer-list-cur" style="background: ' + this.option.theme + ';"></span>'
-            +             '<span class="aplayer-list-index">' + (i + 1) + '</span>'
-            +             '<span class="aplayer-list-title">' + this.option.music[i].title + '</span>'
-            +             '<span class="aplayer-list-author">' + this.option.music[i].author + '</span>'
-            +         '</li>'
+                eleHTML += '' + '<li>' + '<span class="aplayer-list-cur" style="background: ' + this.option.theme + ';"></span>' + '<span class="aplayer-list-index">' + (i + 1) + '</span>' + '<span class="aplayer-list-title">' + this.option.music[i].title + '</span>' + '<span class="aplayer-list-author">' + this.option.music[i].author + '</span>' + '</li>'
             }
-            eleHTML += ''
-            +     '</ol>'
-            + '</div>'
+            eleHTML += '' + '</ol>' + '</div>'
         }
         this.element.innerHTML = eleHTML;
 
@@ -159,11 +112,10 @@
 
         // play and pause button
         this.button = this.element.getElementsByClassName('aplayer-button')[0];
-        this.button.addEventListener('click', function () {
+        this.button.addEventListener('click', function() {
             if (this.classList.contains('aplayer-play')) {
-               _self.play.call(_self);
-            }
-            else if (this.classList.contains('aplayer-pause')) {
+                _self.play.call(_self);
+            } else if (this.classList.contains('aplayer-pause')) {
                 _self.pause.call(_self);
             }
         });
@@ -171,7 +123,7 @@
         // click music list: change music
         if (this.playIndex > -1) {
             for (i = 0; i < this.option.music.length; i++) {
-                this.element.getElementsByClassName('aplayer-list')[0].getElementsByTagName('li')[i].addEventListener('click', function () {
+                this.element.getElementsByClassName('aplayer-list')[0].getElementsByTagName('li')[i].addEventListener('click', function() {
                     var musicIndex = parseInt(this.getElementsByClassName('aplayer-list-index')[0].innerHTML) - 1;
                     if (musicIndex !== _self.playIndex) {
                         _self.setMusic(musicIndex);
@@ -187,7 +139,7 @@
         this.thumb = this.element.getElementsByClassName('aplayer-thumb')[0];
         this.bar = this.element.getElementsByClassName('aplayer-bar')[0];
         var barWidth;
-        this.bar.addEventListener('click', function (event) {
+        this.bar.addEventListener('click', function(event) {
             var e = event || window.event;
             barWidth = _self.bar.clientWidth;
             var percentage = (e.clientX - getElementViewLeft(_self.bar)) / barWidth;
@@ -196,14 +148,14 @@
             _self.audio.currentTime = parseFloat(_self.playedBar.style.width) / 100 * _self.audio.duration;
         });
 
-        this.thumb.addEventListener('mouseover', function () {
+        this.thumb.addEventListener('mouseover', function() {
             this.style.background = _self.option.theme;
         });
-        this.thumb.addEventListener('mouseout', function () {
+        this.thumb.addEventListener('mouseout', function() {
             this.style.background = '#fff';
         });
 
-        this.thumb.addEventListener('mousedown', function () {
+        this.thumb.addEventListener('mousedown', function() {
             barWidth = _self.bar.clientWidth;
             clearInterval(_self.playedTime);
             document.addEventListener('mousemove', thumbMove);
@@ -234,7 +186,7 @@
         var volumeBarWrap = this.element.getElementsByClassName('aplayer-volume-bar')[0];
         var volumeicon = _self.element.getElementsByClassName('aplayer-time')[0].getElementsByTagName('i')[0];
         var barHeight = 35;
-        this.element.getElementsByClassName('aplayer-volume-bar-wrap')[0].addEventListener('click', function (event) {
+        this.element.getElementsByClassName('aplayer-volume-bar-wrap')[0].addEventListener('click', function(event) {
             var e = event || window.event;
             var percentage = (barHeight - e.clientY + getElementViewTop(volumeBarWrap)) / barHeight;
             percentage = percentage > 0 ? percentage : 0;
@@ -246,18 +198,16 @@
             }
             if (percentage === 1) {
                 volumeicon.className = 'demo-icon aplayer-icon-volume-up';
-            }
-            else {
+            } else {
                 volumeicon.className = 'demo-icon aplayer-icon-volume-down';
             }
         });
-        volumeicon.addEventListener('click', function () {
+        volumeicon.addEventListener('click', function() {
             if (_self.audio.muted) {
                 _self.audio.muted = false;
                 volumeicon.className = _self.audio.volume === 1 ? 'demo-icon aplayer-icon-volume-up' : 'demo-icon aplayer-icon-volume-down';
                 _self.updateBar.call(_self, 'volume', _self.audio.volume, 'height');
-            }
-            else {
+            } else {
                 _self.audio.muted = true;
                 volumeicon.className = 'demo-icon aplayer-icon-volume-off';
                 _self.updateBar.call(_self, 'volume', 0, 'height');
@@ -290,13 +240,12 @@
         }
 
         // loop control
-        this.element.getElementsByClassName('aplayer-icon-loop')[0].addEventListener('click', function () {
+        this.element.getElementsByClassName('aplayer-icon-loop')[0].addEventListener('click', function() {
             if (_self.loop) {
                 this.classList.add('aplayer-noloop');
                 _self.loop = false;
                 _self.audio.loop = _self.playIndex > -1 ? false : _self.loop;
-            }
-            else {
+            } else {
                 this.classList.remove('aplayer-noloop');
                 _self.loop = true;
                 _self.audio.loop = _self.playIndex > -1 ? false : _self.loop;
@@ -305,12 +254,11 @@
 
         // toggle menu control
         if (this.playIndex > -1) {
-            this.element.getElementsByClassName('aplayer-icon-menu')[0].addEventListener('click', function () {
+            this.element.getElementsByClassName('aplayer-icon-menu')[0].addEventListener('click', function() {
                 var list = _self.element.getElementsByClassName('aplayer-list')[0];
                 if (!list.classList.contains('aplayer-list-hide')) {
                     list.classList.add('aplayer-list-hide');
-                }
-                else {
+                } else {
                     list.classList.remove('aplayer-list-hide');
                 }
             });
@@ -322,7 +270,7 @@
     /**
      * Set music
      */
-    APlayer.prototype.setMusic = function (index) {
+    APlayer.prototype.setMusic = function(index) {
         // get this.music
         if (this.playIndex > -1 && typeof(arguments[0]) !== 'undefined') {
             this.playIndex = arguments[0];
@@ -353,44 +301,41 @@
         if ((this.playIndex > -1 && !this.audios[indexMusic]) || this.playIndex === -1) {
             console.log(this.playIndex);
             this.audio = document.createElement("audio");
-            this.audio.src = this.music.url;            
+            this.audio.src = this.music.url;
             this.audio.preload = this.isMobile ? 'none' : 'metadata';
 
             // show audio time
             var _self = this;
-            this.audio.addEventListener('durationchange', function () {
-                if (_self.audio.duration !== 1) {           // compatibility: Android browsers will output 1 at first
+            this.audio.addEventListener('durationchange', function() {
+                if (_self.audio.duration !== 1) { // compatibility: Android browsers will output 1 at first
                     _self.element.getElementsByClassName('aplayer-dtime')[0].innerHTML = _self.secondToTime(_self.audio.duration);
                 }
             });
 
             // show audio loaded bar
-            _self.audio.addEventListener('progress', function () {
+            _self.audio.addEventListener('progress', function() {
                 var percentage = _self.audio.buffered.length ? _self.audio.buffered.end(_self.audio.buffered.length - 1) / _self.audio.duration : 0;
                 _self.updateBar.call(_self, 'loaded', percentage, 'width');
             });
 
             // audio download error
-            this.audio.addEventListener('error', function () {
+            this.audio.addEventListener('error', function() {
                 _self.element.getElementsByClassName('aplayer-author')[0].innerHTML = ' - ' + 'Error happens ╥﹏╥';
             });
 
             // multiple music play
             if (this.playIndex > -1) {
-                this.audio.addEventListener('ended', function () {
+                this.audio.addEventListener('ended', function() {
                     if (_self.playIndex < _self.option.music.length - 1) {
                         _self.setMusic(++_self.playIndex);
-                    }
-                    else if (_self.loop) {
+                    } else if (_self.loop) {
                         _self.setMusic(0);
-                    }
-                    else if (!_self.loop) {
+                    } else if (!_self.loop) {
                         _self.pause();
                     }
                 });
-            }
-            else {
-                this.audio.addEventListener('ended', function () {
+            } else {
+                this.audio.addEventListener('ended', function() {
                     if (!_self.loop) {
                         _self.pause();
                     }
@@ -406,8 +351,7 @@
             if (this.playIndex > -1) {
                 this.audios[indexMusic] = this.audio;
             }
-        }
-        else {
+        } else {
             this.audio = this.audios[indexMusic];
             this.audio.volume = parseInt(this.element.getElementsByClassName('aplayer-volume')[0].style.height) / 100;
             this.audio.currentTime = 0;
@@ -415,10 +359,43 @@
 
         // fill in lrc
         if (this.option.showlrc) {
-            this.lrc = this.lrcs[0];
+
+            $.ajax({
+                url: "/get_lyric/" + this.music.title,
+                type: "get",
+                async: false,
+                success: function(data) {
+                    if (data['content'] == null) {
+                        console.log("No content");
+                    } else {
+                        var music = "";
+                        var json = data['content'];
+                        console.log(json);
+                        this.lrc = parseLrc(json);
+                        console.log(this.element.classList);
+                        // for (var i = 0; i < json.length; i++) {
+
+                        //     option.music[i] = json[i];
+                        //     option.music[i].url = "http://127.0.0.1:8000/music/" + json[i].title
+                        //     option.music[i].pic = "http://127.0.0.1:8000/picture/" + json[i].title
+
+                        // }
+
+
+                    }
+                },
+                error: function() {
+
+                }
+            });
+
+            console.log(this.element.classList);
             this.element.classList.add('aplayer-withlrc');
             var lrcHTML = '';
             this.lrcContents = this.element.getElementsByClassName('aplayer-lrc-contents')[0];
+
+            console.log(this.lrc);
+
             for (var i = 0; i < this.lrc.length; i++) {
                 lrcHTML += '<p>' + this.lrc[i][1] + '</p>';
             }
@@ -429,10 +406,11 @@
             this.lrcContents.getElementsByTagName('p')[0].classList.add('aplayer-lrc-current');
             this.lrcContents.style.transform = 'translateY(0px)';
             this.lrcContents.style.webkitTransform = 'translateY(0px)';
-        }
+            // this.lrc = this.lrcs[0];
 
+        }
         // set duration time
-        if (this.audio.duration !== 1) {           // compatibility: Android browsers will output 1 at first
+        if (this.audio.duration !== 1) { // compatibility: Android browsers will output 1 at first
             this.element.getElementsByClassName('aplayer-dtime')[0].innerHTML = this.audio.duration ? this.secondToTime(this.audio.duration) : '00:00';
         }
 
@@ -440,7 +418,7 @@
         if (this.option.autoplay && !this.isMobile) {
             this.play();
         }
-        this.option.autoplay = true;  // autoplay next music
+        this.option.autoplay = true; // autoplay next music
 
         if (this.isMobile) {
             this.pause();
@@ -450,19 +428,19 @@
     /**
      * Play music
      */
-    APlayer.prototype.play = function () {
+    APlayer.prototype.play = function() {
         var _self = this;
         this.button.classList.remove('aplayer-play');
         this.button.classList.add('aplayer-pause');
         this.button.innerHTML = '';
-        setTimeout(function () {
+        setTimeout(function() {
             _self.button.innerHTML = '<i class="demo-icon aplayer-icon-pause"></i>';
         }, 100);
         this.audio.play();
         if (this.playedTime) {
             clearInterval(this.playedTime);
         }
-        this.playedTime = setInterval(function () {
+        this.playedTime = setInterval(function() {
             _self.updateBar.call(_self, 'played', _self.audio.currentTime / _self.audio.duration, 'width');
             if (_self.option.showlrc) {
                 _self.updateLrc.call(_self);
@@ -474,12 +452,12 @@
     /**
      * Pause music
      */
-    APlayer.prototype.pause = function () {
+    APlayer.prototype.pause = function() {
         var _self = this;
         this.button.classList.remove('aplayer-pause');
         this.button.classList.add('aplayer-play');
         this.button.innerHTML = '';
-        setTimeout(function () {
+        setTimeout(function() {
             _self.button.innerHTML = '<i class="demo-icon aplayer-icon-play"></i>';
         }, 100);
         this.audio.pause();
@@ -493,7 +471,7 @@
      * @param {Number} percentage
      * @param {String} direction - Point out the direction of this bar, Should be height or width
      */
-    APlayer.prototype.updateBar = function (type, percentage, direction) {
+    APlayer.prototype.updateBar = function(type, percentage, direction) {
         percentage = percentage > 0 ? percentage : 0;
         percentage = percentage < 1 ? percentage : 1;
         this[type + 'Bar'].style[direction] = percentage * 100 + '%';
@@ -504,11 +482,11 @@
      *
      * @param {Number} currentTime
      */
-    APlayer.prototype.updateLrc = function (currentTime) {
+    APlayer.prototype.updateLrc = function(currentTime) {
         if (typeof(arguments[0]) === 'undefined') {
             currentTime = this.audio.currentTime;
         }
-        
+
         if (this.lrcIndex > this.lrc.length - 1 || currentTime < this.lrc[this.lrcIndex][0] || (!this.lrc[this.lrcIndex + 1] || currentTime >= this.lrc[this.lrcIndex + 1][0])) {
             for (var i = 0; i < this.lrc.length; i++) {
                 if (currentTime >= this.lrc[i][0] && (!this.lrc[i + 1] || currentTime < this.lrc[i + 1][0])) {
@@ -528,8 +506,8 @@
      * @param {Number} second
      * @return {String} 00:00 format
      */
-    APlayer.prototype.secondToTime = function (second) {
-        var add0 = function (num) {
+    APlayer.prototype.secondToTime = function(second) {
+        var add0 = function(num) {
             return num < 10 ? '0' + num : '' + num;
         };
         var min = parseInt(second / 60);
@@ -547,7 +525,35 @@
      *
      * @return {Array} [[[time, text], [time, text], [time, text], ...], [[time, text], [time, text], [time, text], ...], ...]
      */
-    APlayer.prototype.parseLrc = function (arr) {
+
+    function parseLrc(arr) {
+        var lyric = arr.split('\n');
+        var lrc = [];
+        var lyricLen = lyric.length;
+        for (var i = 0; i < lyricLen; i++) {
+            // match lrc time
+            var lrcTimes = lyric[i].match(/\[(\d{2}):(\d{2})\.(\d{2,3})]/g);
+            // match lrc text
+            var lrcText = lyric[i].replace(/\[(\d{2}):(\d{2})\.(\d{2,3})]/g, '').replace(/^\s+|\s+$/g, '');
+
+            if (lrcTimes != null) {
+                // handle multiple time tag
+                var timeLen = lrcTimes.length;
+                for (var j = 0; j < timeLen; j++) {
+                    var oneTime = /\[(\d{2}):(\d{2})\.(\d{2,3})]/.exec(lrcTimes[j]);
+                    var lrcTime = (oneTime[1]) * 60 + parseInt(oneTime[2]) + parseInt(oneTime[3]) / ((oneTime[3] + '').length === 2 ? 100 : 1000);
+                    lrc.push([lrcTime, lrcText]);
+                }
+            }
+        }
+        // sort by time
+        lrc.sort(function(a, b) {
+            return a[0] - b[0];
+        });
+
+        return lrc;
+    }
+    APlayer.prototype.parseLrc = function(arr) {
         var lrcs = [];
         for (var k = 0; k < arr.length; k++) {
             var lyric = arr[k].split('\n');
@@ -570,7 +576,7 @@
                 }
             }
             // sort by time
-            lrc.sort(function (a, b) {
+            lrc.sort(function(a, b) {
                 return a[0] - b[0];
             });
             lrcs.push(lrc);
@@ -578,10 +584,10 @@
         return lrcs;
     };
 
+
     if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
         module.exports = APlayer
-    }
-    else {
+    } else {
         window.APlayer = APlayer;
     }
 })();
