@@ -26,3 +26,7 @@ body {
     border-color: #333;
     border-bottom-color: rgba(255, 255, 255, 0.75);
 }
+.modal-body form .upload-btn {
+	float: left;
+	margin-right: 10px;
+}
