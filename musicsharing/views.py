@@ -24,16 +24,19 @@ def get_music_metadata(file):
 			destination.write(chunk)
 
 	meta = {}
-	music = eyed3.load(os.path.join(temp_upload_path,file.name)) 
+	music = eyed3.load(os.path.join(temp_upload_path,file.name))
 
-	meta['title'] = music.tag.title
-	meta['author'] = music.tag.artist
-	meta['album'] = music.tag.album
+	if meta:
+		meta['title'] = music.tag.title
+		meta['author'] = music.tag.artist
+		meta['album'] = music.tag.album
 
-	if not meta['title']:
-		meta['title'] = file.name
+		if not meta['title']:
+			meta['title'] = file.name
 
-	os.remove(os.path.join(temp_upload_path,file.name))
+		print file.name
+
+		os.remove(os.path.join(temp_upload_path,file.name))
 
 	return meta
 
@@ -95,6 +98,9 @@ def upload(request):
 
 	meta = get_music_metadata(request.FILES['music'])
 
+	if not meta:
+		return render(request,'home.html',{})
+
 	if not request.FILES.get('picture'):
 		new_music = Music(name=meta['title'],artist=meta['author'],album=meta['album'],content=request.FILES['music'],user=request.user)
 	else:
@@ -119,7 +125,6 @@ def get_audio_index(request):
 		new_meta['album'] = music.album
 
 		name_list.append(new_meta)
-
 	
 	data = json.dumps({'name':name_list})
 
@@ -129,23 +134,34 @@ def get_audio_index(request):
 @login_required
 def profile(request,username):
 	if request.method == 'POST':
-		return reverse('home')
+		return reverse(views.home)
+	else:
+		try:
+			user = User.objects.get(username=username)
+			return render(request,'profile.html',{'user':user})
+		except User.DoesNotExist:
+			messages.info(request,'User ' + username + ' does not exists')
+			return render(request,'home.html',{})
 
-	pass
 
 @login_required
 def edit_profile(request):
 	if request.method == 'GET':
-		storage = messages.get_messages(request)
-		for message in storage:
-			print message.message
-		profile_form = EditProfileForm()
-		messages.success(request,'profile has been updated')
-
+		return reverse(views.profile,args=[request.user.username])
 	else:
-		pass
+		try:
+			profile = Profile.objects.get(user=request.user)		
+		except Profile.DoesNotExist:
+			profile = Profile()
 
-	return render(request,'profile.html',{'form':profile_form})
+		form = EditProfileForm(request.POST,instance=profile)
+
+		if not form.is_valid():
+			return render(request,'profile.html',{'form':form})
+		
+		form.save()
+
+		return reverse(views.profile,args=[request.user.username])
 
 
 # playlist section
@@ -166,7 +182,8 @@ def get_list(request,list_name):
 @login_required
 @transaction.atomic
 def delete_list(request,list_name):
-	pass
+	if request.method == 'POST':
+		pass
 
 @login_required
 def auth_return(request):
