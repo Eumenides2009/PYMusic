@@ -23,7 +23,8 @@ urlpatterns =  patterns('postman.views',
 	url(r'^ajax_select/', include('ajax_select.urls')),
 	url(r'^accounts/',include('allauth.urls')),
 	
-
+	url(r'^playlist$',views.playlist),
+	url(r'^manage-songs$',views.manage_songs),
 ] 
 
 

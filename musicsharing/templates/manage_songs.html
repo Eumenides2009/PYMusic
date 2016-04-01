@@ -1,0 +1,104 @@
+{% extends "base.html" %} {% block content %}
+<div class="panel panel-info">
+    <div class="panel-heading">Manage Songs</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>#</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Date</th>
+                <th>Album</th>
+                <th>Playlist</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td>弱水</td>
+                <td>1</td>
+                <td>2016/04/01</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>
+                    <a href="#" data-toggle="modal" data-target="#myModal">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td>三千</td>
+                <td>2</td>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                <td>
+                    <a href="#" data-toggle="modal" data-target="#myModal">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td>1</td>
+                <td>3</td>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+                <td>
+                    <a href="#" data-toggle="modal" data-target="#myModal">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Edit Playlist Info</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Author</label>
+                            <input type="text" class="form-control" placeholder="Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                    	<div class="form-group">
+                            <label>Album</label>
+                            <input type="text" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Playlist</label>
+                            <select name="selecter_basic" class="selecter_3" data-selecter-options='{"cover":"true"}'>
+                                <option value="1">Default</option>
+                                <option value="2">My favorate</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

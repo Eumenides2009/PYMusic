@@ -46,6 +46,14 @@ def get_music_metadata(file):
 def home(request):
 	return render(request,'home.html',{})
 
+@login_required
+def playlist(request):
+	return render(request,'playlist.html',{})
+
+@login_required
+def manage_songs(request):
+	return render(request,'manage_songs.html',{})
+
 # music section
 @login_required
 def get_audio(request,audio_name):

@@ -55,25 +55,7 @@ p {
     height: 100%;
     z-index: 99;
 }*/
-.list-bg , .bg{
-    width: 100%;
-    height: 100%;
-    min-height: 400px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    border-radius: 8px;
-    overflow: hidden;
-    box-sizing: border-box;
-}
-.bg {
-    background: url("https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRF6yA3CXrhAmb1rGrkM3dckAiXJfTi7S8g4MllgueOfQ13MKrQ") 30% 30% / cover;
-    box-shadow: 0 10px 150px rgba(0,0,0,.3)inset;
-}
-.black .bg {
-    background: rgba(0,0,0,.48);
-}
+
 
 .file-input-wrapper input[type=file], .file-input-wrapper input[type=file]:focus, .file-input-wrapper input[type=file]:hover {
     position: relative;
@@ -123,4 +105,17 @@ a.file-input-wrapper {
     position: absolute;
     right: 50%;
     height: inherit;
+}
+.aplayer-pic {
+    border-top-left-radius: 15px;
+}
+.aplayer .aplayer-lrc {
+    background: transparent;
+}
+.aplayer .aplayer-lrc:after {
+    /*background: transparent;*/
+    margin-top: 5px;
+}
+.aplayer .aplayer-lrc:before {
+    background: transparent;
 }

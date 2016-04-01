@@ -1,0 +1,91 @@
+{% extends "base.html" %} {% block content %}
+<div class="row">
+    <div class="col-sm-12">
+    	{% load staticfiles %}
+        <div class="jumbotron need-hover">
+        	<div class="media-left">
+            	<img class="media-object img-rounded" src="{% static "img/check_flat/default.png" %}">
+        	</div>
+            <div class="jumbotron-contents media-body">
+                <h3>Default</h3>
+                <div class="row">
+                      <div class="col-md-6">
+                        <label>Date</label>
+                        <p>2016/04/01</p>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Number of Songs</label>
+                        <p>10</p>
+                      </div>
+                </div>
+                <div class="row">
+                	<div class="col-md-12">
+                		<label>Brief Introduction</label>
+                        <p>Promote your business, showcase your art, set up an online shop or just test out new ideas. </p>
+                    </div>
+                </div>
+                <p><a href="#" class="btn btn-warning" role="button" data-toggle="modal" data-target="#myModal">Edit</a> <a href="#" class="btn btn-default" role="button">Delete</a></p>
+            </div>
+        </div>
+        <div class="jumbotron need-hover">
+        	<div class="media-left">
+            	<img class="media-object img-rounded" src="{% static "img/check_flat/default.png" %}">
+        	</div>
+            <div class="jumbotron-contents media-body">
+                <h3>Default</h3>
+                <div class="row">
+                      <div class="col-md-6">
+                        <label>Date</label>
+                        <p>2016/04/01</p>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Number of Songs</label>
+                        <p>10</p>
+                      </div>
+                </div>
+                <div class="row">
+                	<div class="col-md-12">
+                		<label>Brief Introduction</label>
+                        <p>Promote your business, showcase your art, set up an online shop or just test out new ideas. </p>
+                    </div>
+                </div>
+                <p><a href="#" class="btn btn-warning" role="button" data-toggle="modal" data-target="#myModal">Edit</a> <a href="#" class="btn btn-default" role="button">Delete</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Edit Playlist Info</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label>Name of Playlist</label>
+                            <input type="text" class="form-control" placeholder="Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Brief Introduction</label>
+                            <textarea class="form-control" rows="3">Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div> 
+</div>
+{% endblock %}
