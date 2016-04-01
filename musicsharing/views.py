@@ -27,7 +27,7 @@ def get_music_metadata(file):
 	meta = {}
 	music = eyed3.load(os.path.join(temp_upload_path,file.name))
 
-	if meta:
+	if music:
 		meta['title'] = music.tag.title
 		meta['author'] = music.tag.artist
 		meta['album'] = music.tag.album
@@ -99,6 +99,8 @@ def upload(request):
 		return render(request,'home.html',{})
 
 	meta = get_music_metadata(request.FILES['music'])
+
+	print meta
 
 	if not meta:
 		return render(request,'home.html',{})
