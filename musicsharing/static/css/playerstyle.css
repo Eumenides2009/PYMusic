@@ -56,48 +56,6 @@ p {
     z-index: 99;
 }*/
 
-
-.file-input-wrapper input[type=file], .file-input-wrapper input[type=file]:focus, .file-input-wrapper input[type=file]:hover {
-    position: relative;
-    top: 0;
-    left: 0;
-    cursor: pointer;
-    opacity: 0;
-    filter: alpha(opacity=0f);
-    z-index: 99;
-    outline: 0;
-}
-input#fileToUploadOne {
-    left: 157px;
-    top: 72px;
-    width: 71px;
-}
-.upload-box {
-    position: relative;
-    position: relative;
-    height: 38px;
-    top: 54px;
-    right: 10px;
-}
-.upload-box #modal-button {
-    position: absolute;
-    right: 10px;
-    height: inherit;
-}
-.upload-modal-box {
-    height: 38px;
-}
-.upload-modal-box .btn {
-    height: inherit;
-}
-.upload-modal-box input#fileToUploadOne {
-    left: 0px;
-    top: -27px;
-    width: 150px;
-}
-a.file-input-wrapper {
-    padding: 6px 0px;
-}
 #modal-button{
     opacity: 0.75;
 }
