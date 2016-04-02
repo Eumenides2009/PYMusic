@@ -2,61 +2,33 @@
 <div class="row">
     <div class="col-sm-12">
     	{% load staticfiles %}
+        {% for list in playlist %}
         <div class="jumbotron need-hover">
         	<div class="media-left">
             	<img class="media-object img-rounded" src="{% static "img/check_flat/default.png" %}">
         	</div>
             <div class="jumbotron-contents media-body">
-                {% for list in playlist %}
-    {{ list.name }}
-    {{ list.date }}
-    {{ list.count }}
-    {% endfor %}
-                <h3>Default</h3>
+                <h3>{{ list.name }}</h3>
                 <div class="row">
                       <div class="col-md-6">
                         <label>Date</label>
-                        <p>2016/04/01</p>
+                        <p>{{ list.date }}</p>
                       </div>
                       <div class="col-md-6">
                         <label>Number of Songs</label>
-                        <p>10</p>
+                        <p>{{ list.count }}</p>
                       </div>
                 </div>
                 <div class="row">
                 	<div class="col-md-12">
                 		<label>Brief Introduction</label>
-                        <p>Promote your business, showcase your art, set up an online shop or just test out new ideas. </p>
+                        <p>{{ list.intro }}</p>
                     </div>
                 </div>
                 <p><a href="#" class="btn btn-warning" role="button" data-toggle="modal" data-target="#myModal">Edit</a> <a href="#" class="btn btn-default" role="button">Delete</a></p>
             </div>
         </div>
-        <div class="jumbotron need-hover">
-        	<div class="media-left">
-            	<img class="media-object img-rounded" src="{% static "img/check_flat/default.png" %}">
-        	</div>
-            <div class="jumbotron-contents media-body">
-                <h3>Default</h3>
-                <div class="row">
-                      <div class="col-md-6">
-                        <label>Date</label>
-                        <p>2016/04/01</p>
-                      </div>
-                      <div class="col-md-6">
-                        <label>Number of Songs</label>
-                        <p>10</p>
-                      </div>
-                </div>
-                <div class="row">
-                	<div class="col-md-12">
-                		<label>Brief Introduction</label>
-                        <p>Promote your business, showcase your art, set up an online shop or just test out new ideas. </p>
-                    </div>
-                </div>
-                <p><a href="#" class="btn btn-warning" role="button" data-toggle="modal" data-target="#myModal">Edit</a> <a href="#" class="btn btn-default" role="button">Delete</a></p>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 <!-- Modal -->
