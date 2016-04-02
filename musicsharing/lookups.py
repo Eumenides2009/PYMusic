@@ -8,7 +8,7 @@ class UserLookup(LookupChannel):
     model = User
 
     def get_query(self, q, request):
-        return self.model.objects.filter(username__icontains=q)
+        return self.model.objects.filter(username__icontains=q) 
 
     def format_item_display(self, item):
         return u"<span class='tag'>%s</span>" % item.username
@@ -35,4 +35,4 @@ class SearchSongLookup(LookupChannel):
 		return self.model.objects.filter(name__icontains=q)
 
 	def format_item_display(self,item):
-		return u"<span class='tag'>%s</span>" % item.name
+		return u"<span class='tag'>%s  %s  %s</span>" % (item.name,item.artist,item.album)
