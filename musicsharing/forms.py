@@ -39,13 +39,22 @@ class AddPlayListForm(forms.ModelForm):
 		return cleaned_data
 
 
-class SearchForm(forms.ModelForm):
+class SearchUserForm(forms.ModelForm):
 	class Meta:
 		model = Search
 		fields = ['search']
 		widgets = {'search': TextInput(attrs={'class':'form-control search-query'})}
 
 	search = AutoCompleteField('search_user',required=False,help_text=None)
+
+
+class SearchSongForm(forms.ModelForm):
+	class Meta:
+		model = Search
+		fields = ['search']
+		widgets = {'search': TextInput(attrs={'class':'form-control search-query'})}
+
+	search = AutoCompleteField('search_song',required=False,help_text=None)
 
 
 

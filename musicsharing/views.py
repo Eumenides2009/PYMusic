@@ -45,8 +45,9 @@ def get_music_metadata(file):
 
 @login_required
 def home(request):
-	search_form = SearchForm()
-	return render(request,'home.html',{'search_form':search_form})
+	search_user_form = SearchUserForm()
+	search_song_form = SearchSongForm()
+	return render(request,'home.html',{'search_user_form':search_user_form,'search_song_form':search_song_form})
 
 
 
