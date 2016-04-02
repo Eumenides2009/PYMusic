@@ -3,6 +3,7 @@ import logging
 import httplib2
 
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, FileResponse
 from django.db import transaction
@@ -195,7 +196,7 @@ def create_list(request):
 		return reverse('playlist')
 	else:
 		new_list = PlayList(user=request.user)
-		form = AddPlayListForm(request.POST,instance=new_list)
+		form = AddPlayListForm(request.POST,request.FILES,instance=new_list)
 
 		if not form.is_valid():
 			print form.errors
@@ -208,8 +209,39 @@ def create_list(request):
 	
 
 @login_required
-def get_list(request,list_name):
-	pass
+def get_list(request,list_id):
+	if request.method == 'POST':
+		return HttpResponse(status=400)
+	else:
+		try:
+			playlist = PlayList.objects.get(id=list_id,user=request.user)
+			name_list = []
+
+			for music in playlist.music.all():
+				new_meta = {}
+				new_meta['title'] = music.name
+				new_meta['author'] = music.artist
+				new_meta['album'] = music.album
+
+				name_list.append(new_meta)
+	
+			data = json.dumps({'name':name_list})
+			return HttpResponse(data,content_type='application/json')
+
+		except PlayList.DoesNotExist:
+			return HttpResponse(status=404)
+
+@login_required
+def get_list_picture(request,list_id):
+	if request.method == 'POST':
+		return HttpResponse(status=400)
+	else:
+		try:
+			playlist = PlayList.objects.get(id=list_id,user=request.user)
+			return HttpResponse(playlist.picture,content_type=guess_type(playlist.picture.name))
+
+		except PlayList.DoesNotExist:
+			return HttpResponse(status=404)
 
 @login_required
 @transaction.atomic

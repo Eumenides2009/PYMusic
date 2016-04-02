@@ -31,7 +31,7 @@ class EditProfileForm(forms.ModelForm):
 class AddPlayListForm(forms.ModelForm):
 	class Meta:
 		model = PlayList
-		fields = ['name','intro']
+		fields = ['name','intro','picture']
 
 	def clean(self):
 		cleaned_data = super(AddPlayListForm,self).clean()
