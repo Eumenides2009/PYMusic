@@ -44,7 +44,7 @@ class Profile(models.Model):
 
 
 class PlayList(models.Model):
-	name = models.CharField(max_length=160,primary_key=True)
+	name = models.CharField(max_length=160)
 	picture = models.ImageField(upload_to='list_image',null=True)
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
 	music = models.ManyToManyField(Music)
