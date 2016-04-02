@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
@@ -48,7 +49,18 @@ class PlayList(models.Model):
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
 	music = models.ManyToManyField(Music)
 	intro = models.CharField(max_length=300,null=True)
-	date = models.DateTimeField(auto_now=False)
+	date = models.DateTimeField(default=timezone.now)
+	count = 0
 
 	def __unicode__(self):
 		return "Playlist: " + self.name + " Owner: " + self.user.username
+
+	def update_count(self):
+		count = self.music.count()
+
+
+class Search(models.Model):
+	keyword = models.CharField(max_length=400)
+
+	def __unicode__(self):
+		return "Search: " + self.keyword

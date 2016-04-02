@@ -7,6 +7,11 @@
             	<img class="media-object img-rounded" src="{% static "img/check_flat/default.png" %}">
         	</div>
             <div class="jumbotron-contents media-body">
+                {% for list in playlist %}
+    {{ list.name }}
+    {{ list.date }}
+    {{ list.count }}
+    {% endfor %}
                 <h3>Default</h3>
                 <div class="row">
                       <div class="col-md-6">
@@ -56,6 +61,7 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

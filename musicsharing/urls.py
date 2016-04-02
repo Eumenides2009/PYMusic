@@ -22,8 +22,7 @@ urlpatterns =  patterns('postman.views',
 	url(r'notifications/',include('pinax.notifications.urls')),
 	url(r'^ajax_select/', include('ajax_select.urls')),
 	url(r'^accounts/',include('allauth.urls')),
-	
-	url(r'^playlist$',views.playlist),
+	url(r'^playlist$',views.playlist,name='playlist'),
 	url(r'^edit-playlist$',views.edit_playlist),
 	url(r'^manage-songs$',views.manage_songs),
 ] 

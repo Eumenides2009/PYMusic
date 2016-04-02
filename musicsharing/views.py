@@ -44,19 +44,10 @@ def get_music_metadata(file):
 
 @login_required
 def home(request):
-	return render(request,'home.html',{})
+	search_form = SearchForm()
+	return render(request,'home.html',{'search_form':search_form})
 
-@login_required
-def playlist(request):
-	return render(request,'playlist.html',{})
 
-@login_required
-def manage_songs(request):
-	return render(request,'manage_songs.html',{})
-
-@login_required
-def edit_playlist(request):
-	return render(request,'playlist.html',{})
 
 # music section
 @login_required
@@ -182,13 +173,38 @@ def edit_profile(request):
 
 # playlist section
 
+
+@login_required
+def playlist(request):
+	playlist_collection = PlayList.objects.filter(user=request.user)
+	print playlist_collection
+	return render(request,'playlist.html',{'playlist':playlist_collection})
+
+@login_required
+def manage_songs(request):
+	return render(request,'manage_songs.html',{})
+
+@login_required
+def edit_playlist(request):
+	return render(request,'playlist.html',{})
+
 @login_required
 @transaction.atomic
 def create_list(request):
 	if request.method == 'GET':
-		return render(request,"create_list.html",{})
+		return reverse('playlist')
 	else:
-		pass
+		new_list = PlayList(user=request.user)
+		form = AddPlayListForm(request.POST,instance=new_list)
+
+		if not form.is_valid():
+			print form.errors
+			return redirect(reverse('playlist'))
+
+		form.save()
+
+		playlist_collection = PlayList.objects.filter(user=request.user)
+		return render(request,'playlist.html',{'playlist':playlist_collection})
 	
 
 @login_required

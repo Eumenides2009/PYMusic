@@ -3,6 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.forms.widgets import PasswordInput,TextInput, Textarea, FileInput
 from django.contrib.auth.models import User
 from musicsharing.models import *
+from ajax_select.fields import AutoCompleteSelectField, AutoCompleteSelectMultipleField
 
 # class PostForm(forms.ModelForm):
 # 	class Meta:
@@ -26,6 +27,25 @@ class EditProfileForm(forms.ModelForm):
 		cleaned_data = super(EditProfileForm,self).clean()
 
 		return cleaned_data
+
+class AddPlayListForm(forms.ModelForm):
+	class Meta:
+		model = PlayList
+		fields = ['name','intro']
+
+	def clean(self):
+		cleaned_data = super(AddPlayListForm,self).clean()
+
+		return cleaned_data
+
+
+class SearchForm(forms.ModelForm):
+	class Meta:
+		model = Search
+		exclude = []
+
+	search = AutoCompleteSelectField('search_user',required=False,help_text=None)
+
 
 
 # class CommentForm(forms.ModelForm):
