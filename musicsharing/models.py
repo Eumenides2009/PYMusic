@@ -24,7 +24,7 @@ class Music(models.Model):
 
 
 	def __unicode__(self):
-		return "Music Name: " + self.name +"  Artist: " + self.artist+ "  Album:  "+ self.album +"  Owner: " +self.user.username
+		return self.name
 
 
 class Profile(models.Model):

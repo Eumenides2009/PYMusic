@@ -29,12 +29,18 @@ def get_music_metadata(file):
 	music = eyed3.load(os.path.join(temp_upload_path,file.name))
 
 	if music:
-		meta['title'] = music.tag.title
-		meta['author'] = music.tag.artist
-		meta['album'] = music.tag.album
+		if music.tag:
+			meta['title'] = music.tag.title
+			meta['author'] = music.tag.artist
+			meta['album'] = music.tag.album
 
-		if not meta['title']:
-			meta['title'] = file.name
+			if not meta['title']:
+				meta['title'] = file.name.split('.')[0]
+
+		else:
+			meta['title'] = file.name.split('.')[0]
+			meta['author'] = None
+			meta['album'] = None
 
 		print file.name
 
@@ -104,8 +110,6 @@ def upload(request):
 		return render(request,'home.html',{})
 
 	meta = get_music_metadata(request.FILES['music'])
-
-	print meta
 
 	if not meta:
 		return render(request,'home.html',{})
@@ -179,7 +183,6 @@ def edit_profile(request):
 @login_required
 def playlist(request):
 	playlist_collection = PlayList.objects.filter(user=request.user)
-	print playlist_collection
 	return render(request,'playlist.html',{'playlist':playlist_collection})
 
 @login_required
@@ -246,9 +249,52 @@ def get_list_picture(request,list_id):
 
 @login_required
 @transaction.atomic
-def delete_list(request,list_name):
-	if request.method == 'POST':
-		pass
+def delete_list(request):
+	if request.method == 'GET':
+		return HttpResponse(status=400)
+	else:
+		if not request.POST.get(''):
+			pass
+
+# song in list
+@login_required
+@transaction.atomic
+def delete_song(request):
+	if request.method == 'GET':
+		return HttpResponse(status=400)
+	else:
+		if not request.POST.get('list_name') or not request.POST.get('song_name'):
+			return HttpResponse(status=400)
+		else:
+			try:
+				playlist = PlayList.objects.get(name=request.POST['list_name'],user=request.User)
+				try:
+					playlist.music.get(name=request.POST['song_name']).delete()
+					return HttpResponse(status=200)
+				except Music.DoesNotExist:					
+					return HttpResponse(status=404)
+			except PlayList.DoesNotExist:
+				return HttpResponse(status=404)
+
+@login_required
+@transaction.atomic
+def add_song(request):
+	if request.method == 'GET':
+		return HttpResponse(status=400)
+	else:
+		if not request.POST.get('list_name') or not request.POST.get('song_name'):
+			return HttpResponse(status=400)
+		else:
+			try:
+				playlist = Playlist.objects.get(name=request.POST['list_name'],user=request.user)
+				try:
+					music = Music.Objects.get(name=request.POST['song_name'],user=request.user)
+					playlist.music.add(music)
+					return HttpResponse(status=200)
+				except Music.DoesNotExist:
+					return HttpResponse(status=404)
+			except PlayList.DoesNotExist:
+				return HttpResponse(status=404)
 
 @login_required
 def auth_return(request):
