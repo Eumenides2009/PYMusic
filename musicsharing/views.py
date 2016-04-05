@@ -18,6 +18,8 @@ import json
 import chardet
 
 temp_upload_path = "/tmp/django_upload"
+
+
 # Create your views here.
 
 def get_music_metadata(file):
@@ -191,11 +193,35 @@ def playlist(request):
 
 @login_required
 def manage_songs(request):
+
 	return render(request,'manage_songs.html',{})
 
 @login_required
+@transaction.atomic
 def edit_playlist(request):
-	return render(request,'playlist.html',{})
+	if request.method == 'GET':
+		return HttpResponse(status=400)
+	else:
+		if not request.POST.get('list_id'):
+			return HttpResponse(status=400)
+		else:
+			try:
+				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
+
+				if request.POST.get('list_name'):
+					playlist.name = request.POST['list_name']
+
+				if request.POST.get('list_intro'):
+					playlist.intro = request.POST['list_intro']
+
+				playlist.save()
+
+				return HttpResponse(status=200)
+
+			except PlayList.DoesNotExist:
+				return HttpResponse(status=404)
+
+	
 
 @login_required
 @transaction.atomic
@@ -257,8 +283,14 @@ def delete_list(request):
 	if request.method == 'GET':
 		return HttpResponse(status=400)
 	else:
-		if not request.POST.get(''):
-			pass
+		if not request.POST.get('list_id'):
+			try:
+				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
+				playlist.delete()
+				return HttpResponse(status=200)
+			except PlayList.DoesNotExist:
+				return HttpResponse(status=404)
+
 
 # song in list
 @login_required
@@ -267,11 +299,11 @@ def delete_song(request):
 	if request.method == 'GET':
 		return HttpResponse(status=400)
 	else:
-		if not request.POST.get('list_name') or not request.POST.get('song_name'):
+		if not request.POST.get('list_id') or not request.POST.get('song_name'):
 			return HttpResponse(status=400)
 		else:
 			try:
-				playlist = PlayList.objects.get(name=request.POST['list_name'],user=request.User)
+				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.User)
 				try:
 					playlist.music.get(name=request.POST['song_name']).delete()
 					return HttpResponse(status=200)
@@ -286,11 +318,11 @@ def add_song(request):
 	if request.method == 'GET':
 		return HttpResponse(status=400)
 	else:
-		if not request.POST.get('list_name') or not request.POST.get('song_name'):
+		if not request.POST.get('list_id') or not request.POST.get('song_name'):
 			return HttpResponse(status=400)
 		else:
 			try:
-				playlist = Playlist.objects.get(name=request.POST['list_name'],user=request.user)
+				playlist = Playlist.objects.get(id=request.POST['list_id'],user=request.user)
 				try:
 					music = Music.Objects.get(name=request.POST['song_name'],user=request.user)
 					playlist.music.add(music)
