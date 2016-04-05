@@ -1,0 +1,102 @@
+{% extends "base.html" %} {% block content %}
+<div class="example">
+    <h2 class="example-title">TimeLine</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="timeline">
+                <dl>
+                    <dt>Apr 2014</dt>
+                    <dd class="pos-right clearfix">
+                        <div class="circ"></div>
+                        <div class="time">Apr 14</div>
+                        <div class="events">
+                            <div class="events-body">
+                                <ul class="media-list">
+                                    <li class="media">
+                                        <a class="pull-left" href="#">
+                	{% load staticfiles %}
+								  <img class="events-object img-rounded" src="{% static "img/bg.jpg" %}">
+                </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Media heading</h4>
+                                            <p>12 Apr, 2013 at 12:00</p>
+                                            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                                            <!-- Nested media object -->
+                                            <div class="media">
+                                                <a class="pull-left" href="#">
+                    	{% load staticfiles %}
+								  <img class="events-object img-rounded" src="{% static "img/bg.jpg" %}">
+                    </a>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading">Nested media heading</h4>
+                                                    <p>12 Apr, 2013 at 12:10</p>
+                                                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                                                </div>
+                                            </div>
+                                            <!-- Nested media object -->
+                                            <div class="media">
+                                                <a class="pull-left" href="#">
+                    	{% load staticfiles %}
+								  <img class="events-object img-rounded" src="{% static "img/bg.jpg" %}">
+                    </a>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading">Nested media heading</h4>
+                                                    <p>12 Apr, 2013 at 12:30</p>
+                                                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </dd>
+                    <dd class="pos-left clearfix">
+                        <div class="circ"></div>
+                        <div class="time">Apr 10</div>
+                        <div class="events">
+                            <div class="pull-left">
+                                {% load staticfiles %}
+                                <img class="events-object img-rounded" src="{% static " img/bg.jpg " %}">
+                            </div>
+                            <div class="events-body">
+                                <h4 class="events-heading">Bootflat</h4>
+                                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</p>
+                            </div>
+                        </div>
+                    </dd>
+                    <dt>Mar 2014</dt>
+                    <dd class="pos-right clearfix">
+                        <div class="circ"></div>
+                        <div class="time">Mar 15</div>
+                        <div class="events">
+                            <div class="pull-left">
+                                {% load staticfiles %}
+                                <img class="events-object img-rounded" src="{% static " img/bg.jpg " %}">
+                            </div>
+                            <div class="events-body">
+                                <h4 class="events-heading">Flat UI</h4>
+                                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</p>
+                            </div>
+                        </div>
+                    </dd>
+                    <dd class="pos-left clearfix">
+                        <div class="circ"></div>
+                        <div class="time">Mar 8</div>
+                        <div class="events">
+                            <div class="pull-left">
+                                {% load staticfiles %}
+                                <img class="events-object img-rounded" src="{% static " img/bg.jpg " %}">
+                            </div>
+                            <div class="events-body">
+                                <h4 class="events-heading">UI design</h4>
+                                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</p>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

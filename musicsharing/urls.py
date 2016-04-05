@@ -39,6 +39,8 @@ urlpatterns =  patterns('postman.views',
 	url(r'^playlist$',views.playlist,name='playlist'),
 	url(r'^edit-playlist$',views.edit_playlist),
 	url(r'^manage-songs$',views.manage_songs),
+
+	url(r'^friend-stream$',views.friend_stream),	
 ] 
 
 

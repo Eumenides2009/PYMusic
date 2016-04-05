@@ -55,7 +55,11 @@ def home(request):
 	search_song_form = SearchSongForm()
 	return render(request,'home.html',{'search_user_form':search_user_form,'search_song_form':search_song_form})
 
-
+@login_required
+def friend_stream(request):
+	search_user_form = SearchUserForm()
+	search_song_form = SearchSongForm()
+	return render(request,'friend_stream.html',{'search_user_form':search_user_form,'search_song_form':search_song_form})
 
 # music section
 @login_required
