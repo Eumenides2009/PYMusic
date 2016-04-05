@@ -60,7 +60,7 @@
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-search search-only">
                             <!-- <ul class="nav navbar-nav"> -->
-                            <select name="selecter_basic" class="selecter_3 select-search" data-selecter-options='{"cover":"true"}'>
+                            <select id="search_select" name="selecter_basic" class="selecter_3 select-search" data-selecter-options='{"cover":"true"}'>
                                 <option value="1">User</option>
                                 <option value="2">Song</option>
                             </select>
@@ -146,6 +146,7 @@
     <script src="{% static "js/icheck.min.js" %}"></script>
     <script src="{% static "js/jquery.fs.selecter.min.js" %}"></script>
     <script src="{% static "js/jquery.fs.stepper.min.js" %}"></script>
+    <script src="{% static "js/pymusic.js" %}"></script>
     {% block js %}{% endblock %}
 
 </body>
