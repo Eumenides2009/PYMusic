@@ -42,19 +42,19 @@ class AddPlayListForm(forms.ModelForm):
 class SearchUserForm(forms.ModelForm):
 	class Meta:
 		model = Search
-		fields = ['search']
-		widgets = {'search': TextInput(attrs={'class':'form-control search-query'})}
+		fields = ['search_user']
+		widgets = {'search_user': TextInput(attrs={'class':'form-control search-query'})}
 
-	search = AutoCompleteField('search_user',required=False,help_text=None)
+	search_user = AutoCompleteField('search_user',required=False,help_text=None)
 
 
 class SearchSongForm(forms.ModelForm):
 	class Meta:
 		model = Search
-		fields = ['search']
-		widgets = {'search': TextInput(attrs={'class':'form-control search-query'})}
+		fields = ['search_song']
+		widgets = {'search_song': TextInput(attrs={'class':'form-control search-query'})}
 
-	search = AutoCompleteField('search_song',required=False,help_text=None)
+	search_song = AutoCompleteField('search_song',required=False,help_text=None)
 
 
 
