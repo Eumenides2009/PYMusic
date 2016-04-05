@@ -7,7 +7,8 @@ from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, FileResponse
 from django.db import transaction
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
+from django.template.response import TemplateResponse
 from django.contrib import messages
 from mimetypes import guess_type
 from django.core import serializers
@@ -55,13 +56,13 @@ def get_music_metadata(file):
 def home(request):
 	search_user_form = SearchUserForm()
 	search_song_form = SearchSongForm()
-	return render(request,'home.html',{'search_user_form':search_user_form,'search_song_form':search_song_form})
+	return TemplateResponse(request,'home.html',{})
 
 @login_required
 def friend_stream(request):
 	search_user_form = SearchUserForm()
 	search_song_form = SearchSongForm()
-	return render(request,'friend_stream.html',{'search_user_form':search_user_form,'search_song_form':search_song_form})
+	return TemplateResponse(request,'friend_stream.html',{})
 
 # music section
 @login_required
@@ -113,12 +114,12 @@ def get_picture(request,audio_name):
 def upload(request):
 	
 	if not request.FILES.get('music'):
-		return render(request,'home.html',{})
+		return TemplateResponse(request,'home.html',{})
 
 	meta = get_music_metadata(request.FILES['music'])
 
 	if not meta:
-		return render(request,'home.html',{})
+		return TemplateResponse(request,'home.html',{})
 
 	if not request.FILES.get('picture'):
 		new_music = Music(name=meta['title'],artist=meta['author'],album=meta['album'],content=request.FILES['music'],user=request.user)
@@ -130,7 +131,7 @@ def upload(request):
 
 	new_music.save()	
 
-	return render(request,'home.html',{})
+	return TemplateResponse(request,'home.html',{})
 
 @login_required
 def get_audio_index(request):
@@ -157,10 +158,10 @@ def profile(request,username):
 	else:
 		try:
 			user = User.objects.get(username=username)
-			return render(request,'profile.html',{'user':user})
+			return TemplateResponse(request,'profile.html',{'user':user})
 		except User.DoesNotExist:
 			messages.info(request,'User ' + username + ' does not exists')
-			return render(request,'home.html',{})
+			return TemplateResponse(request,'home.html',{})
 
 
 @login_required
@@ -176,7 +177,7 @@ def edit_profile(request):
 		form = EditProfileForm(request.POST,instance=profile)
 
 		if not form.is_valid():
-			return render(request,'profile.html',{'form':form})
+			return TemplateResponse(request,'profile.html',{'form':form})
 		
 		form.save()
 
@@ -188,13 +189,15 @@ def edit_profile(request):
 
 @login_required
 def playlist(request):
+	search_user_form = SearchUserForm()
+	search_song_form = SearchSongForm()
 	playlist_collection = PlayList.objects.filter(user=request.user)
-	return render(request,'playlist.html',{'playlist':playlist_collection})
+	return TemplateResponse(request,'playlist.html',{'playlist':playlist_collection,'search_song_form':search_song_form,'search_user_form':search_user_form})
 
 @login_required
 def manage_songs(request):
 
-	return render(request,'manage_songs.html',{})
+	return TemplateResponse(request,'manage_songs.html',{})
 
 @login_required
 @transaction.atomic
@@ -239,7 +242,7 @@ def create_list(request):
 		form.save()
 
 		playlist_collection = PlayList.objects.filter(user=request.user)
-		return render(request,'playlist.html',{'playlist':playlist_collection})
+		return TemplateResponse(request,'playlist.html',{'playlist':playlist_collection})
 	
 
 @login_required
