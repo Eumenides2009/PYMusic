@@ -266,7 +266,7 @@
             });
         }
 
-        this.setMusic(0);
+        if (this.playIndex > -1) this.setMusic(0);
     };
 
     /**

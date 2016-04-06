@@ -38,7 +38,8 @@
                 <td>
                     <form method="post" action="{% url 'musicsharing.views.remove_song_repo' %}">
                     <input type="hidden" name="song_name" value="{{song.name}}">
-                    <input type="submit" class="glyphicon glyphicon-remove">
+                    <button type="submit" class="glyphicon glyphicon-remove"></button>
+                    
                     {% csrf_token %}
                     </form>
                 </td>
