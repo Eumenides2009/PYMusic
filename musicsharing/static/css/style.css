@@ -115,3 +115,8 @@ a.file-input-wrapper {
 .media-list {
     color:#434a54;
 }
+
+table .glyphicon {
+    cursor: pointer;
+    color: #3bafda;
+}
