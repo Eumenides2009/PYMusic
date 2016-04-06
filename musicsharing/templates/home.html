@@ -113,7 +113,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label>Playlist</label>
-                <select name="selecter_playlist" class="selecter_3" data-selecter-options='{"cover":"true"}'>
+                <select name="selecter_playlist" class="selecter_3" id="playlist_choose" data-selecter-options='{"cover":"true"}'>
                     <option value="1">Default</option>
                     <option value="2">My favorate</option>
                 </select>
@@ -136,4 +136,5 @@
 <!-- {% load staticfiles %} -->
 <script src="{% static "js/APlayer.js" %}"></script>
 <script src="{% static "js/player.js" %}"></script>
+<script src="{% static "js/home.js" %}"></script>
 {% endblock %}

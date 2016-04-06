@@ -1,6 +1,7 @@
 
 
 $(document).ready(function() {
+
 	var user_option = $(".form-search .selecter-item:first");
 	var song_option = $(".form-search .selecter-item:last");
 	console.log(song_option.html());
@@ -14,7 +15,7 @@ $(document).ready(function() {
 	// 	console.log(btn.html());
 	// 	btn.addEventListener("click", delete_song_in_playlist);
 	// }
-	$(".delete-song-in-playlist").on("click", delete_song_in_playlist);
+	$("#song-list").on("click","button", delete_song_in_playlist);
 }); 
 
 function change_search_state() {
@@ -43,7 +44,6 @@ function edit_playlist() {
                 } else {
                     var music = "";
                     var json = data['name'];
-                    console.log(json);
 
                     var song_list = $("#song-list");
                     var html = '<table class="table">' +
@@ -67,7 +67,7 @@ function edit_playlist() {
                 		"<td>"+ json[i - 1]["album"] +"</td>" +
                 		"<td>" +
                 		    // '<a href="#" data-toggle="modal" data-target="#myModal">' +
-                		        '<button class="glyphicon glyphicon-remove-sign delete-song-in-playlist" aria-hidden="true" '+ 'id="song' + i + '"></button">' +
+                		        '<button type="button" class="glyphicon glyphicon-remove-sign delete-song-in-playlist" aria-hidden="true" '+ 'id="song' + i + '"></button">' +
                 		"</td>" +
             			"</tr>";
                     }
@@ -90,34 +90,38 @@ function delete_song_in_playlist() {
 	var edit_playlist = $("#myModal");
 	var playlist_id = $("#playlist-id-in-modal").val();
 
-	var tmp = this.parent.children[2];
-	console.log(tmp);
-	// $.ajax({
- //            url: "/delete-song",
- //            type: "post",
- //            data:{list_id:playlist_id ,song_name:}
- //            async: false,
- //            success: function(data) {
- //                if (data['error'] != null) {
- //                    console.log("get-list error");
- //                } else {
- //                    var music = "";
- //                    var json = data['name'];
- //                    console.log(json);
+	var tmp = this.parentElement.parentElement.children[2];
+	var csrf = getCSRFToken();
 
- //                    // for (var i = 0; i < json.length; i++) {
 
- //                    //     option.music[i] = json[i];
- //                    //     option.music[i].url = "http://127.0.0.1:8000/music/" + json[i].title
- //                    //     option.music[i].pic = "http://127.0.0.1:8000/picture/" + json[i].title
+	var removeElement = this.parentElement.parentElement;
+    var parent = this.parentElement.parentElement.parentElement;
+	$.ajax({
+            url: "/delete-song",
+            type: "post",
+            data: {list_id:playlist_id ,song_name:tmp.innerHTML, csrfmiddlewaretoken:csrf},
+            async: false,
+            success: function(data) {
+                
+                parent.removeChild(removeElement);
 
- //                    // }
+                for (var i = 0; i < parent.children.length; i++) {
+                	parent.children[i].children[1].innerHTML = i+1
+                }
+            },
+            error: function() {
 
- //                }
- //            },
- //            error: function() {
+            }
+        });
 
- //            }
- //        });
+}
 
+function getCSRFToken() {
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++) {
+        if (cookies[i].startsWith("csrftoken=")) {
+            return cookies[i].substring("csrftoken=".length, cookies[i].length);
+        }
+    }
+    return "unknown";
 }

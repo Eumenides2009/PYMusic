@@ -349,7 +349,7 @@ def delete_song(request):
 			return HttpResponse(status=400)
 		else:
 			try:
-				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.User)
+				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
 				try:
 					playlist.music.get(name=request.POST['song_name']).delete()
 					playlist.update_count()
