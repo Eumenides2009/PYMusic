@@ -36,7 +36,10 @@
                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                 </td>
                 <td>
-                    <a href="#" class="glyphicon glyphicon-remove"></a>
+                    <form method="post" action="{% url 'musicsharing.views.remove_song_repo' %}">
+                    <input type="hidden" name="song_name" value="{{song.name}}">
+                    <input type="submit" class="glyphicon glyphicon-remove">
+                    </form>
                 </td>
             </tr>
             {% endfor %}

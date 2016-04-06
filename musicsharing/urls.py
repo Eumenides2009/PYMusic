@@ -16,6 +16,10 @@ urlpatterns =  patterns('postman.views',
 	url(r'^get_audio_index$',views.get_audio_index,name='all_music'),
 	url(r'^picture/(?P<audio_name>.+)$',views.get_picture),
 
+	# single song
+
+	url(r'^remove-song-repo$',views.remove_song_repo),
+
 	# profile
 	url(r'^profile/(?P<username>.+)$',views.profile),
 	url(r'^edit-profile$',views.edit_profile),
