@@ -9,9 +9,13 @@ $(document).ready(function() {
 	song_option.attr('id', 'song-option');
 	document.getElementById("user-option").addEventListener("click", change_search_state);
 	document.getElementById("song-option").addEventListener("click", change_search_state);
-	document.getElementById("edit-playlist-btn").addEventListener("click", edit_playlist);
-	
+	// document.getElementById("edit-playlist-btn").addEventListener("click", edit_playlist);
+	$("#submit-edit-list").on("click", edit_playlist);
+    $("#edit-playlist-btn").on("click", edit_playlist_btn);
 	$(".table").on("click","span", delete_song_in_playlist);
+    $("#add-song-to-list-btn").on("click", add_song_to_list_btn);
+    $("#submit-add-song").on("click", add_song_to_playlist);
+
 
     // update songs in each playlist
     var tables = $(".table");
@@ -82,16 +86,59 @@ function change_search_state() {
 		$("#id_search_user").css("display","initial");	
 	}
 }
-
-function edit_playlist() {
-	var state = this.children[0].getAttribute("value");
-	var modal = $("#myModal");
-	var hidden_html = '<input type="' + 'hidden" id="playlist-id-in-modal" value="' + state + '">';
-	
-
-
-	modal.append(hidden_html);
+function edit_playlist_btn() {
+    var state = this.children[0].getAttribute("value");
+    var modal = $("#myModal");
+    var hidden_html = '<input type="' + 'hidden" id="playlist-id-in-modal" value="' + state + '">';
+    modal.append(hidden_html);
 }
+function add_song_to_list_btn() {
+    console.log(this);
+    var state = this.children[0].getAttribute("value");
+    console.log(state);
+    var modal = $("#addSongModal");
+    var hidden_html = '<input type="' + 'hidden" id="playlist-id-in-modal" value="' + state + '">';
+    modal.append(hidden_html);
+}
+function add_song_to_playlist() {
+    var id = $("#addSongModal").children('input').val();
+    
+    var csrf = getCSRFToken();
+    var song_name = $("#addSongModal #id_search_song").val();
+    $.ajax({
+            url: "/add-song",
+            type: "post",
+            data: {list_id:id ,song_name:song_name, csrfmiddlewaretoken:csrf},
+            async: false,
+            success: function(data) {
+            },
+            error: function() {
+                console.log(ddddd);
+            }
+        });
+    // window.location.href='/playlist'; 
+}
+function edit_playlist() {
+	var id = $("#myModal").children('input').val();
+    
+    var list_name = $('#edit-list-name').val();
+    var list_intro = $('#edit-list-intro').val();
+    var csrf = getCSRFToken();
+    console.log(list_intro);
+    $.ajax({
+            url: "/edit-playlist",
+            type: "post",
+            data: {list_id:id ,list_name:list_name, list_intro:list_intro, csrfmiddlewaretoken:csrf},
+            async: false,
+            success: function(data) {
+            },
+            error: function() {
+
+            }
+        });
+    window.location.href='/playlist'; 
+}
+
 
 function delete_song_in_playlist() {
 	
