@@ -1,7 +1,9 @@
 from musicsharing.forms import *
 
 class SearchBarMiddleware(object):
+
 	def process_template_response(self,request,response):
+		print 'this is a template view'	
 		search_user = SearchUserForm()
 		search_song = SearchSongForm()
 
@@ -9,3 +11,4 @@ class SearchBarMiddleware(object):
 		response.context_data['search_song_form'] = search_song
 
 		return response
+
