@@ -55,10 +55,9 @@ body {
 	float: left;
 	margin-right: 10px;
 }
-.media-left img{
-	width: 250px;
-	height: 100%;
-    max-height: 400px;
+.jumbotron-photo img{
+	width: 100%;
+    max-height: 250px;
 }
 
 .need-hover {
@@ -119,4 +118,15 @@ a.file-input-wrapper {
 table .glyphicon {
     cursor: pointer;
     color: #3bafda;
+}
+.jumbotron-contents h3 {
+    margin-top: 0px;
+}
+.jumbotron-contents > p , .jumbotron-contents > form{
+    float: left;
+    margin-right: 10px;
+}
+.jumbotron-contents p {
+    word-wrap:break-word; 
+    word-break:normal;
 }
