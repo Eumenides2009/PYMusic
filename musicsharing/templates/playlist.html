@@ -25,7 +25,7 @@
                         <p>{{ list.intro }}</p>
                     </div>
                 </div>
-                <p><a href="#" class="btn btn-warning" role="button" data-toggle="modal" data-target="#myModal">Edit</a> <a href="#" class="btn btn-default" role="button">Delete</a></p>
+                <p><a href="#" class="btn btn-warning" role="button" data-toggle="modal" data-target="#myModal" id="edit-playlist-btn"><input type="hidden" id="playlist-id" value="{{ list.id }}"></input>Edit</a> <a href="#" class="btn btn-default" role="button">Delete</a></p>
             </div>
         </div>
         {% endfor %}
@@ -61,7 +61,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                     	<label>Songs</label>
-                        <table class="table">
+                        <table class="table" id="song-list">
         <thead>
             <tr>
                 <th></th>
@@ -85,7 +85,7 @@
                 <td>@mdo</td>
                 <td>
                     <a href="#" data-toggle="modal" data-target="#myModal">
-                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>
+                        <button class="glyphicon glyphicon-remove-sign" aria-hidden="true"></button></a>
                 </td>
             </tr>
             <tr>
