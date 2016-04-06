@@ -8,52 +8,34 @@
                 <th>#</th>
                 <th>Title</th>
                 <th>Author</th>
-                <th>Date</th>
                 <th>Album</th>
-                <th>Playlist</th>
+                <th>PlayList</th>
                 <th>Edit</th>
             </tr>
         </thead>
         <tbody>
+            {% for song in song_list %}
             <tr>
                 <td></td>
-                <td>1</td>
-                <td>弱水</td>
-                <td>1</td>
-                <td>2016/04/01</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ song.name }}</td>
+                <td>{{ song.artist }}</td>
+                <td>{{ song.album }}</td>
+                <td>
+                {% for list in song.playlist_set.all %}
+                    {% if forloop.last %}
+                        {{list.name}} 
+                    {% else %}
+                        {{list.name}}, 
+                    {% endif %}
+                {% endfor%}
+                </td>
                 <td>
                     <a href="#" data-toggle="modal" data-target="#myModal">
                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-                <td>1</td>
-                <td>三千</td>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>
-                    <a href="#" data-toggle="modal" data-target="#myModal">
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>1</td>
-                <td>1</td>
-                <td>3</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>
-                    <a href="#" data-toggle="modal" data-target="#myModal">
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                </td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

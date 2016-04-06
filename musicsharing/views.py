@@ -196,8 +196,8 @@ def playlist(request):
 
 @login_required
 def manage_songs(request):
-
-	return TemplateResponse(request,'manage_songs.html',{})
+	song_list = Music.objects.filter(user=request.user)
+	return TemplateResponse(request,'manage_songs.html',{'song_list':song_list})
 
 @login_required
 @transaction.atomic
@@ -267,6 +267,16 @@ def get_list(request,list_id):
 
 		except PlayList.DoesNotExist:
 			return HttpResponse(status=404)
+
+@login_required
+def get_list_name(request):
+	playlist = PlayList.objects.filter(user=request.user)
+	name_list = []
+
+	for  i in playlist:
+		name_list.append(i.name)
+
+	return HttpResponse(json.dumps({'name':name_list}),content_type='application/json')
 
 @login_required
 def get_list_picture(request,list_id):

@@ -25,6 +25,7 @@ urlpatterns =  patterns('postman.views',
 	url(r'^get-list/(?P<list_id>\d+)$',views.get_list),
 	url(r'^delete-list$',views.delete_list),
 	url(r'^get-list-picture/(?P<list_id>.+)$',views.get_list_picture),
+	url(r'^get-list-name$',views.get_list_name),
 
 	# song in list
 	url(r'^delete-song$',views.delete_song),
