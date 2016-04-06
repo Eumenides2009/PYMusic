@@ -196,6 +196,24 @@ def edit_profile(request):
 		return reverse(views.profile,args=[request.user.username])
 
 
+# song section
+@login_required
+@transaction.atomic
+def remove_song_repo(request):
+	if request.method == 'GET':
+		return manage_songs(request)
+	else:
+		if request.POST.get('song_name'):
+			try:
+				music = Music.objects.get(name=request.POST['song_name'],user=request.user)
+				music.delete()
+				return manage_songs(request)
+			except Music.DoesNotExist:
+				return manage_songs(request)
+		else:
+			return manage_songs(request)
+
+
 # playlist section
 
 
