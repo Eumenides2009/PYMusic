@@ -130,3 +130,7 @@ table .glyphicon {
     word-wrap:break-word; 
     word-break:normal;
 }
+.jumbotron>.jumbotron-photo img{
+    padding: 4px;
+    border-radius: 8px;
+}
