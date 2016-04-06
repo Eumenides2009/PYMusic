@@ -54,14 +54,15 @@ def get_music_metadata(file):
 
 @login_required
 def home(request):
-	search_user_form = SearchUserForm()
-	search_song_form = SearchSongForm()
-	return TemplateResponse(request,'home.html',{})
+	list_id = 0
+	if request.method == 'GET' and request.GET.get('id',''):
+		list_id = request.GET.get('id')
+	
+	print list_id
+	return TemplateResponse(request,'home.html',{'list_id':list_id})
 
 @login_required
 def friend_stream(request):
-	search_user_form = SearchUserForm()
-	search_song_form = SearchSongForm()
 	return TemplateResponse(request,'friend_stream.html',{})
 
 # music section
@@ -252,23 +253,26 @@ def get_list(request,list_id):
 	if request.method == 'POST':
 		return HttpResponse(status=400)
 	else:
-		try:
-			playlist = PlayList.objects.get(id=list_id,user=request.user)
-			name_list = []
+		if list_id == '0':
+			return get_audio_index(request)
+		else:
+			try:
+				playlist = PlayList.objects.get(id=list_id,user=request.user)
+				name_list = []
 
-			for music in playlist.music.all():
-				new_meta = {}
-				new_meta['title'] = music.name
-				new_meta['author'] = music.artist
-				new_meta['album'] = music.album
+				for music in playlist.music.all():
+					new_meta = {}
+					new_meta['title'] = music.name
+					new_meta['author'] = music.artist
+					new_meta['album'] = music.album
 
-				name_list.append(new_meta)
-	
-			data = json.dumps({'name':name_list})
-			return HttpResponse(data,content_type='application/json')
+					name_list.append(new_meta)
+		
+				data = json.dumps({'name':name_list})
+				return HttpResponse(data,content_type='application/json')
 
-		except PlayList.DoesNotExist:
-			return HttpResponse(status=404)
+			except PlayList.DoesNotExist:
+				return HttpResponse(status=404)
 
 @login_required
 def get_list_name(request):

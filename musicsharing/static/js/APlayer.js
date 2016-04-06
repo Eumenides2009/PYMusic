@@ -1,3 +1,4 @@
+
 /**
  * APlayer constructor function
  *
@@ -6,9 +7,10 @@
  */
 (function() {
     function APlayer(option) {
-
+        var list_id = $("#list-id").html();
+        console.log(list_id);
         $.ajax({
-            url: "/get_audio_index",
+            url: "/get-list/" + list_id,
             type: "get",
             async: false,
             success: function(data) {
