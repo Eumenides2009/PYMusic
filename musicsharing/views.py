@@ -115,12 +115,12 @@ def get_picture(request,audio_name):
 def upload(request):
 	
 	if not request.FILES.get('music'):
-		return TemplateResponse(request,'home.html',{})
+		return TemplateResponse(request,'home.html',{'list_id':0})
 
 	meta = get_music_metadata(request.FILES['music'])
 
 	if not meta:
-		return TemplateResponse(request,'home.html',{})
+		return TemplateResponse(request,'home.html',{'list_id':request.POST['list_id']})
 
 	if not request.FILES.get('picture'):
 		new_music = Music(name=meta['title'],artist=meta['author'],album=meta['album'],content=request.FILES['music'],user=request.user)
@@ -141,7 +141,7 @@ def upload(request):
 		except PlayList.DoesNotExist:
 			pass
 
-	return TemplateResponse(request,'home.html',{})
+	return TemplateResponse(request,'home.html',{'list_id':request.POST['list_id']})
 
 @login_required
 def get_audio_index(request):
@@ -213,6 +213,23 @@ def remove_song_repo(request):
 		else:
 			return manage_songs(request)
 
+def edit_song(request):
+	if request.method == 'GET' or not request.POST.get('origin_name'):
+		return HttpResponse(status=400)
+	else:
+		try:
+			music = Music.objects.get(name=request.POST['origin_name'],user=request.user)
+
+			if request.POST.get('title'):
+				music.title = request.POST['title']
+
+			if request.POST.get('author'):
+				music.artist = request.POST['author']
+
+			if request.POST.get('album'):
+				music.alum = request.POST['album']
+		except Music.DoesNotExist:
+			return HttpResponse(status=404)
 
 # playlist section
 
@@ -220,6 +237,8 @@ def remove_song_repo(request):
 @login_required
 def playlist(request):
 	playlist_collection = PlayList.objects.filter(user=request.user)
+	for i in playlist_collection:
+		i.update_count()
 	return TemplateResponse(request,'playlist.html',{'playlist':playlist_collection})
 
 @login_required
@@ -352,7 +371,6 @@ def delete_song(request):
 				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
 				try:
 					playlist.music.get(name=request.POST['song_name']).delete()
-					playlist.update_count()
 					playlist.save()
 					return HttpResponse(status=200)
 				except Music.DoesNotExist:					
@@ -374,7 +392,6 @@ def add_song(request):
 				try:
 					music = Music.Objects.get(name=request.POST['song_name'],user=request.user)
 					playlist.music.add(music)
-					playlist.update_count()
 					playlist.save()
 					return HttpResponse(status=200)
 				except Music.DoesNotExist:

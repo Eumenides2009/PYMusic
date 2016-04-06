@@ -1,10 +1,11 @@
 $(document).ready(function() {
+    console.log("aaaaa");
     var playlist = $("#playlist_choose");
     console.log(playlist);
     $.ajax({
             url: "/get-list-name",
             type: "get",
-            async: false,
+            async: true,
             success: function(data) {
                 if (data['error'] != null) {
                     console.log("get-list-name error");
