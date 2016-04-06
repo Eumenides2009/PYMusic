@@ -9,11 +9,11 @@ urlpatterns =  patterns('postman.views',
 	) + [
 
 	# player
-	url(r'^$',views.home),
+	url(r'^$',views.home,name='home'),
 	url(r'^upload$',views.upload),
 	url(r'^get_lyric/(?P<lyric_name>.+)$',views.get_lyric),
 	url(r'^music/(?P<audio_name>.+)$',views.get_audio),
-	url(r'^get_audio_index$',views.get_audio_index),
+	url(r'^get_audio_index$',views.get_audio_index,name='all_music'),
 	url(r'^picture/(?P<audio_name>.+)$',views.get_picture),
 
 	# profile

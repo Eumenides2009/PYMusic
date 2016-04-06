@@ -86,6 +86,7 @@ function edit_playlist() {
 }
 
 function delete_song_in_playlist() {
+    console.log("exec")
 	var edit_playlist = $("#myModal");
 	var playlist_id = $("#playlist-id-in-modal").val();
 
