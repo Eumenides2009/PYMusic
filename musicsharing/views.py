@@ -132,6 +132,15 @@ def upload(request):
 
 	new_music.save()	
 
+	if request.POST.get('playlist'):
+		try:
+			playlist = PlayList.objects.get(name=request.POST['playlist'])
+			playlist.music.add(new_music)
+			playlist.update_count()
+			playlist.save()
+		except PlayList.DoesNotExist:
+			pass
+
 	return TemplateResponse(request,'home.html',{})
 
 @login_required
@@ -192,10 +201,8 @@ def edit_profile(request):
 
 @login_required
 def playlist(request):
-	search_user_form = SearchUserForm()
-	search_song_form = SearchSongForm()
 	playlist_collection = PlayList.objects.filter(user=request.user)
-	return TemplateResponse(request,'playlist.html',{'playlist':playlist_collection,'search_song_form':search_song_form,'search_user_form':search_user_form})
+	return TemplateResponse(request,'playlist.html',{'playlist':playlist_collection})
 
 @login_required
 def manage_songs(request):
@@ -300,15 +307,17 @@ def get_list_picture(request,list_id):
 @transaction.atomic
 def delete_list(request):
 	if request.method == 'GET':
-		return HttpResponse(status=400)
+		return playlist(request)
 	else:
-		if not request.POST.get('list_id'):
+		if request.POST.get('list_id'):
 			try:
-				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
-				playlist.delete()
-				return HttpResponse(status=200)
+				todelete = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
+				todelete.delete()
+				return playlist(request)
 			except PlayList.DoesNotExist:
-				return HttpResponse(status=404)
+				return playlist(request)
+		else:
+			return playlist(request)
 
 
 # song in list
@@ -325,6 +334,8 @@ def delete_song(request):
 				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.User)
 				try:
 					playlist.music.get(name=request.POST['song_name']).delete()
+					playlist.update_count()
+					playlist.save()
 					return HttpResponse(status=200)
 				except Music.DoesNotExist:					
 					return HttpResponse(status=404)
@@ -345,6 +356,8 @@ def add_song(request):
 				try:
 					music = Music.Objects.get(name=request.POST['song_name'],user=request.user)
 					playlist.music.add(music)
+					playlist.update_count()
+					playlist.save()
 					return HttpResponse(status=200)
 				except Music.DoesNotExist:
 					return HttpResponse(status=404)

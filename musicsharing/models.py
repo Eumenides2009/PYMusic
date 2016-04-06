@@ -56,7 +56,7 @@ class PlayList(models.Model):
 		return "Playlist: " + self.name + " Owner: " + self.user.username
 
 	def update_count(self):
-		count = self.music.count()
+		self.count = self.music.count()
 
 
 class Search(models.Model):
