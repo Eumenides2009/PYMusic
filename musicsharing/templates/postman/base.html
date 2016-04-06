@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {% extends "base.html" %}
 {% load i18n %}{% load postman_tags %}
 {% block title %}{% trans "Messaging" %}{% endblock %}
@@ -9,23 +8,11 @@
 {# dj v1.2 #}{# {{ MEDIA_URL }}postman/css/postman.css #}
 " />{% endblock %}
 {% block postman_menu %}
-<ul id="postman_menu">{% postman_unread as unread_count %}
- <li><a href="{% url 'postman:inbox' %}">&raquo;&nbsp;{% trans "Inbox" %}{% if unread_count %} <strong>({{ unread_count }})</strong>{% endif %}</a></li>
- <li><a href="{% url 'postman:sent' %}">&raquo;&nbsp;{% trans "Sent Messages" %}</a></li>
-=======
-{% extends "base.html" %}{# not myself but a site-level one (TEMPLATE_DIRS setting) #}
-{% load i18n static %}{% load postman_tags %}
-{% block title %}{% trans "Messaging" %}{% endblock %}
-{% block extrahead %}{{ block.super }}
-<link type="text/css" media="all" rel="stylesheet" href="{% static 'postman/css/postman.css' %}" />
-{% endblock %}
-{% block postman_menu %}
-<ul id="postman_menu">{% postman_unread as unread_count %}
- <li><a href="{% url 'postman:inbox' %}">&raquo;&nbsp;{% trans "Inbox" %}{% if unread_count %} <strong>({{ unread_count }})</strong>{% endif %}</a></li>
- <li><a href="{% url 'postman:sent' %}">&raquo;&nbsp;{% trans "Sent Messages" %}</a></li> 
->>>>>>> cd91d06617bc70d4afac6215554ad0391b2217a1
- <li><a href="{% url 'postman:write' %}">&raquo;&nbsp;{% trans "Write" %}</a></li>
- <li><a href="{% url 'postman:archives' %}">&raquo;&nbsp;{% trans "Archives" %}</a></li>
- <li><a href="{% url 'postman:trash' %}">&raquo;&nbsp;{% trans "Trash" %}</a></li>
+<ul id="postman_menu" class="breadcrumb breadcrumb-arrow">{% postman_unread as unread_count %}
+ <li><a href="{% url 'postman:inbox' %}">&nbsp;{% trans "Inbox" %}{% if unread_count %} <strong>({{ unread_count }})</strong>{% endif %}</a></li>
+ <li><a href="{% url 'postman:sent' %}">&nbsp;{% trans "Sent Messages" %}</a></li> 
+ <li><a href="{% url 'postman:write' %}">&nbsp;{% trans "Write" %}</a></li>
+ <li><a href="{% url 'postman:archives' %}">&nbsp;{% trans "Archives" %}</a></li>
+ <li><a href="{% url 'postman:trash' %}">&nbsp;{% trans "Trash" %}</a></li>
 </ul>
 {% endblock %}

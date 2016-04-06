@@ -16,16 +16,16 @@ in the INSTALLED_APPS setting.
 {% else %}
 {% if pm_messages %}
 {% block pm_by_modes %}<div id="pm_by_modes">
-<span class="pm_by_mode">{% if by_message %}<a href="{{ by_conversation_url }}">{% endif %}{% trans "by conversation" %}{% if by_message %}</a>{% endif %}</span>
-<span class="pm_by_mode">{% if by_conversation %}<a href="{{ by_message_url }}">{% endif %}{% trans "by message" %}{% if by_conversation %}</a>{% endif %}</span>
+<span class="pm_by_mode btn btn-default">{% if by_message %}<a href="{{ by_conversation_url }}">{% endif %}{% trans "by conversation" %}{% if by_message %}</a>{% endif %}</span>
+<span class="pm_by_mode btn btn btn-default">{% if by_conversation %}<a href="{{ by_message_url }}">{% endif %}{% trans "by message" %}{% if by_conversation %}</a>{% endif %}</span>
 </div>{% endblock pm_by_modes %}
 <form action="{% block pm_form_action %}{% endblock %}" method="post">{% csrf_token %}
 {% block pm_form_buttons %}<span id="pm_buttons">
-{% block pm_delete_button %}<button type="submit" onclick="this.form.action='{% url 'postman:delete' %}'">{% trans "Delete" %}</button>{% endblock %}
-{% block pm_archive_button %}<button type="submit" onclick="this.form.action='{% url 'postman:archive' %}'">{% trans "Archive" %}</button>{% endblock %}
+{% block pm_delete_button %}<button class="btn btn-default" type="submit" onclick="this.form.action='{% url 'postman:delete' %}'">{% trans "Delete" %}</button>{% endblock %}
+{% block pm_archive_button %}<button class="btn btn-primary" type="submit" onclick="this.form.action='{% url 'postman:archive' %}'">{% trans "Archive" %}</button>{% endblock %}
 {% block pm_undelete_button %}<button type="submit" onclick="this.form.action='{% url 'postman:undelete' %}'">{% trans "Undelete" %}</button>{% endblock %}
 </span>{% endblock %}
-<table id="pm_messages">
+<table id="pm_messages" class="table">
  <thead>
   <tr>
    <th>{% trans "Action" %}</th>
