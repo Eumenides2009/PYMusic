@@ -134,3 +134,14 @@ table .glyphicon {
     padding: 4px;
     border-radius: 8px;
 }
+.panel-info>.panel-heading {
+    background-color: #3bafda;
+    border-color: #9DCCDE;
+}
+.comment {
+    border-width: 2px;
+    border-color: #939699;
+    border-style: dotted;
+    padding: 10px 10px 5px 10px;
+    border-radius: 10px;
+}

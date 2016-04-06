@@ -49,6 +49,7 @@
                 <input type="submit" class="btn btn-default" value="Delete">
                 {% csrf_token %}
                 </form>
+                <p><a href="#" class="btn btn-success" role="button" data-toggle="modal" data-target="#addSongModal"><input type="hidden" id="playlist-id" value="{{ list.id }}"></input>Add</a></p>
                  <a class="btn btn-primary" href="{% url 'musicsharing.views.home' %}?id={{ list.id }}"> Play </a>
             </div>
         </div>
@@ -57,7 +58,6 @@
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -82,10 +82,38 @@
                         </div>
                     </div>
                 </div>
-                
-
                 {% csrf_token %}
             </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<!-- Modal -->
+<div class="modal fade" id="addSongModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Add Song to Playlist</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'musicsharing.views.add_song' %}" id="upload_music">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Name of Song</label>
+                            {{ search_song_form.search_song }}
+                        </div>
+                    </div>
+                </div>
+                {% csrf_token %}
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
