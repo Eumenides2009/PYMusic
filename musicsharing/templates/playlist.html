@@ -15,7 +15,7 @@
                       </div>
                       <div class="col-md-6">
                         <label>Number of Songs</label>
-                        <p>1</p>
+                        <p>{{ list.count }}</p>
                       </div>
                 </div>
                 <div class="row">
@@ -65,7 +65,7 @@
                 <h4 class="modal-title">Edit Playlist Info</h4>
             </div>
             <div class="modal-body">
-            	<form method="post" action="{% url 'musicsharing.views.edit_playlist' %}" id="upload_music">
+            	<form method="post" action="{% url 'musicsharing.views.edit_playlist' %}" id="edit_list_info">
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="form-group">
@@ -87,7 +87,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Submit</button>
+                <button type="submit" form="edit_list_info" class="btn btn-success">Submit</button>
             </div>
         </div>
     </div>
@@ -103,12 +103,12 @@
                 <h4 class="modal-title">Add Song to Playlist</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'musicsharing.views.add_song' %}" id="upload_music">
+                <form method="post" action="{% url 'musicsharing.views.add_song' %}" id="add_song_list">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
                             <label>Name of Song</label>
-                            {{ search_song_form.search_song }}
+                            {{ add_song_form.add_song }}
                         </div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Submit</button>
+                <button type="submit" form="add_song_list" class="btn btn-success">Submit</button>
             </div>
         </div>
     </div>

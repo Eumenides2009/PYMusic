@@ -250,26 +250,26 @@ def manage_songs(request):
 @transaction.atomic
 def edit_playlist(request):
 	if request.method == 'GET':
-		return HttpResponse(status=400)
+		return playlist(request)
 	else:
 		if not request.POST.get('list_id'):
-			return HttpResponse(status=400)
+			return playlist(request)
 		else:
 			try:
-				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
+				m_playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
 
 				if request.POST.get('list_name'):
-					playlist.name = request.POST['list_name']
+					m_playlist.name = request.POST['list_name']
 
 				if request.POST.get('list_intro'):
-					playlist.intro = request.POST['list_intro']
+					m_playlist.intro = request.POST['list_intro']
 
-				playlist.save()
+				m_playlist.save()
 
-				return HttpResponse(status=200)
+				return playlist(request)
 
 			except PlayList.DoesNotExist:
-				return HttpResponse(status=404)
+				return playlist(request)
 
 	
 
