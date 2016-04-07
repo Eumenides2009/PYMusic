@@ -14,5 +14,10 @@
     {% endfor %}
 </ul>
 {% endif %}
+<form method="post" action="{% url 'musicsharing.views.edit_profile'%}">
 {{ form }}
+<input type="submit">
+{% csrf_token %}
+</form>
+
 {% endblock %}

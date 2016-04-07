@@ -180,7 +180,8 @@ def profile(request,username):
 @login_required
 def edit_profile(request):
 	if request.method == 'GET':
-		form = EditProfileForm()
+		profile = Profile.objects.get(user=request.user)
+		form = EditProfileForm(instance=profile)
 		return TemplateResponse(request,'profile.html',{'form':form})
 	else:
 		try:
