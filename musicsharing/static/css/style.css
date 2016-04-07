@@ -118,6 +118,7 @@ table .glyphicon {
 }
 .jumbotron-contents h3 {
     margin-top: 0px;
+    overflow: auto;
 }
 .jumbotron-contents > p , .jumbotron-contents > form{
     float: left;

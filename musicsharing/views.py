@@ -206,7 +206,7 @@ def edit_profile(request):
 		form = EditProfileForm(request.POST,instance=e_profile)
 
 		if not form.is_valid():
-			return TemplateResponse(request,'profile.html',{})
+			return TemplateResponse(request,'edit_profile.html',{})
 		
 		form.save()
 
