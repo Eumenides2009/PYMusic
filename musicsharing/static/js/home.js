@@ -26,7 +26,6 @@ $(document).ready(function() {
                     parent.children().eq(1).html(json[0]);
                     parent.children().eq(2).html(html);
 
-                    $("select").dropdown();
                 }
             },
             error: function() {
