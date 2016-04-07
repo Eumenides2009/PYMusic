@@ -44,7 +44,7 @@ class Profile(models.Model):
 	date = models.DateField(null=True,blank=True)
 	age = models.IntegerField(default=1,validators=[MaxValueValidator(100),MinValueValidator(1)],blank=True,null=True)
 	country = CountryField(blank_label='(select country)',null=True,blank=True)
-	picture = models.ImageField(upload_to='profile_image',null=True,blank=True)
+	picture = models.ImageField(upload_to='profile_image',blank=True,default="profile_image/bg.jpg")
 	nickname = models.CharField(max_length=30,null=True,blank=True)
 	friends = models.ManyToManyField(User,related_name='friends')
 
