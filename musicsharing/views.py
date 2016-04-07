@@ -218,17 +218,17 @@ def edit_profile(request):
 @transaction.atomic
 def remove_song_repo(request):
 	if request.method == 'GET':
-		return manage_songs(request)
+		return redirect('manage_songs')
 	else:
 		if request.POST.get('song_name'):
 			try:
 				music = Music.objects.get(name=request.POST['song_name'],user=request.user)
 				music.delete()
-				return manage_songs(request)
+				return redirect('manage_songs')
 			except Music.DoesNotExist:
-				return manage_songs(request)
+				return redirect('manage_songs')
 		else:
-			return manage_songs(request)
+			return redirect('manage_songs')
 
 def edit_song(request):
 	if request.method == 'GET' or not request.POST.get('origin_name'):
@@ -267,10 +267,10 @@ def manage_songs(request):
 @transaction.atomic
 def edit_playlist(request):
 	if request.method == 'GET':
-		return playlist(request)
+		return redirect('playlist')
 	else:
 		if not request.POST.get('list_id'):
-			return playlist(request)
+			return redirect('playlist')
 		else:
 			try:
 				m_playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
@@ -283,10 +283,10 @@ def edit_playlist(request):
 
 				m_playlist.save()
 
-				return playlist(request)
+				return redirect('playlist')
 
 			except PlayList.DoesNotExist:
-				return playlist(request)
+				return redirect('playlist')
 
 	
 
@@ -294,14 +294,14 @@ def edit_playlist(request):
 @transaction.atomic
 def create_list(request):
 	if request.method == 'GET':
-		return reverse('playlist')
+		return redirect('playlist')
 	else:
 		new_list = PlayList(user=request.user)
 		form = AddPlayListForm(request.POST,request.FILES,instance=new_list)
 
 		if not form.is_valid():
 			print form.errors
-			return redirect(reverse('playlist'))
+			return redirect('playlist')
 
 		form.save()
 
@@ -361,17 +361,17 @@ def get_list_picture(request,list_id):
 @transaction.atomic
 def delete_list(request):
 	if request.method == 'GET':
-		return playlist(request)
+		return redirect('playlist')
 	else:
 		if request.POST.get('list_id'):
 			try:
 				todelete = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
 				todelete.delete()
-				return playlist(request)
+				return redirect('playlist')
 			except PlayList.DoesNotExist:
-				return playlist(request)
+				return redirect('playlist')
 		else:
-			return playlist(request)
+			return redirect('playlist')
 
 
 # song in list
