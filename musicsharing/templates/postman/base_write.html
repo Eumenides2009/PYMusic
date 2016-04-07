@@ -10,15 +10,18 @@
 {% block content %}
 <div id="postman">
 <h1>Write Message</h1>
-<h1>{% block pm_write_title %}{% endblock %}</h1>
 <form action="{% if next_url %}?next={{ next_url|urlencode }}{% endif %}" method="post">{% csrf_token %}
 <table>
 {% block pm_write_recipient %}{% endblock %}
-
-{{ form.recipients }}
-{{ form.subject }}
-{{ form.body }}
-</table>
+<div class="input-group">
+        <span class="input-group-addon">Recipient</span>
+        {{ form.recipients }}
+</div>
+<div class="input-group">
+        <span class="input-group-addon">Subject</span>
+        {{ form.subject }}
+</div>
+{{ form.body }}</table>
 <button type="submit" class="btn btn-primary">{% trans "Send" %}</button>
 </form>
 </div>
