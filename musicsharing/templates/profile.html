@@ -3,37 +3,32 @@
 {% block content %}
 <div id="profile" class="form-edit-profile">
 	<form method="post" action="{% url 'musicsharing.views.edit_profile'%}">
-	<h1>Edit Profile</h1>
-    <div class="form-group upload-btn">
-        <div class="upload-modal-box">
-            <a class="file-input-wrapper custom-file-input file-input-wrapper btn btn-primary" data-original-title="" title=""><span><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Upload Icon</span><input id="fileToUploadOne" type="file" title="Upload song" size="45" name="music" class="custom-file-input file-input-wrapper btn btn-default btn-warning"></a>
-        </div>
-    </div>
+	{% load staticfiles %}
+    <div class="icon-center">
+    <img class="events-object img-rounded icon" src="{% static "img/bg.jpg" %}">
+</div>
+    <h1>yayun</h1>
+    
     <div class="input-group">
-        <span class="input-group-addon">Name</span>
-        <input type="text" class="form-control" disabled>
+        <span class="input-group-addon">Nickname</span>
+        <input type="text" class="form-control" disabled value="dddddddd">
     </div>
     <div class="input-group">
         <span class="input-group-addon">Age</span>
-        {{ form.age }}
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon">Bio</span>
-        {{ form.bio }}
+        <input type="text" class="form-control" disabled value="dd">
     </div>
     <div class="input-group">
         <span class="input-group-addon">Gender</span>
-        <div class="styled-select blue semi-square">
-            {{ form.gender }}
-        </div>
+        <input type="text" class="form-control" disabled value="dd">
     </div>
     <div class="input-group">
         <span class="input-group-addon">Country</span>
-        <div class="styled-select blue semi-square">
-            {{ form.country }}
-        </div>
+        <input type="text" class="form-control" disabled value="dd">
     </div>
-    <button type="submit" id="submit-edit-list" class="btn btn-lg btn-primary btn-block">Submit</button>
+        <h5>Bio</h5>
+        <textarea class="form-control" rows="3" disabled>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</textarea>
+    
+    <button type="submit" id="submit-edit-list" class="btn btn-lg btn-primary btn-block">Follow</button>
     {% csrf_token %}
 </form>
 </div>

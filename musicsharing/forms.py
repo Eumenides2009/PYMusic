@@ -22,11 +22,12 @@ years = [x for x in range(1980,2017)]
 class EditProfileForm(forms.ModelForm):
 	class Meta:
 		model = Profile
-		fields = ['age','gender','bio','date','country']
+		fields = ['age','gender','bio','date','country','nickname']
 		widgets = {'date':extras.SelectDateWidget(years=years, attrs={"class":"form-control"}),
 		'country': CountrySelectWidget(attrs={"class":"form-control"}),
 		'age': forms.TextInput(attrs={"class":"form-control"}),
-		'bio': forms.TextInput(attrs={"class":"form-control"})}
+		'bio': forms.TextInput(attrs={"class":"form-control"}),
+		'nickname':forms.TextInput(attrs={"class":"form-control"})}
 		# 'gender':forms.ChoiceField(attrs={"class":"form-control"})} #bug
 	
 	def clean(self):
