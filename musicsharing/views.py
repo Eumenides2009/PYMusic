@@ -169,12 +169,13 @@ def profile(request,username):
 		return home(request)
 	else:
 		try:
-			user = User.objects.get(username=username)
-			return TemplateResponse(request,'profile.html',{'user':user})
-		except User.DoesNotExist:
+			profile = Profile.objects.get(user__username=username)
+			return TemplateResponse(request,'profile.html',{'profile':profile})
+		except Profile.DoesNotExist:
 			if username != "":
 				messages.info(request,'User ' + username + ' does not exists')
-			return TemplateResponse(request,'profile.html',{'user':request.user})
+			profile = Profile.objects.get(user=request.user)
+			return TemplateResponse(request,'profile.html',{'profile':profile})
 
 
 @login_required
