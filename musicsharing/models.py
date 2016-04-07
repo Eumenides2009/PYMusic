@@ -32,10 +32,10 @@ class Profile(models.Model):
 	gender_choice = (
 		('M','Male'),
 		('F','Female'),
-		('G','Gay'),
-		('L','Lesbian'),
-		('B','Bisexual'),
-		('T','Transgender'),
+	#	('G','Gay'),
+	#	('L','Lesbian'),
+	#	('B','Bisexual'),
+	#	('T','Transgender'),
 		('D','undefined :)')
 		)
 	user = models.ForeignKey(User,on_delete=models.CASCADE)

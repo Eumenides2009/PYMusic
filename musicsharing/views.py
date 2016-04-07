@@ -225,6 +225,12 @@ def get_profile_picture(request,profile_id):
 		return HttpResponse(profile.picture,content_type=guess_type(profile.picture.name))
 
 # song section
+
+@login_required
+def manage_songs(request):
+	song_list = Music.objects.filter(user=request.user)
+	return TemplateResponse(request,'manage_songs.html',{'song_list':song_list})
+
 @login_required
 @transaction.atomic
 def remove_song_repo(request):
@@ -269,10 +275,7 @@ def playlist(request):
 		i.update_count()
 	return TemplateResponse(request,'playlist.html',{'playlist':playlist_collection})
 
-@login_required
-def manage_songs(request):
-	song_list = Music.objects.filter(user=request.user)
-	return TemplateResponse(request,'manage_songs.html',{'song_list':song_list})
+
 
 @login_required
 @transaction.atomic
@@ -437,7 +440,7 @@ def search(request):
 		if request.GET['selecter_basic'] == '1':
 			return redirect('profile',username=request.GET['search_user'])
 		else:
-			print 'aa'
+			
 			return redirect('home')
 
 @login_required
