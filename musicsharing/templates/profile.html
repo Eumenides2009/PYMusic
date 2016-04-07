@@ -2,6 +2,7 @@
 
 {% block content %}
 <div id="profile" class="form-edit-profile">
+	<form method="post" action="{% url 'musicsharing.views.edit_profile'%}">
 	<h1>Edit Profile</h1>
     <div class="form-group upload-btn">
         <div class="upload-modal-box">
@@ -14,37 +15,27 @@
     </div>
     <div class="input-group">
         <span class="input-group-addon">Age</span>
-        <input type="text" class="form-control">
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon">Sex</span>
-        <input type="text" class="form-control">
+        {{ form.age }}
     </div>
     <div class="input-group">
         <span class="input-group-addon">Bio</span>
-        <input type="text" class="form-control">
+        {{ form.bio }}
     </div>
     <div class="input-group">
         <span class="input-group-addon">Gender</span>
         <div class="styled-select blue semi-square">
-            <select>
-                <option>Here is the first option</option>
-                <option>The second option</option>
-                <option>The third option</option>
-            </select>
+            {{ form.gender }}
         </div>
     </div>
     <div class="input-group">
         <span class="input-group-addon">Country</span>
         <div class="styled-select blue semi-square">
-            <select>
-                <option>Here is the first option</option>
-                <option>The second option</option>
-                <option>The third option</option>
-            </select>
+            {{ form.country }}
         </div>
     </div>
-    <button type="button" id="submit-edit-list" class="btn btn-lg btn-primary btn-block">Submit</button>
+    <button type="submit" id="submit-edit-list" class="btn btn-lg btn-primary btn-block">Submit</button>
+    {% csrf_token %}
+</form>
 </div>
 {% if messages %}
 <ul class="messages">
@@ -57,11 +48,6 @@
     {% endfor %}
 </ul>
 {% endif %}
-<form method="post" action="{% url 'musicsharing.views.edit_profile'%}">
-{{ form }}
-<input type="submit">
-{% csrf_token %}
-</form>
-{{ profile.country }}
+
 </div>
 {% endblock %}

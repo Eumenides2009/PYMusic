@@ -186,6 +186,9 @@ table .glyphicon {
   color: #434a54;
     margin-left: 5px;
 }
+.input-group .form-control:first-child {
+    width: 268px;
+}
 .styled-select.slate {
   background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
   height: 34px;

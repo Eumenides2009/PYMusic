@@ -23,7 +23,11 @@ class EditProfileForm(forms.ModelForm):
 	class Meta:
 		model = Profile
 		fields = ['age','gender','bio','date','country']
-		widgets = {'date':extras.SelectDateWidget(years=years),'country': CountrySelectWidget()}
+		widgets = {'date':extras.SelectDateWidget(years=years, attrs={"class":"form-control"}),
+		'country': CountrySelectWidget(attrs={"class":"form-control"}),
+		'age': forms.TextInput(attrs={"class":"form-control"}),
+		'bio': forms.TextInput(attrs={"class":"form-control"})}
+		# 'gender':forms.ChoiceField(attrs={"class":"form-control"})} #bug
 	
 	def clean(self):
 		cleaned_data = super(EditProfileForm,self).clean()
