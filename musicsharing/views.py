@@ -178,7 +178,8 @@ def get_audio_index(request):
 @login_required
 def profile(request,username):
 	if request.method == 'POST':
-		return home(request)
+		profile = Profile.objects.get(user=request.user)
+		return TemplateResponse(request,'profile.html',{'profile':profile})
 	else:
 		try:
 			profile = Profile.objects.get(user__username=username)
@@ -193,23 +194,23 @@ def profile(request,username):
 @login_required
 def edit_profile(request):
 	if request.method == 'GET':
-		profile = Profile.objects.get(user=request.user)
-		form = EditProfileForm(instance=profile)
+		e_profile = Profile.objects.get(user=request.user)
+		form = EditProfileForm(instance=e_profile)
 		return TemplateResponse(request,'edit_profile.html',{'form':form})
 	else:
 		try:
-			profile = Profile.objects.get(user=request.user)		
+			e_profile = Profile.objects.get(user=request.user)		
 		except Profile.DoesNotExist:
-			profile = Profile()
+			e_profile = Profile()
 
-		form = EditProfileForm(request.POST,instance=profile)
+		form = EditProfileForm(request.POST,instance=e_profile)
 
 		if not form.is_valid():
-			return TemplateResponse(request,'edit_profile.html',{'form':form})
+			return TemplateResponse(request,'profile.html',{})
 		
 		form.save()
 
-		return TemplateResponse(request,'profile.html',{})
+		return redirect('profile',username='')
 
 
 # song section

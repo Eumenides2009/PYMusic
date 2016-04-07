@@ -7,26 +7,26 @@
     <div class="icon-center">
     <img class="events-object img-rounded icon" src="{% static "img/bg.jpg" %}">
 </div>
-    <h1>yayun</h1>
+    <h1>{{profile.user.username}}</h1>
     
     <div class="input-group">
         <span class="input-group-addon">Nickname</span>
-        <input type="text" class="form-control" disabled value="dddddddd">
+        <input type="text" class="form-control" disabled value="{{profile.nickname}}">
     </div>
     <div class="input-group">
         <span class="input-group-addon">Age</span>
-        <input type="text" class="form-control" disabled value="dd">
+        <input type="text" class="form-control" disabled value="{{profile.age}}">
     </div>
     <div class="input-group">
         <span class="input-group-addon">Gender</span>
-        <input type="text" class="form-control" disabled value="dd">
+        <input type="text" class="form-control" disabled value="{{profile.gender}}">
     </div>
     <div class="input-group">
         <span class="input-group-addon">Country</span>
-        <input type="text" class="form-control" disabled value="dd">
+        <input type="text" class="form-control" disabled value="{{profile.country.name}}">
     </div>
         <h5>Bio</h5>
-        <textarea class="form-control" rows="3" disabled>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</textarea>
+        <textarea class="form-control" rows="3" disabled>{{profile.bio}}</textarea>
     
     <button type="submit" id="submit-edit-list" class="btn btn-lg btn-primary btn-block">Follow</button>
     {% csrf_token %}
