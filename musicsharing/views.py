@@ -12,6 +12,7 @@ from django.template.response import TemplateResponse
 from django.contrib import messages
 from mimetypes import guess_type
 from django.core import serializers
+from allauth.account.signals import user_signed_up,user_logged_in
 from musicsharing.models import *
 from musicsharing.forms import *
 import eyed3
@@ -20,6 +21,17 @@ import chardet
 
 temp_upload_path = "/tmp/django_upload"
 
+def add_profile(**kwargs):
+	try:
+		profile = Profile.objects.get(user=kwargs['request'].user)
+	except Profile.DoesNotExist:
+		profile = Profile(user=kwargs['request'].user)
+		profile.save()
+		print 'add new profile'
+	
+
+user_signed_up.connect(add_profile)
+user_logged_in.connect(add_profile)
 
 # Create your views here.
 
