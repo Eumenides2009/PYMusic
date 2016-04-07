@@ -166,14 +166,15 @@ def get_audio_index(request):
 @login_required
 def profile(request,username):
 	if request.method == 'POST':
-		return reverse(views.home)
+		return home(request)
 	else:
 		try:
 			user = User.objects.get(username=username)
 			return TemplateResponse(request,'profile.html',{'user':user})
 		except User.DoesNotExist:
-			messages.info(request,'User ' + username + ' does not exists')
-			return TemplateResponse(request,'home.html',{})
+			if username != "":
+				messages.info(request,'User ' + username + ' does not exists')
+			return TemplateResponse(request,'profile.html',{'user':request.user})
 
 
 @login_required
