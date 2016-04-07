@@ -1,0 +1,7 @@
+{% extends 'ajax_select/autocomplete.html' %}
+
+{% block extra_script %}
+<script type="text/javascript">
+    $("#{{html_id}}").addClass("form-control search-query");
+</script>
+{% endblock %}

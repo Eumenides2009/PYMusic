@@ -60,8 +60,9 @@ class PlayList(models.Model):
 
 
 class Search(models.Model):
-	search_user = models.CharField(max_length=400)
-	search_song = models.CharField(max_length=400)
+	search_user = models.CharField(max_length=100)
+	search_song = models.CharField(max_length=100)
+	add_song = models.CharField(max_length=100)
 
 	def __unicode__(self):
-		return "Search: " + self.keyword
+		return "Search: " + self.keyword 

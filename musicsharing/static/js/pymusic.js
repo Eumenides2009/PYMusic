@@ -104,7 +104,7 @@ function add_song_to_playlist() {
     var id = $("#addSongModal").children('input').val();
     
     var csrf = getCSRFToken();
-    var song_name = $("#addSongModal #id_search_song").val();
+    var song_name = $($("#addSongModal input").get(0)).val();
     $.ajax({
             url: "/add-song",
             type: "post",

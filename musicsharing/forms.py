@@ -43,7 +43,7 @@ class SearchUserForm(forms.ModelForm):
 	class Meta:
 		model = Search
 		fields = ['search_user']
-		widgets = {'search_user': TextInput(attrs={'class':'form-control search-query'})}
+		
 
 	search_user = AutoCompleteField('search_user',required=False,help_text=None)
 
@@ -52,10 +52,16 @@ class SearchSongForm(forms.ModelForm):
 	class Meta:
 		model = Search
 		fields = ['search_song']
-		widgets = {'search_song': TextInput(attrs={'class':'form-control search-query'})}
 
 	search_song = AutoCompleteField('search_song',required=False,help_text=None)
 
+
+class AddSongForm(forms.ModelForm):
+	class Meta:
+		model = Search
+		fields = ['add_song']
+
+	add_song = AutoCompleteField('add_song',required=True,help_text=None)
 
 
 # class CommentForm(forms.ModelForm):

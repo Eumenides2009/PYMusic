@@ -35,4 +35,15 @@ class SearchSongLookup(LookupChannel):
 		return self.model.objects.filter(name__icontains=q)
 
 	def format_item_display(self,item):
-		return u"<span class='tag'>%s  %s  %s</span>" % (item.name,item.artist,item.album)
+		return u"<span class='tag'>%s</span>" % (item.name)
+
+@register('add_song')
+class AddSongLookup(LookupChannel):
+	model = Music
+
+	def get_query(self,q,request):
+		return self.model.objects.filter(name__icontains=q, user=request.user)
+
+
+	def format_item_display(self,item):
+		return u"<span class='tag'>%s</span>" % (item.name)
