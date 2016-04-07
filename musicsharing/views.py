@@ -390,7 +390,7 @@ def add_song(request):
 			try:
 				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
 				try:
-					music = Music.Objects.get(name=request.POST['song_name'],user=request.user)
+					music = Music.objects.get(name=request.POST['song_name'],user=request.user)
 					playlist.music.add(music)
 					playlist.save()
 					return HttpResponse(status=200)
