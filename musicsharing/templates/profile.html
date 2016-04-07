@@ -27,8 +27,9 @@
     </div>
         <h5>Bio</h5>
         <textarea class="form-control" rows="3" disabled>{{profile.bio}}</textarea>
-    
+    {% if profile.user.username != user.username %}
     <button type="submit" id="submit-edit-list" class="btn btn-lg btn-primary btn-block">Follow</button>
+    {% endif %}
     {% csrf_token %}
 </form>
 </div>

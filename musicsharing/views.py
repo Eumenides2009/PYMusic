@@ -306,7 +306,7 @@ def create_list(request):
 		form.save()
 
 		playlist_collection = PlayList.objects.filter(user=request.user)
-		return TemplateResponse(request,'playlist.html',{'playlist':playlist_collection})
+		return redirect('playlist')
 	
 
 @login_required
