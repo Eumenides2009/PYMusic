@@ -11,9 +11,9 @@ $(document).ready(function() {
 	document.getElementById("song-option").addEventListener("click", change_search_state);
 	// document.getElementById("edit-playlist-btn").addEventListener("click", edit_playlist);
 	$("#submit-edit-list").on("click", edit_playlist);
-    $("#edit-playlist-btn").on("click", edit_playlist_btn);
+    $(".edit-playlist-btn").on("click", edit_playlist_btn);
 	$(".table").on("click","span", delete_song_in_playlist);
-    $("#add-song-to-list-btn").on("click", add_song_to_list_btn);
+    $(".add-song-to-list-btn").on("click", add_song_to_list_btn);
     $("#submit-add-song").on("click", add_song_to_playlist);
 
 
@@ -88,23 +88,23 @@ function change_search_state() {
 }
 function edit_playlist_btn() {
     var state = this.children[0].getAttribute("value");
-    var modal = $("#myModal");
-    var hidden_html = '<input type="' + 'hidden" id="playlist-id-in-modal" value="' + state + '">';
-    modal.append(hidden_html);
+    var modal = $("#myModal input");
+    var input = $($("#myModal input")[1]);
+    input.val(state);
 }
 function add_song_to_list_btn() {
-    console.log(this);
     var state = this.children[0].getAttribute("value");
-    console.log(state);
     var modal = $("#addSongModal");
-    var hidden_html = '<input type="' + 'hidden" id="playlist-id-in-modal" value="' + state + '">';
-    modal.append(hidden_html);
+    var input = $($("#addSongModal input")[1]);
+    input.val(state);
 }
 function add_song_to_playlist() {
     var id = $("#addSongModal").children('input').val();
     
     var csrf = getCSRFToken();
     var song_name = $($("#addSongModal input").get(0)).val();
+    console.log(id);
+    console.log(song_name);
     $.ajax({
             url: "/add-song",
             type: "post",
@@ -113,10 +113,10 @@ function add_song_to_playlist() {
             success: function(data) {
             },
             error: function() {
-                console.log(ddddd);
+                console.log("ERROR");
             }
         });
-    // window.location.href='/playlist'; 
+    window.location.href='/playlist'; 
 }
 function edit_playlist() {
 	var id = $("#myModal").children('input').val();
