@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if messages %}
+<ul class="messages">
+    {% for msg in messages %}       
+    <li>
+        <div class="alert alert-{{msg.level_tag}}" role="alert">
+    {{msg.message}}
+    </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 <div id="profile" class="form-edit-profile">
 	<form method="post" action="{% url 'musicsharing.views.edit_profile'%}">
 	{% load staticfiles %}
@@ -33,17 +45,6 @@
     {% csrf_token %}
 </form>
 </div>
-{% if messages %}
-<ul class="messages">
-    {% for msg in messages %}       
-    <li>
-        <div class="alert alert-{{msg.level_tag}}" role="alert">
- 	{{msg.message}}
-	</div>
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
 
 </div>
 {% endblock %}
