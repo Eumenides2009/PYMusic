@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'postman',
     'ajax_select',
     'pinax.notifications',
+    'django_countries',
 
 ]
 

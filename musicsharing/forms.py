@@ -4,7 +4,8 @@ from django.forms.widgets import PasswordInput,TextInput, Textarea, FileInput
 from django.contrib.auth.models import User
 from musicsharing.models import *
 from ajax_select.fields import AutoCompleteSelectField, AutoCompleteSelectMultipleField,AutoCompleteField
-
+from django.forms import extras
+from django_countries.widgets import CountrySelectWidget
 # class PostForm(forms.ModelForm):
 # 	class Meta:
 # 		model = Post
@@ -17,11 +18,12 @@ from ajax_select.fields import AutoCompleteSelectField, AutoCompleteSelectMultip
 # 		return cleaned_data
 
 	
-
+years = [x for x in range(1980,2017)]
 class EditProfileForm(forms.ModelForm):
 	class Meta:
 		model = Profile
-		fields = ['age','gender','bio']
+		fields = ['age','gender','bio','date','country']
+		widgets = {'date':extras.SelectDateWidget(years=years),'country': CountrySelectWidget()}
 	
 	def clean(self):
 		cleaned_data = super(EditProfileForm,self).clean()

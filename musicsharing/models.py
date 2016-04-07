@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from django_countries.fields import CountryField
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
@@ -40,7 +41,9 @@ class Profile(models.Model):
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
 	bio = models.CharField(max_length=400,null=True)
 	gender = models.CharField(max_length=10,choices=gender_choice,default='D')
+	date = models.DateField(null=True)
 	age = models.IntegerField(default=1,validators=[MaxValueValidator(100),MinValueValidator(1)])
+	country = CountryField(blank_label='(select country)',null=True)
 
 
 class PlayList(models.Model):
