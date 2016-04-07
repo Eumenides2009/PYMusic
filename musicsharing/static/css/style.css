@@ -36,10 +36,7 @@ body {
 	width: 80px;
 	margin-right: 10px;
 }
-/*.selecter .selecter-selected {
-    display: inline; 
-    min-width: 30px;
-}*/
+
 .search-only .search-icon {
     left: 92.5px;
 }
@@ -144,4 +141,81 @@ table .glyphicon {
     border-style: dotted;
     padding: 10px 10px 5px 10px;
     border-radius: 10px;
+}
+
+/* profile */
+#profile {
+    background: rgba(255, 255, 255, 0.65);
+    padding: 40px;
+    min-height: 400px;
+    border-radius: 5px;
+}
+@media (min-width: 1200px){
+#profile {
+    width: 50%;
+    margin: 0 auto;
+}
+}
+.form-edit-profile .input-group {
+    height: 45px;
+    margin-bottom: 15px;
+}
+.input-group input.form-control {
+    height: 45px;
+}
+.input-group-addon {
+    color: #fff;
+    background-color: #7cd1ef;
+    border-color: #4fc1e9;
+}
+.styled-select {
+  background: url(http://i62.tinypic.com/15xvbd5.png)no-repeat 65% 0;
+    background-position: right 10px center;
+    height: 45px;
+  overflow: hidden;
+  width: 240px;
+}
+.styled-select select {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  height: 45px;
+  padding: 5px;
+  /* If you add too much padding here, the options won't show in IE */
+  width: 268px;
+  color: #434a54;
+    margin-left: 5px;
+}
+.styled-select.slate {
+  background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+  height: 34px;
+  width: 240px;
+}
+.styled-select.slate select {
+  border: 1px solid #ccc;
+  font-size: 16px;
+  height: 34px;
+  width: 268px;
+}
+.blue {
+  background-color:  #fff;
+}
+.rounded {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+.semi-square {
+  -webkit-border-top-right-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-top-right-radius: 5px;
+  -moz-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+#profile h1 {
+    font-size: 35px;
+    text-align: center;
+    margin-top: 0px;
+    font-weight: 500;
 }
