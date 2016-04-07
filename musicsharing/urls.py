@@ -26,6 +26,9 @@ urlpatterns =  patterns('postman.views',
 	url(r'^get-profile-picture/(?P<profile_id>\d+)$',views.get_profile_picture),
 
 	# list
+	url(r'^playlist$',views.playlist,name='playlist'),
+	url(r'^edit-playlist$',views.edit_playlist),
+	url(r'^manage-songs$',views.manage_songs),
 	url(r'^create-list$',views.create_list),
 	url(r'^get-list/(?P<list_id>\d+)$',views.get_list),
 	url(r'^delete-list$',views.delete_list),
@@ -36,15 +39,16 @@ urlpatterns =  patterns('postman.views',
 	url(r'^delete-song$',views.delete_song),
 	url(r'^add-song$',views.add_song),
 
+	# search
+
+	url(r'^search/$',views.search),
 
 	# third party package
 	url(r'messages/',include('postman.urls',namespace='postman',app_name='postman')),
 	url(r'notifications/',include('pinax.notifications.urls')),
 	url(r'^ajax_select/', include('ajax_select.urls')),
 	url(r'^accounts/',include('allauth.urls')),
-	url(r'^playlist$',views.playlist,name='playlist'),
-	url(r'^edit-playlist$',views.edit_playlist),
-	url(r'^manage-songs$',views.manage_songs),
+	
 
 	url(r'^friend-stream$',views.friend_stream),	
 ] 

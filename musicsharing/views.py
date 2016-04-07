@@ -428,6 +428,18 @@ def add_song(request):
 			except PlayList.DoesNotExist:
 				return HttpResponse(status=404)
 
+# search section
+@login_required
+def search(request):
+	if request.method == 'POST':
+		return redirect('home')
+	else:
+		if request.GET['selecter_basic'] == '1':
+			return redirect('profile',username=request.GET['search_user'])
+		else:
+			print 'aa'
+			return redirect('home')
+
 @login_required
 def auth_return(request):
 	pass
