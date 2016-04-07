@@ -180,7 +180,8 @@ def profile(request,username):
 @login_required
 def edit_profile(request):
 	if request.method == 'GET':
-		return reverse(views.profile,args=[request.user.username])
+		form = EditProfileForm()
+		return TemplateResponse(request,'profile.html',{'form':form})
 	else:
 		try:
 			profile = Profile.objects.get(user=request.user)		
@@ -194,7 +195,7 @@ def edit_profile(request):
 		
 		form.save()
 
-		return reverse(views.profile,args=[request.user.username])
+		return TemplateResponse(request,'profile.html',{})
 
 
 # song section

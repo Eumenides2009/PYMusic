@@ -21,7 +21,7 @@ urlpatterns =  patterns('postman.views',
 	url(r'^remove-song-repo$',views.remove_song_repo),
 
 	# profile
-	url(r'^profile/(?P<username>.*)$',views.profile),
+	url(r'^profile/(?P<username>.*)$',views.profile,name='profile'),
 	url(r'^edit-profile$',views.edit_profile),
 
 	# list
