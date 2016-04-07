@@ -203,7 +203,7 @@ def edit_profile(request):
 		except Profile.DoesNotExist:
 			e_profile = Profile()
 
-		form = EditProfileForm(request.POST,instance=e_profile)
+		form = EditProfileForm(request.POST,request.FILES,instance=e_profile)
 
 		if not form.is_valid():
 			return TemplateResponse(request,'edit_profile.html',{})
@@ -212,6 +212,17 @@ def edit_profile(request):
 
 		return redirect('profile',username='')
 
+@login_required
+def get_profile_picture(request,profile_id):
+	if request.method == 'POST':
+		return HttpResponse(status=400)
+	else:
+		profile = get_object_or_404(Profile,id=profile_id)
+
+		if not profile.picture:
+			return HttpResponse(status=404)
+
+		return HttpResponse(profile.picture,content_type=guess_type(profile.picture.name))
 
 # song section
 @login_required

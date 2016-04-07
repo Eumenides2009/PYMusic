@@ -23,6 +23,7 @@ urlpatterns =  patterns('postman.views',
 	# profile
 	url(r'^profile/(?P<username>.*)$',views.profile,name='profile'),
 	url(r'^edit-profile$',views.edit_profile),
+	url(r'^get-profile-picture/(?P<profile_id>\d+)$',views.get_profile_picture),
 
 	# list
 	url(r'^create-list$',views.create_list),

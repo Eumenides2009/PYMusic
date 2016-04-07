@@ -5,7 +5,7 @@
 	<form method="post" action="{% url 'musicsharing.views.edit_profile'%}">
 	{% load staticfiles %}
     <div class="icon-center">
-    <img class="events-object img-rounded icon" src="{% static "img/bg.jpg" %}">
+    <img class="events-object img-rounded icon" src="{% url 'musicsharing.views.get_profile_picture' profile.id %}">
 </div>
     <h1>{{profile.user.username}}</h1>
     

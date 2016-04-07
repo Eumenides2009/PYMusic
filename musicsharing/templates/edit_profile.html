@@ -2,11 +2,11 @@
 
 {% block content %}
 <div id="profile" class="form-edit-profile">
-	<form method="post" action="{% url 'musicsharing.views.edit_profile'%}">
+	<form method="post" action="{% url 'musicsharing.views.edit_profile'%}" enctype="multipart/form-data">
 	<h1>Edit Profile</h1>
     <div class="form-group upload-btn">
         <div class="upload-modal-box">
-            <a class="file-input-wrapper custom-file-input file-input-wrapper btn btn-primary" data-original-title="" title=""><span><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Upload Icon</span><input id="fileToUploadOne" type="file" title="Upload song" size="45" name="music" class="custom-file-input file-input-wrapper btn btn-default btn-warning"></a>
+            <a class="file-input-wrapper custom-file-input file-input-wrapper btn btn-primary" data-original-title="" title=""><span><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Upload Photo</span>{{form.picture}}</a>
         </div>
     </div>
     <div class="input-group">
