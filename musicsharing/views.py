@@ -370,7 +370,8 @@ def delete_song(request):
 			try:
 				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
 				try:
-					playlist.music.get(name=request.POST['song_name']).delete()
+					music_to_delete = playlist.music.get(name=request.POST['song_name'])
+					playlist.music.remove(music_to_delete)
 					playlist.save()
 					return HttpResponse(status=200)
 				except Music.DoesNotExist:					
@@ -395,7 +396,7 @@ def add_song(request):
 					playlist.save()
 					return HttpResponse(status=200)
 				except Music.DoesNotExist:
-					return HttpResponse(status=404)
+					return HttpResponse(status=404) 
 			except PlayList.DoesNotExist:
 				return HttpResponse(status=404)
 
