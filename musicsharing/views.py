@@ -195,7 +195,7 @@ def edit_profile(request):
 	if request.method == 'GET':
 		profile = Profile.objects.get(user=request.user)
 		form = EditProfileForm(instance=profile)
-		return TemplateResponse(request,'profile.html',{'form':form})
+		return TemplateResponse(request,'edit_profile.html',{'form':form})
 	else:
 		try:
 			profile = Profile.objects.get(user=request.user)		
@@ -205,7 +205,7 @@ def edit_profile(request):
 		form = EditProfileForm(request.POST,instance=profile)
 
 		if not form.is_valid():
-			return TemplateResponse(request,'profile.html',{'form':form})
+			return TemplateResponse(request,'edit_profile.html',{'form':form})
 		
 		form.save()
 

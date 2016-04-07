@@ -222,3 +222,7 @@ table .glyphicon {
     margin-top: 0px;
     font-weight: 500;
 }
+#profile .form-control.disabled, #profile .form-control[disabled] {
+     background-color: #fff; 
+     border-color: #aab2bd; 
+}
