@@ -34,7 +34,7 @@ class Profile(models.Model):
 		('G','Gay'),
 		('L','Lesbian'),
 		('B','Bisexual'),
-		('T','transgender'),
+		('T','Transgender'),
 		('D','undefined :)')
 		)
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
