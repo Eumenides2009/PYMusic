@@ -72,6 +72,19 @@ class AddSongForm(forms.ModelForm):
 	add_song = AutoCompleteField('add_song',required=True,help_text=None)
 
 
+class PostForm(forms.ModelForm):
+	class Meta:
+		model = Post
+		fields = ['content']
+
+	music_name = forms.CharField(max_length=160)
+
+	def clean(self):
+		cleaned_data = super(PostForm,self).clean()
+
+		return cleaned_data
+
+
 # class CommentForm(forms.ModelForm):
 # 	class Meta:
 # 		model = Comment

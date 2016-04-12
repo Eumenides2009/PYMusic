@@ -7,7 +7,7 @@ from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, FileResponse
 from django.db import transaction
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect,render
 from django.template.response import TemplateResponse
 from django.contrib import messages
 from mimetypes import guess_type
@@ -474,8 +474,52 @@ def unfollow(request,username):
 		except User.DoesNotExist:
 			return redirect('profile',username="")
 
+@login_required
+def friend_stream(request):
+	pass
 
+@login_required
+def get_comment(request):
+	pass
 
+# post section
+
+def add_post(request,musicname):
+	try:
+		music = Music.objects.get(user=request.user,name=musicname)
+		post_form = PostForm(initial={'music_name':music.name})
+		return TemplateResponse(request,'add_post.html',{'post_form':post_form,'music':music})
+	except Music.DoesNotExist:
+		music = None
+		post_form = PostForm()
+		return TemplateResponse(request,'add_post.html',{'post_form':post_form})
+
+	
+
+def post(request):
+	if request.method == 'GET':
+		return redirect('add_post',musicname="")
+	else:
+		post = Post(user=request.user)
+		form = PostForm(request.POST,instance=post)
+
+		if not form.is_valid():
+			if request.POST.get('music_name'):
+				try:
+					music = Music.objects.get(user=request.user,name=request.POST['music_name'])
+					return TemplateResponse(request,'add_post.html',{'post_form':form,'music':music})
+				except Music.DoesNotExist:
+					return TemplateResponse(request,'add_post.html',{'post_form':form})
+			else:
+				return TemplateResponse(request,'add_post.html',{'post_form':form})
+			
+		try:
+			music = Music.objects.get(user=request.user,name=form.cleaned_data['music_name'])
+			post.music = music 
+			form.save()
+			return redirect('friend_stream')
+		except Music.DoesNotExist:
+			return TemplateResponse(request,'add_post.html',{'post_form':form})
 
 
 @login_required

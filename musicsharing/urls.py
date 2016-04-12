@@ -48,6 +48,11 @@ urlpatterns =  patterns('postman.views',
 	url(r'^follow/(?P<username>.+)$',views.follow),
 	url(r'^unfollow/(?P<username>.+)$',views.unfollow),
 
+
+	# post
+	url(r'^add-post/(?P<musicname>.*)$',views.add_post),
+	url(r'^post$',views.post),
+
 	# third party package
 	url(r'messages/',include('postman.urls',namespace='postman',app_name='postman')),
 	url(r'notifications/',include('pinax.notifications.urls')),

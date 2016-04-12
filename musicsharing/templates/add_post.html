@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if music %}
+<div>
+
+
+</div>
+{% endif %}
+ 
+<form method="post" action="{% url 'musicsharing.views.post' %}">
+{{ post_form }}
+
+<input type="submit">
+{% csrf_token %}
+</form>
+
+{% endblock %}
