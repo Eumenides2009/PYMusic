@@ -439,9 +439,44 @@ def search(request):
 	else:
 		if request.GET['selecter_basic'] == '1':
 			return redirect('profile',username=request.GET['search_user'])
-		else:
-			
+		else:			
 			return redirect('home')
+
+# friend section
+@login_required
+@transaction.atomic
+def follow(request,username):
+	if request.method == 'GET':
+		return redirect('profile',username="")
+	else:
+		try:
+			user = User.objects.get(username=username)
+			profile = Profile.objects.get(user=request.user)
+			profile.friends.add(user)
+			profile.save()
+			return redirect('profile',username="")
+		except User.DoesNotExist:
+			return redirect('profile',username="")
+
+
+@login_required
+@transaction.atomic
+def unfollow(request,username):
+	if request.method == 'GET':
+		return redirect('profile',username="")
+	else:
+		try:
+			user = User.objects.get(username=username)
+			profile = Profile.objects.get(user=request.user)
+			profile.friends.remove(user)
+			profile.save()
+			return redirect('profile',username="")
+		except User.DoesNotExist:
+			return redirect('profile',username="")
+
+
+
+
 
 @login_required
 def auth_return(request):
