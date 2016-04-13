@@ -53,6 +53,10 @@ class Post(models.Model):
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
 	music = models.ForeignKey(Music,on_delete=models.CASCADE)
 
+class Comment(models.Model):
+	content = models.CharField(max_length=140)
+	user = models.ForeignKey(User,on_delete=models.CASCADE)
+	Post = models.ForeignKey(Post,on_delete=models.CASCADE)
 
 class PlayList(models.Model):
 	name = models.CharField(max_length=160)
