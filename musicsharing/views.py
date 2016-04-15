@@ -1,7 +1,9 @@
 import os
 import logging
 import httplib2
-
+import random,string
+from cStringIO import StringIO
+from PIL import Image
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.core.urlresolvers import reverse
@@ -12,6 +14,7 @@ from django.template.response import TemplateResponse
 from django.contrib import messages
 from mimetypes import guess_type
 from django.core import serializers
+from django.core.files.base import ContentFile
 from allauth.account.signals import user_signed_up,user_logged_in
 from musicsharing.models import *
 from musicsharing.forms import *
@@ -44,6 +47,7 @@ def get_music_metadata(file):
 	music = eyed3.load(os.path.join(temp_upload_path,file.name))
 
 	if music:
+
 		if music.tag:
 			meta['title'] = music.tag.title
 			meta['author'] = music.tag.artist
@@ -51,6 +55,9 @@ def get_music_metadata(file):
 
 			if not meta['title']:
 				meta['title'] = file.name.split('.')[0]
+
+			if len(music.tag.images) > 0:
+				meta['image'] = music.tag.images[0].render()
 
 		else:
 			meta['title'] = file.name.split('.')[0]
@@ -134,10 +141,18 @@ def upload(request):
 	if not meta:
 		return TemplateResponse(request,'home.html',{'list_id':request.POST['list_id']})
 
-	if not request.FILES.get('picture'):
-		new_music = Music(name=meta['title'],artist=meta['author'],album=meta['album'],content=request.FILES['music'],user=request.user)
-	else:
-		new_music = Music(name=meta['title'],artist=meta['author'],album=meta['album'],content=request.FILES['music'],picture=request.FILES['picture'],user=request.user)
+	
+	new_music = Music(name=meta['title'],artist=meta['author'],album=meta['album'],content=request.FILES['music'],user=request.user)
+	
+	if request.FILES.get('picture'):
+		new_music.picture = request.FILES['picture']
+	# elif meta.get('image'):
+	# 	f = StringIO()
+	# 	f.write(meta['image'])
+	# 	f.seek(0)
+	# 	# pil_object = Image.open(f)
+	# 	# pil_object.save(f,format='JPEG')
+	# 	new_music.picture.save(meta['title'] + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)) + '.jpg',ContentFile(f.getvalue()))
 		
 	if request.FILES.get('lyric'):
 		new_music.lyric = request.FILES['lyric']
@@ -476,7 +491,7 @@ def unfollow(request,username):
 
 @login_required
 def friend_stream(request):
-	pass
+	return TemplateResponse(request,'friend_stream.html',{})
 
 @login_required
 def get_comment(request):
