@@ -55,7 +55,7 @@
                         </ul>
                     </li>
                     <li><a href="/friend-stream">Friend Stream</a></li>
-                    <li><a href="#">Add Post</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#addPost">Add Post</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <form class="navbar-form navbar-left" role="search" method="get" action="/search">
@@ -105,34 +105,34 @@
                 <h4 class="modal-title">Add Playlist</h4>
             </div>
             <div class="modal-body">
-              <form method="post" action="{% url 'musicsharing.views.create_list' %}" id="add-playlist" enctype="multipart/form-data">
-                <div class="row">
-                    <div class="col-xs-6">
-                        <div class="form-group">
-                            <label>Name of Playlist</label>
-                            <input type="text" name="name" class="form-control">
+                <form method="post" action="{% url 'musicsharing.views.create_list' %}" id="add-playlist" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Name of Playlist</label>
+                                <input type="text" name="name" class="form-control">
+                            </div>
                         </div>
                     </div>
-                </div>
-               <div class="row">
-    <div class="col-xs-6">
-        <div class="form-group upload-btn">
-            <div class="upload-modal-box">
-                <a class="file-input-wrapper custom-file-input file-input-wrapper btn btn-success" data-original-title="" title=""><span><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Upload Picture</span><input id="fileToUploadOne" type="file" title="Upload song" size="45" name="picture" class="custom-file-input file-input-wrapper btn btn-default btn-warning"></a>
-            </div>
-        </div>
-    </div>
-</div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <label>Brief Introduction</label>
-                            <textarea name="intro" class="form-control" rows="3" maxlength="100"></textarea>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group upload-btn">
+                                <div class="upload-modal-box">
+                                    <a class="file-input-wrapper custom-file-input file-input-wrapper btn btn-success" data-original-title="" title=""><span><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Upload Picture</span><input id="fileToUploadOne" type="file" title="Upload song" size="45" name="picture" class="custom-file-input file-input-wrapper btn btn-default btn-warning"></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {% csrf_token %}
-              </form>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label>Brief Introduction</label>
+                                <textarea name="intro" class="form-control" rows="3" maxlength="100"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    {% csrf_token %}
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -140,7 +140,53 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
+
+<!-- Add Post Modal -->
+<div class="modal fade" id="addPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Add Post</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'musicsharing.views.post' %}" id="add-post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Name of Song</label>
+                                <input type="text" name="name" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group upload-btn">
+                                <div class="upload-modal-box">
+                                    <a class="file-input-wrapper custom-file-input file-input-wrapper btn btn-success" data-original-title="" title=""><span><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Upload Picture</span><input id="fileToUploadOne" type="file" title="Upload song" size="45" name="picture" class="custom-file-input file-input-wrapper btn btn-default btn-warning"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label>Post Content</label>
+                                <textarea name="intro" class="form-control" rows="3" maxlength="100"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    {% csrf_token %}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" form="add-post" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- Bootstrap -->
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="{% static "js/site.min.js" %}"></script>

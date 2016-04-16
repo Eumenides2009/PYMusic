@@ -13,38 +13,168 @@
 </ul>
 {% endif %}
 
-<div id="profile" class="form-edit-profile">
+<!-- <div id="profile" class="form-edit-profile">
 	<form method="post" action="{% url 'musicsharing.views.edit_profile'%}">
 	{% load staticfiles %}
     <div class="icon-center">
     <img class="events-object img-rounded icon" src="{% url 'musicsharing.views.get_profile_picture' profile.id %}">
 </div>
     <h1>{{profile.user.username}}</h1>
-    
-    <div class="input-group">
-        <span class="input-group-addon">Nickname</span>
-        <input type="text" class="form-control" disabled value="{{profile.nickname}}">
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon">Age</span>
-        <input type="text" class="form-control" disabled value="{{profile.age}}">
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon">Gender</span>
-        <input type="text" class="form-control" disabled value="{{profile.gender}}">
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon">Country</span>
-        <input type="text" class="form-control" disabled value="{{profile.country.name}}">
-    </div>
-        <h5>Bio</h5>
-        <textarea class="form-control" rows="3" disabled>{{profile.bio}}</textarea>
+    <ul class="list--horz list--centered list--block list--comfy">
+    <li class="profile__bio">
+        <a data-modal="" class="media--inline content--tertiary" href="#bio-modal"><span class="media__img icon-user"></span>
+        <div class="media__body">About</div>
+        </a>
+        <div class="modal__container modal--scrollable mfp-hide" id="bio-modal">
+            <div class="modal__header">
+                <h3 class="modal__title">
+Linda Lorenzetti
+<span class=" btn--important btn--badge btn--xsmall">Hero</span>
+</h3>
+            </div>
+            <div class="modal__body content--secondary linebreaks auto_link">elearning enthusiast, presentation specialist, life-long learner, Articulate user.</div>
+        </div>
+    </li>
+    <li class="profile__location">
+        <div class="media--inline">
+            <span class="media__img icon-location"></span>
+            <div class="media__body">Toronto</div>
+        </div>
+    </li>
+    <li class="profile__link">
+        <a title="http://www.e-adventurer.com" target="_blank" class="media--inline content--tertiary" href="http://www.e-adventurer.com"><span class="media__img icon-globe"></span>
+<div class="media__body">Website</div>
+</a></li>
+    <li class="profile__contact">
+        <a data-login-required="true" data-modal="" data-modal-reset="off" class="media--inline content--tertiary" href="#contact-modal"><span class="media__img icon-envelope"></span>
+<div class="media__body">Contact Me</div>
+</a></li>
+</ul>
     {% if profile.user.username != user.username %}
     <button type="submit" id="submit-edit-list" class="btn btn-lg btn-primary btn-block">Follow</button>
     {% endif %}
     {% csrf_token %}
 </form>
+</div> -->
+
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">SPC</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="{% url 'musicsharing.views.get_profile_picture' profile.id %}" class="img-circle img-responsive"> </div>
+                
+                <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+                  <dl>
+                    <dt>DEPARTMENT:</dt>
+                    <dd>Administrator</dd>
+                    <dt>HIRE DATE</dt>
+                    <dd>11/12/2013</dd>
+                    <dt>DATE OF BIRTH</dt>
+                       <dd>11/12/2013</dd>
+                    <dt>GENDER</dt>
+                    <dd>Male</dd>
+                  </dl>
+                </div>-->
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Nickname</td>
+                        <td>{{profile.user.username}}</td>
+                      </tr>
+                      <tr>
+                        <td>Age</td>
+                        <td>23</td>
+                      </tr>
+                      <tr> 
+                        <td>Gender</td>
+                        <td>Male</td>
+                      </tr>
+                        <tr>
+                        <td>Country</td>
+                        <td>Philippines</td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td><a href="mailto:info@support.com">info@support.com</a></td>
+                      </tr>
+                        <td>Bio</td>
+                        <td>When the moon falls in your eyes, I know the sun has set. The fire still burns within me, since the day we met.
+                        </td>
+                           
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                  
+                  <a href="#" class="btn btn-primary"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>  Follow</a>
+                </div>
+
+              </div>
+
+              </div>
+            </div>
+                 <div class="panel-footer">
+                        
+                        <span class="pull-right">
+                            <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-envelope"></i></a>
+                        </span>
+                        <div style="clear:both;"> </div>
+                    </div>
+            
+          </div>
+<div class="well post">
+    <div class="media row">
+        <a class="pull-left col-md-2" href="#">
+            <img class="media-object img-rounded" src="http://placekitten.com/150/150">
+        </a>
+        <div class="col-md-10">
+            <h4 class="media-heading">Receta 2</h4>
+            <p class="blog-post-meta"><span>2016-03-07 20:17:16</span> &nbsp;&nbsp;&nbsp;&nbsp;by &nbsp;<a href="/profile/a">a</a><a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-comment pull-right" aria-hidden="true"></span></a></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. Quisque mauris augue, molestie</p>
+                    <form method="post" >
+                        <button type="submit" class="btn btn-primary addtosong">+ Add to Songs</button>
+                        {% csrf_token %}
+                    </form>
+            <div class="comments" id="comment-list-142">
+                <div class="row pull-left">
+                    <div class="col-md-1">
+                        <img class="img-rounded" src="http://placekitten.com/150/150" alt="...">
+                    </div>
+                    <div class="col-md-11">
+                        <div class="post-comments">
+                            <p class="blog-post-meta">2016-04-07 01:10:56 &nbsp;<a href="/profile/hyy9776@qq.com">hyy9776@qq.com</a> says : </p>
+                            <p>
+                                给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪
+                            </p>
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+                </div>
+                <div class="row pull-left">
+                    <div class="col-md-1">
+                        <img class="img-rounded" src="http://placekitten.com/150/150" alt="...">
+                    </div>
+                    <div class="col-md-11">
+                        <div class="post-comments">
+                            <p class="blog-post-meta">2016-04-07 01:10:56 &nbsp;<a href="/profile/hyy9776@qq.com">hyy9776@qq.com</a> says : </p>
+                            <p>
+                                给跪给跪
+                            </p>
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
-</div>
 {% endblock %}
