@@ -38,7 +38,7 @@ class Profile(models.Model):
 		('T','Transgender'),
 		('D','undefined :)')
 		)
-	user = models.ForeignKey(User,on_delete=models.CASCADE)
+	user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='profile')
 	bio = models.CharField(max_length=400,null=True,blank=True)
 	gender = models.CharField(max_length=10,choices=gender_choice,default='D',blank=True)
 	date = models.DateField(null=True,blank=True)
@@ -52,6 +52,7 @@ class Post(models.Model):
 	content = models.CharField(max_length=140)
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
 	music = models.ForeignKey(Music,on_delete=models.CASCADE)
+	date = models.DateTimeField(auto_now=True)
 
 class Comment(models.Model):
 	content = models.CharField(max_length=140)

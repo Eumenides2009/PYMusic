@@ -60,7 +60,7 @@ urlpatterns =  patterns('postman.views',
 	url(r'^accounts/',include('allauth.urls')),
 	
 
-	url(r'^friend-stream$',views.friend_stream),	
+	url(r'^friend-stream$',views.friend_stream,name='friend_stream'),	
 ] 
 
 

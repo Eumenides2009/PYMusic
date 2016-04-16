@@ -9,6 +9,7 @@ from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, FileResponse
 from django.db import transaction
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect,render
 from django.template.response import TemplateResponse
 from django.contrib import messages
@@ -491,7 +492,10 @@ def unfollow(request,username):
 
 @login_required
 def friend_stream(request):
-	return TemplateResponse(request,'friend_stream.html',{})
+	posts = Post.objects.filter(Q(user__in=request.user.profile.get().friends.all())|
+								Q(user=request.user)).order_by('-date')
+	
+	return TemplateResponse(request,'friend_stream.html',{'posts':posts})
 
 @login_required
 def get_comment(request):
