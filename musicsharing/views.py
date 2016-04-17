@@ -193,7 +193,10 @@ def profile(request,username):
 		profile = Profile.objects.get(user__username=username)
 		posts = Post.objects.filter(user__username=username).order_by('-date')
 		comments = Comment.objects.filter(post__in=posts.all()).order_by('date')
-		return TemplateResponse(request,'profile.html',{'profile':profile,'posts':posts, 'comments':comments})
+		follow = False
+		if User.objects.get(username=username) in request.user.profile.get().friends.all():
+			follow = True
+		return TemplateResponse(request,'profile.html',{'profile':profile,'posts':posts, 'comments':comments,'follow':follow})
 	except Profile.DoesNotExist:
 		if username != "":
 			messages.info(request,'User ' + username + ' does not exists')
@@ -458,7 +461,7 @@ def search(request):
 @login_required
 @transaction.atomic
 def follow(request,username):
-	if request.method == 'GET':
+	if request.method == 'POST':
 		return redirect('profile',username="")
 	else:
 		try:
@@ -466,7 +469,7 @@ def follow(request,username):
 			profile = Profile.objects.get(user=request.user)
 			profile.friends.add(user)
 			profile.save()
-			return redirect('profile',username="")
+			return redirect('profile',username=username)
 		except User.DoesNotExist:
 			return redirect('profile',username="")
 
@@ -474,7 +477,7 @@ def follow(request,username):
 @login_required
 @transaction.atomic
 def unfollow(request,username):
-	if request.method == 'GET':
+	if request.method == 'POST':
 		return redirect('profile',username="")
 	else:
 		try:
@@ -482,7 +485,7 @@ def unfollow(request,username):
 			profile = Profile.objects.get(user=request.user)
 			profile.friends.remove(user)
 			profile.save()
-			return redirect('profile',username="")
+			return redirect('profile',username=username)
 		except User.DoesNotExist:
 			return redirect('profile',username="")
 

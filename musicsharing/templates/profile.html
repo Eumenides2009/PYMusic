@@ -59,7 +59,7 @@ Linda Lorenzetti
 
           <div class="panel panel-info">
             <div class="panel-heading">
-              <h3 class="panel-title">SPC</h3>
+              <h3 class="panel-title">{{profile.user.username}}</h3>
             </div>
             <div class="panel-body">
               <div class="row">
@@ -111,8 +111,13 @@ Linda Lorenzetti
                      
                     </tbody>
                   </table>
-                  
-                  <a href="#" class="btn btn-primary"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>  Follow</a>
+                  {% if profile.user == user %}
+                    <a href="{% url 'musicsharing.views.edit_profile' %}" class="btn btn-primary"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>  Edit</a>
+                  {% elif not follow %}
+                  <a href="{% url 'musicsharing.views.follow' profile.user.username %}" class="btn btn-primary"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>  Follow</a>
+                  {% else %}
+                  <a href="{% url 'musicsharing.views.unfollow' profile.user.username %}" class="btn btn-primary"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>  UnFollow</a>
+                  {% endif %}
                 </div>
 
               </div>
