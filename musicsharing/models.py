@@ -32,13 +32,13 @@ class Music(models.Model):
 
 class Profile(models.Model):
 	gender_choice = (
-		('M','Male'),
-		('F','Female'),
-		('G','Gay'),
-		('L','Lesbian'),
-		('B','Bisexual'),
-		('T','Transgender'),
-		('D','undefined :)')
+		('Male','Male'),
+		('Female','Female'),
+		('Gay','Gay'),
+		('Lesbian','Lesbian'),
+		('Bisexual','Bisexual'),
+		('Transgender','Transgender'),
+		('Undefined','undefined :)')
 		)
 	user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='profile')
 	bio = models.CharField(max_length=400,null=True,blank=True)
