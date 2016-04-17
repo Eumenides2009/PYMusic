@@ -47,6 +47,7 @@ urlpatterns =  patterns('postman.views',
 	url(r'^friend-stream$',views.friend_stream,name='friend_stream'),
 	url(r'^follow/(?P<username>.+)$',views.follow),
 	url(r'^unfollow/(?P<username>.+)$',views.unfollow),
+	url(r'^my-friend$',views.my_friend),
 
 
 	# post

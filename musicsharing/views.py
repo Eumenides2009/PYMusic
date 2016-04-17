@@ -518,6 +518,12 @@ def friend_stream(request):
 	return TemplateResponse(request,'friend_stream.html',{'posts':posts, 'comments':comments})
 
 @login_required
+def my_friend(request):
+	friends = Profile.objects.filter(user__in=request.user.profile.get().friends.all())
+
+	return TemplateResponse(request,'my_friend.html',{'friends':friends})
+
+@login_required
 def get_comment(request):
 	pass
 
