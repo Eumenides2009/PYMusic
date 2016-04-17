@@ -16,3 +16,5 @@ class SearchBarMiddleware(object):
 
 		return response
 
+
+

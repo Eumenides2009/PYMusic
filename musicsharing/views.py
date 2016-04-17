@@ -78,9 +78,12 @@ def home(request):
 	list_id = 0
 	if request.method == 'GET' and request.GET.get('id',''):
 		list_id = request.GET.get('id')
+
+	search_result = ""	
+	if list_id == '-1':
+		search_result = request.GET.get('search_song')
 	
-	print list_id
-	return TemplateResponse(request,'home.html',{'list_id':list_id})
+	return TemplateResponse(request,'home.html',{'list_id':list_id,'search_result':search_result})
 
 @login_required
 def friend_stream(request):
@@ -339,12 +342,26 @@ def create_list(request):
 	
 
 @login_required
-def get_list(request,list_id):
+def get_list(request,list_id,song_name):
 	if request.method == 'POST':
 		return HttpResponse(status=400)
 	else:
+		print 'list_id' + list_id
 		if list_id == '0':
 			return get_audio_index(request)
+		elif list_id == '-1':
+			name_list = []
+			try:
+				music = Music.objects.get(name=song_name)
+				new_meta = {}
+				new_meta['title'] = music.name
+				new_meta['author'] = music.artist
+				new_meta['album'] = music.album
+				name_list.append(new_meta)
+			except Music.DoesNotExist:
+				name_list = []
+
+			return HttpResponse(json.dumps({'name':name_list}),content_type='application/json')
 		else:
 			try:
 				playlist = PlayList.objects.get(id=list_id,user=request.user)
@@ -454,8 +471,10 @@ def search(request):
 	else:
 		if request.GET['selecter_basic'] == '1':
 			return redirect('profile',username=request.GET['search_user'])
-		else:			
-			return redirect('home')
+		else:
+			
+			return redirect('/?id=-1&search_song=' + request.GET['search_song'])
+
 
 # friend section
 @login_required
@@ -502,7 +521,7 @@ def friend_stream(request):
 def get_comment(request):
 	pass
 
-# post section
+
 
 # def add_post(request,musicname):
 # 	try:

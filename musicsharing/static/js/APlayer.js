@@ -8,9 +8,9 @@
 (function() {
     function APlayer(option) {
         var list_id = $("#list-id").html();
-        console.log(list_id);
+        var song_name = $("#search-result").html();
         $.ajax({
-            url: "/get-list/" + list_id,
+            url: "/get-list/" + list_id + "/" + song_name,
             type: "get",
             async: false,
             success: function(data) {
