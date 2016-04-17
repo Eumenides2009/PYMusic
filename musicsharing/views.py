@@ -194,18 +194,18 @@ def get_audio_index(request):
 # profile section
 @login_required
 def profile(request,username):
-	if request.method == 'POST':
+	try:
+		profile = Profile.objects.get(user__username=username)
+		posts = Post.objects.filter(user__username=username).order_by('-date')
+		comments = Comment.objects.filter(post__in=posts.all()).order_by('date')
+		return TemplateResponse(request,'profile.html',{'profile':profile,'posts':posts, 'comments':comments})
+	except Profile.DoesNotExist:
+		if username != "":
+			messages.info(request,'User ' + username + ' does not exists')
 		profile = Profile.objects.get(user=request.user)
-		return TemplateResponse(request,'profile.html',{'profile':profile})
-	else:
-		try:
-			profile = Profile.objects.get(user__username=username)
-			return TemplateResponse(request,'profile.html',{'profile':profile})
-		except Profile.DoesNotExist:
-			if username != "":
-				messages.info(request,'User ' + username + ' does not exists')
-			profile = Profile.objects.get(user=request.user)
-			return TemplateResponse(request,'profile.html',{'profile':profile})
+		posts = Post.objects.filter(user=request.user).order_by('-date')
+		comments = Comment.objects.filter(post__in=posts.all()).order_by('date')
+		return TemplateResponse(request,'profile.html',{'profile':profile,'posts':posts,'comments':comments})
 
 
 @login_required

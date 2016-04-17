@@ -36,6 +36,8 @@ EMAIL_USE_SSL = True
 # Detect if the temporary upload folder exists
 if not os.path.exists('/tmp/django_upload'):
     os.mkdir('/tmp/django_upload')
+
+    
 # Application definition
 
 ACCOUNT_UNIQUE_EMAIL = False

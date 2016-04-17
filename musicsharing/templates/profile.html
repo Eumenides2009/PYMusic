@@ -129,52 +129,43 @@ Linda Lorenzetti
                     </div>
             
           </div>
+{% for post in posts %}
 <div class="well post">
     <div class="media row">
         <a class="pull-left col-md-2" href="#">
-            <img class="media-object img-rounded" src="http://placekitten.com/150/150">
+            <img class="media-object img-rounded" src="{% url 'musicsharing.views.get_profile_picture' post.user.profile.all.0.id %}">
         </a>
         <div class="col-md-10">
-            <h4 class="media-heading">Receta 2</h4>
-            <p class="blog-post-meta"><span>2016-03-07 20:17:16</span> &nbsp;&nbsp;&nbsp;&nbsp;by &nbsp;<a href="/profile/a">a</a><a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-comment pull-right" aria-hidden="true"></span></a></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. Quisque mauris augue, molestie</p>
-                    <form method="post" >
-                        <button type="submit" class="btn btn-primary addtosong">+ Add to Songs</button>
-                        {% csrf_token %}
-                    </form>
+            <!-- <h4 class="media-heading">Receta 2</h4> -->
+            <p class="blog-post-meta"><span>{{ post.date | date:"Y-m-d H:i:s"}}</span> &nbsp;&nbsp;&nbsp;&nbsp;by &nbsp;<a href="{% url 'musicsharing.views.profile' post.user.username %}">{{post.user.username}}</a><a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-comment pull-right" aria-hidden="true"></span></a></p>
+            <p>{{post.content}}</p>
+                    <!-- <form method="post" >
+                        <button type="submit" class="btn btn-success addtosong">+ Add to Songs</button>
+                    </form> -->
             <div class="comments" id="comment-list-142">
+                {% for comment in comments %}
+                {% if comment.post.id == post.id %}
                 <div class="row pull-left">
                     <div class="col-md-1">
-                        <img class="img-rounded" src="http://placekitten.com/150/150" alt="...">
+                        <img class="img-rounded" src="{% url 'musicsharing.views.get_profile_picture' comment.user.profile.all.0.id %}" alt="...">
                     </div>
                     <div class="col-md-11">
                         <div class="post-comments">
-                            <p class="blog-post-meta">2016-04-07 01:10:56 &nbsp;<a href="/profile/hyy9776@qq.com">hyy9776@qq.com</a> says : </p>
+                            <p class="blog-post-meta">{{ comment.date | date:"Y-m-d H:i:s"}} &nbsp;<a href="{% url 'musicsharing.views.profile' comment.user.username %}">{{comment.user.username}}</a> says : </p>
                             <p>
-                                给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪
+                                {{comment.content}}
                             </p>
                         </div>
                         <div style="clear:both"></div>
                     </div>
                 </div>
-                <div class="row pull-left">
-                    <div class="col-md-1">
-                        <img class="img-rounded" src="http://placekitten.com/150/150" alt="...">
-                    </div>
-                    <div class="col-md-11">
-                        <div class="post-comments">
-                            <p class="blog-post-meta">2016-04-07 01:10:56 &nbsp;<a href="/profile/hyy9776@qq.com">hyy9776@qq.com</a> says : </p>
-                            <p>
-                                给跪给跪
-                            </p>
-                        </div>
-                        <div style="clear:both"></div>
-                    </div>
-                </div>
+                {% endif %}
+                {% endfor %}
                 <div style="clear:both"></div>
             </div>
         </div>
     </div>
 </div>
+{% endfor %}
 
 {% endblock %}
