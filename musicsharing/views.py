@@ -59,8 +59,8 @@ def get_music_metadata(file):
 				meta['title'] = file.name.split('.')[0]
 
 			if len(music.tag.images) > 0:
-				meta['image'] = music.tag.images[0].render()
-
+				meta['image'] = bytearray(music.tag.images[0].image_data)
+				
 		else:
 			meta['title'] = file.name.split('.')[0]
 			meta['author'] = None
@@ -148,13 +148,13 @@ def upload(request):
 	
 	if request.FILES.get('picture'):
 		new_music.picture = request.FILES['picture']
-	# elif meta.get('image'):
-	# 	f = StringIO()
-	# 	f.write(meta['image'])
-	# 	f.seek(0)
-	# 	# pil_object = Image.open(f)
-	# 	# pil_object.save(f,format='JPEG')
-	# 	new_music.picture.save(meta['title'] + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)) + '.jpg',ContentFile(f.getvalue()))
+	elif meta.get('image'):
+		# f = StringIO()
+		# f.write(meta['image'])
+		# f.seek(0)
+		# # pil_object = Image.open(f)
+		# # pil_object.save(f,format='JPEG')
+		new_music.picture.save(meta['title'] + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)) + '.jpg',ContentFile(meta['image']))
 		
 	if request.FILES.get('lyric'):
 		new_music.lyric = request.FILES['lyric']
