@@ -71,6 +71,12 @@ class AddSongForm(forms.ModelForm):
 
 	add_song = AutoCompleteField('add_song',required=True,help_text=None)
 
+class PostSongForm(forms.ModelForm):
+	class Meta:
+		model = Search
+		fields = ['post_song']
+
+	post_song = AutoCompleteField('post_song',required=True,help_text=None)
 
 class PostForm(forms.ModelForm):
 	class Meta:

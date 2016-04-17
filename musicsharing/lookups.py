@@ -47,3 +47,13 @@ class AddSongLookup(LookupChannel):
 
 	def format_item_display(self,item):
 		return u"<span class='tag'>%s</span>" % (item.name)
+
+@register('post_song')
+class PostLookup(LookupChannel):
+	model = Music
+
+	def get_query(self,q,request):
+		return self.model.objects.filter(name__icontains=q, user=request.user)
+
+	def format_item_display(self,item):
+		return u"<span class='tag'>%s</span>" % (item.name)

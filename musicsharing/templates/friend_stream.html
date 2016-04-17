@@ -14,34 +14,24 @@
                         <button type="submit" class="btn btn-success addtosong">+ Add to Songs</button>
                     </form> -->
             <div class="comments" id="comment-list-142">
+                {% for comment in comments %}
+                {% if comment.post.id == post.id %}
                 <div class="row pull-left">
                     <div class="col-md-1">
-                        <img class="img-rounded" src="http://placekitten.com/150/150" alt="...">
+                        <img class="img-rounded" src="{% url 'musicsharing.views.get_profile_picture' comment.user.profile.all.0.id %}" alt="...">
                     </div>
                     <div class="col-md-11">
                         <div class="post-comments">
-                            <p class="blog-post-meta">2016-04-07 01:10:56 &nbsp;<a href="/profile/hyy9776@qq.com">hyy9776@qq.com</a> says : </p>
+                            <p class="blog-post-meta">{{ comment.date | date:"Y-m-d H:i:s"}} &nbsp;<a href="{% url 'musicsharing.views.profile' comment.user.username %}">{{comment.user.username}}</a> says : </p>
                             <p>
-                                给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪给跪
+                                {{comment.content}}
                             </p>
                         </div>
                         <div style="clear:both"></div>
                     </div>
                 </div>
-                <div class="row pull-left">
-                    <div class="col-md-1">
-                        <img class="img-rounded" src="http://placekitten.com/150/150" alt="...">
-                    </div>
-                    <div class="col-md-11">
-                        <div class="post-comments">
-                            <p class="blog-post-meta">2016-04-07 01:10:56 &nbsp;<a href="/profile/hyy9776@qq.com">hyy9776@qq.com</a> says : </p>
-                            <p>
-                                给跪给跪
-                            </p>
-                        </div>
-                        <div style="clear:both"></div>
-                    </div>
-                </div>
+                {% endif %}
+                {% endfor %}
                 <div style="clear:both"></div>
             </div>
         </div>
@@ -57,12 +47,11 @@
                     <h4 class="modal-title" id="myModalLabel">Comment</h4>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="/add-comment" id="comment-form-141">
-                        <textarea class="form-control" cols="40" id="id_comment_content" maxlength="160" name="comment_content" rows="3">
+                    <form method="post" action="{% url 'musicsharing.views.comment' %}" id="comment-form-141">
+                        <textarea class="form-control" cols="40" id="id_comment_content" maxlength="160" name="content" rows="3">
                         </textarea>
                         {% csrf_token %}
-                        <input type="hidden" name="post_id" ></input>
-                        <input type="hidden" name="user_name" ></input>
+                        <input type="hidden" name="post_id" value="1"></input>
                         <!-- <input type="textarea" class="form-control" rows="3" placeholder="Input Comment"></input> -->
                     </form>
                 </div>

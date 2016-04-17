@@ -2,6 +2,7 @@ import os
 import logging
 import httplib2
 import random,string
+from datetime import datetime
 from cStringIO import StringIO
 from PIL import Image
 from django.contrib.auth.decorators import login_required
@@ -495,7 +496,9 @@ def friend_stream(request):
 	posts = Post.objects.filter(Q(user__in=request.user.profile.get().friends.all())|
 								Q(user=request.user)).order_by('-date')
 	
-	return TemplateResponse(request,'friend_stream.html',{'posts':posts})
+	comments = Comment.objects.filter(post__in=posts).order_by('date')
+
+	return TemplateResponse(request,'friend_stream.html',{'posts':posts, 'comments':comments})
 
 @login_required
 def get_comment(request):
@@ -503,21 +506,22 @@ def get_comment(request):
 
 # post section
 
-def add_post(request,musicname):
-	try:
-		music = Music.objects.get(user=request.user,name=musicname)
-		post_form = PostForm(initial={'music_name':music.name})
-		return TemplateResponse(request,'add_post.html',{'post_form':post_form,'music':music})
-	except Music.DoesNotExist:
-		music = None
-		post_form = PostForm()
-		return TemplateResponse(request,'add_post.html',{'post_form':post_form})
+# def add_post(request,musicname):
+# 	try:
+# 		music = Music.objects.get(user=request.user,name=musicname)
+# 		post_form = PostForm(initial={'music_name':music.name})
+# 		return TemplateResponse(request,'add_post.html',{'post_form':post_form,'music':music})
+# 	except Music.DoesNotExist:
+# 		music = None
+# 		post_form = PostForm()
+# 		return TemplateResponse(request,'add_post.html',{'post_form':post_form})
 
-	
-
+# post section	
+@login_required
+@transaction.atomic
 def post(request):
 	if request.method == 'GET':
-		return redirect('add_post',musicname="")
+		return HttpResponse(status=400)
 	else:
 		post = Post(user=request.user)
 		form = PostForm(request.POST,instance=post)
@@ -539,6 +543,25 @@ def post(request):
 			return redirect('friend_stream')
 		except Music.DoesNotExist:
 			return TemplateResponse(request,'add_post.html',{'post_form':form})
+
+# comment section
+@login_required
+@transaction.atomic
+def comment(request):
+	if request.method == 'GET':
+		return HttpResponse(status=400)
+	else:
+		if not request.POST.get('post_id') or not request.POST.get('content') or request.POST['content'] == '':
+			return HttpResponse(status=400)
+		else:
+			try:
+				post = Post.objects.get(id=request.POST['post_id'])
+				comment = Comment(content=request.POST['content'],user=request.user,post=post)
+				comment.save()
+				return HttpResponse(json.dumps({'time':datetime.strftime(comment.date,'%Y-%m-%d %H:%M:%S')}),content_type="application/json")
+			except Post.DoesNotExist:
+				return HttpResponse(status=400)
+
 
 
 @login_required

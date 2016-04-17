@@ -44,14 +44,16 @@ urlpatterns =  patterns('postman.views',
 	url(r'^search/$',views.search),
 
 	#  friend
-
+	url(r'^friend-stream$',views.friend_stream,name='friend_stream'),
 	url(r'^follow/(?P<username>.+)$',views.follow),
 	url(r'^unfollow/(?P<username>.+)$',views.unfollow),
 
 
 	# post
-	url(r'^add-post/(?P<musicname>.*)$',views.add_post),
 	url(r'^post$',views.post),
+
+	#comment
+	url(r'^comment$',views.comment),
 
 	# third party package
 	url(r'messages/',include('postman.urls',namespace='postman',app_name='postman')),
@@ -60,7 +62,7 @@ urlpatterns =  patterns('postman.views',
 	url(r'^accounts/',include('allauth.urls')),
 	
 
-	url(r'^friend-stream$',views.friend_stream,name='friend_stream'),	
+		
 ] 
 
 

@@ -57,7 +57,8 @@ class Post(models.Model):
 class Comment(models.Model):
 	content = models.CharField(max_length=140)
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
-	Post = models.ForeignKey(Post,on_delete=models.CASCADE)
+	post = models.ForeignKey(Post,on_delete=models.CASCADE)
+	date = models.DateTimeField(auto_now=True)
 
 class PlayList(models.Model):
 	name = models.CharField(max_length=160)
@@ -79,6 +80,7 @@ class Search(models.Model):
 	search_user = models.CharField(max_length=100)
 	search_song = models.CharField(max_length=100)
 	add_song = models.CharField(max_length=100)
+	post_song = models.CharField(max_length=100)
 
 	def __unicode__(self):
 		return "Search: " + self.keyword 
