@@ -149,11 +149,6 @@ def upload(request):
 	if request.FILES.get('picture'):
 		new_music.picture = request.FILES['picture']
 	elif meta.get('image'):
-		# f = StringIO()
-		# f.write(meta['image'])
-		# f.seek(0)
-		# # pil_object = Image.open(f)
-		# # pil_object.save(f,format='JPEG')
 		new_music.picture.save(meta['title'] + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)) + '.jpg',ContentFile(meta['image']))
 		
 	if request.FILES.get('lyric'):

@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
+import os
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from django.dispatch import receiver
 from django_countries.fields import CountryField
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -44,7 +46,7 @@ class Profile(models.Model):
 	date = models.DateField(null=True,blank=True)
 	age = models.IntegerField(default=1,validators=[MaxValueValidator(100),MinValueValidator(1)],blank=True,null=True)
 	country = CountryField(blank_label='(select country)',null=True,blank=True)
-	picture = models.ImageField(upload_to='profile_image',blank=True,default="profile_image/bg.jpg")
+	picture = models.ImageField(upload_to='profile_image',blank=True,default="profile_image/default.jpg")
 	nickname = models.CharField(max_length=30,null=True,blank=True)
 	friends = models.ManyToManyField(User,related_name='friends')
 
@@ -84,3 +86,26 @@ class Search(models.Model):
 
 	def __unicode__(self):
 		return "Search: " + self.keyword 
+
+
+# signal functions that delete files when associated model instance is deleted
+@receiver(models.signals.post_delete, sender=Music)
+@receiver(models.signals.post_delete, sender=Profile)
+@receiver(models.signals.post_delete, sender=PlayList)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+	if sender.__name__ == 'Music':
+		if instance.content:
+			if os.path.isfile(instance.content.path):
+				os.remove(instance.content.path)
+
+		if instance.lyric:
+			if os.path.isfile(instance.lyric.path):
+				os.remove(instance.lyric.path)
+
+
+	if instance.picture and instance.picture.name != 'list_image/default.jpg' and instance.picture.name != 'profile_image/default.jpg':
+		if os.path.isfile(instance.picture.path):
+			os.remove(instance.picture.path)
+
+	
+
