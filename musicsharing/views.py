@@ -522,9 +522,9 @@ def post(request):
 		form = PostForm(request.POST,instance=post)
 
 		if not form.is_valid():
-			if request.POST.get('music_name'):
+			if request.POST.get('post_song'):
 				try:
-					music = Music.objects.get(user=request.user,name=request.POST['music_name'])
+					music = Music.objects.get(user=request.user,name=request.POST['post_song'])
 					return TemplateResponse(request,'add_post.html',{'post_form':form,'music':music})
 				except Music.DoesNotExist:
 					return TemplateResponse(request,'add_post.html',{'post_form':form})
@@ -532,7 +532,7 @@ def post(request):
 				return TemplateResponse(request,'add_post.html',{'post_form':form})
 			
 		try:
-			music = Music.objects.get(user=request.user,name=form.cleaned_data['music_name'])
+			music = Music.objects.get(user=request.user,name=form.cleaned_data['post_song'])
 			post.music = music 
 			form.save()
 			return redirect('friend_stream')

@@ -83,7 +83,7 @@ class PostForm(forms.ModelForm):
 		model = Post
 		fields = ['content']
 
-	music_name = forms.CharField(max_length=160)
+	post_song = forms.CharField(max_length=160)
 
 	def clean(self):
 		cleaned_data = super(PostForm,self).clean()
