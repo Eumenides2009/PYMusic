@@ -85,26 +85,26 @@ Linda Lorenzetti
                     <tbody>
                       <tr>
                         <td>Nickname</td>
-                        <td>{{profile.user.username}}</td>
+                        <td>{{profile.nickname}}</td>
                       </tr>
                       <tr>
                         <td>Age</td>
-                        <td>23</td>
+                        <td>{{profile.age}}</td>
                       </tr>
                       <tr> 
                         <td>Gender</td>
-                        <td>Male</td>
+                        <td>{{profile.gender}}</td>
                       </tr>
                         <tr>
                         <td>Country</td>
-                        <td>Philippines</td>
+                        <td>{{profile.country.name}}</td>
                       </tr>
                       <tr>
                         <td>Email</td>
-                        <td><a href="mailto:info@support.com">info@support.com</a></td>
+                        <td><a href="mailto:{{profile.user.email}}">{{profile.user.email}}</a></td>
                       </tr>
                         <td>Bio</td>
-                        <td>When the moon falls in your eyes, I know the sun has set. The fire still burns within me, since the day we met.
+                        <td>{{profile.bio}}
                         </td>
                            
                       </tr>
