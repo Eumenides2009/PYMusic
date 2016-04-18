@@ -7,3 +7,68 @@ function comment_btn() {
     post_id.val(state);
     console.log(state);
 }
+
+
+
+
+$(document).ready(function(){
+    $(".comment-modal").on("submit", "form", addComment);
+});
+
+function addComment(event) {
+
+    event.preventDefault();
+    var form = $(this);
+    var post_id = $(this).find('input[name="post_id"]').val();
+    
+    var profile_id = $(this).find('input[name="profile_id"]').val();
+    
+    var comment_content = $(this).find('textarea[name="content"]').val();
+    console.log(comment_content);
+    var csrf = $(this).find('input[name="csrfmiddlewaretoken"]').val();
+    var modal = $("#myModal");
+
+    
+    $.post("/comment", {'content':comment_content, 'post_id':post_id, 'csrfmiddlewaretoken':csrf})
+        .done(function(data){
+        
+            //displayComment(post_id);
+            console.log("completed");
+
+            modal.modal('toggle');
+            form.each(function(){
+                this.reset();
+            });
+            var timestamp = data['time'];
+
+            
+            var html = '<div class="row pull-left"> \
+                    <div class="col-md-1"> \
+                        <img class="img-rounded" src="/get-profile-picture/' + profile_id + '" alt="..."> \
+                    </div> \
+                    <div class="col-md-11"> \
+                        <div class="post-comments"> \
+                            <p class="blog-post-meta">'+ timestamp +' &nbsp;<a href="/profile/yayun">yayun</a> says : </p> \
+                            <p> \
+                            '+ comment_content +' \
+                            </p> \
+                        </div> \
+                        <div style="clear:both"></div> \
+                    </div> \
+                </div> ';
+            
+            $('#comment-list-'+ post_id).append(html);
+        
+    });
+}
+
+
+function getCSRFToken() {
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++) {
+        if (cookies[i].startsWith("csrftoken=")) {
+            return cookies[i].substring("csrftoken=".length, cookies[i].length);
+        }
+    }
+    return "unknown";
+}

@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <div class="comments" id="comment-list-142">
+            <div class="comments" id="comment-list-{{ post.id }}">
                 {% for comment in comments %}
                 {% if comment.post.id == post.id %}
                 <div class="row pull-left">
@@ -50,7 +50,7 @@
 </div>
 {% endfor %}
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade comment-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -63,6 +63,7 @@
                         </textarea>
                         {% csrf_token %}
                         <input type="hidden" name="post_id" id="comment-modal-id" value="3"></input>
+                        <input type="hidden" name="profile_id" value="{{ user.profile.all.0.id }}"></input>
                     </form>
                 </div>
                 <div class="modal-footer">
