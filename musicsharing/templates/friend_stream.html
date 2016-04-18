@@ -63,6 +63,7 @@
                         </textarea>
                         {% csrf_token %}
                         <input type="hidden" name="post_id" id="comment-modal-id" value="3"></input>
+                        <input type="hidden" name="user_name" id="comment-modal-id" value="{{ user.username }}"></input>
                         <input type="hidden" name="profile_id" value="{{ user.profile.all.0.id }}"></input>
                     </form>
                 </div>
