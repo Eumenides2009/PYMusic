@@ -76,12 +76,10 @@
                     </form>
                     <li><a href="/messages"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Link <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ user.username }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/profile">My Profile</a></li>
                             <li><a href="/edit-profile">Edit Profile</a></li>
-                            <li><a href="#">My Post</a></li>
-                            <li><a href="#">My Friends</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/accounts/logout">Sign out</a></li>
                         </ul>
@@ -158,15 +156,6 @@
                             <div class="form-group">
                                 <label>Name of Song</label>
                                 {{post_song_form.post_song}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <div class="form-group upload-btn">
-                                <div class="upload-modal-box">
-                                    <a class="file-input-wrapper custom-file-input file-input-wrapper btn btn-success" data-original-title="" title=""><span><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Upload Picture</span><input id="fileToUploadOne" type="file" title="Upload song" size="45" name="picture" class="custom-file-input file-input-wrapper btn btn-default btn-warning"></a>
-                                </div>
                             </div>
                         </div>
                     </div>
