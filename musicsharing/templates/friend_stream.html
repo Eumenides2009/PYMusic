@@ -7,8 +7,8 @@
             <img class="media-object img-rounded" src="{% url 'musicsharing.views.get_profile_picture' post.user.profile.all.0.id %}">
         </a>
         <div class="col-md-10">
-            <!-- <h4 class="media-heading">Receta 2</h4> -->
-            <p class="blog-post-meta"><span>{{ post.date | date:"Y-m-d H:i:s"}}</span> &nbsp;&nbsp;&nbsp;&nbsp;by &nbsp;<a href="{% url 'musicsharing.views.profile' post.user.username %}">{{post.user.username}}</a><a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-comment pull-right" aria-hidden="true"></span></a></p>
+            <h4 class="media-heading"><a href="{% url 'musicsharing.views.profile' post.user.username %}">{{post.user.username}}</a><a href="#" data-toggle="modal" data-target="#myModal" class="comment-btn"><input type="hidden" value="{{ post.id }}"></input><span class="glyphicon glyphicon-comment pull-right" aria-hidden="true"></span></a></h4>
+            <p class="blog-post-meta"><span>{{ post.date | date:"Y-m-d H:i:s"}}</span></p>
             <p>{{post.content}}</p>
                     <!-- <form method="post" >
                         <button type="submit" class="btn btn-success addtosong">+ Add to Songs</button>
@@ -51,7 +51,7 @@
                         <textarea class="form-control" cols="40" id="id_comment_content" maxlength="160" name="content" rows="3">
                         </textarea>
                         {% csrf_token %}
-                        <input type="hidden" name="post_id" value="3"></input>
+                        <input type="hidden" name="post_id" id="comment-modal-id" value="3"></input>
                         <!-- <input type="textarea" class="form-control" rows="3" placeholder="Input Comment"></input> -->
                     </form>
                 </div>
@@ -62,4 +62,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block js %}
+{% load staticfiles %}
+<script src="{% static "js/comment.js" %}"></script>
 {% endblock %}

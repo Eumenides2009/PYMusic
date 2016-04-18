@@ -66,7 +66,7 @@ Linda Lorenzetti
                 <div class="col-md-2">
                 </div>
                 <div class="col-md-8">
-                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="{% url 'musicsharing.views.get_profile_picture' profile.id %}" class="img-circle img-square"> </div>
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="{% url 'musicsharing.views.get_profile_picture' profile.id %}" class="img-circle img-square img-thumbnail"> </div>
                 
                 <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
                   <dl>
@@ -142,7 +142,8 @@ Linda Lorenzetti
         </a>
         <div class="col-md-10">
             <!-- <h4 class="media-heading">Receta 2</h4> -->
-            <p class="blog-post-meta"><span>{{ post.date | date:"Y-m-d H:i:s"}}</span> &nbsp;&nbsp;&nbsp;&nbsp;by &nbsp;<a href="{% url 'musicsharing.views.profile' post.user.username %}">{{post.user.username}}</a><a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-comment pull-right" aria-hidden="true"></span></a></p>
+            <h4 class="media-heading"><a href="{% url 'musicsharing.views.profile' post.user.username %}">{{post.user.username}}</a><a href="#" data-toggle="modal" data-target="#myModal" class="comment-btn"><input type="hidden" value="{{ post.id }}"></input><span class="glyphicon glyphicon-comment pull-right" aria-hidden="true"></span></a></h4>
+            <p class="blog-post-meta"><span>{{ post.date | date:"Y-m-d H:i:s"}}</span></p>
             <p>{{post.content}}</p>
                     <!-- <form method="post" >
                         <button type="submit" class="btn btn-success addtosong">+ Add to Songs</button>
@@ -172,5 +173,31 @@ Linda Lorenzetti
     </div>
 </div>
 {% endfor %}
-
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Comment</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'musicsharing.views.comment' %}" id="comment-form-141">
+                        <textarea class="form-control" cols="40" id="id_comment_content" maxlength="160" name="content" rows="3">
+                        </textarea>
+                        {% csrf_token %}
+                        <input type="hidden" name="post_id" id="comment-modal-id" value="3"></input>
+                        <!-- <input type="textarea" class="form-control" rows="3" placeholder="Input Comment"></input> -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" form="comment-form-141" class="btn btn-primary">Submit Comment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+{% load staticfiles %}
+<script src="{% static "js/comment.js" %}"></script>
 {% endblock %}
