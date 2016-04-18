@@ -22,6 +22,7 @@ function addComment(event) {
     var post_id = $(this).find('input[name="post_id"]').val();
     
     var profile_id = $(this).find('input[name="profile_id"]').val();
+    var user_name = $(this).find('input[name="user_name"]').val();
     
     var comment_content = $(this).find('textarea[name="content"]').val();
     console.log(comment_content);
@@ -48,7 +49,7 @@ function addComment(event) {
                     </div> \
                     <div class="col-md-11"> \
                         <div class="post-comments"> \
-                            <p class="blog-post-meta">'+ timestamp +' &nbsp;<a href="/profile/yayun">yayun</a> says : </p> \
+                            <p class="blog-post-meta">'+ timestamp +' &nbsp;<a href="/profile/'+ user_name +'">'+ user_name +'</a> says : </p> \
                             <p> \
                             '+ comment_content +' \
                             </p> \
