@@ -152,7 +152,7 @@ def upload(request):
 	if request.FILES.get('picture'):
 		new_music.picture = request.FILES['picture']
 	elif meta.get('image'):
-		new_music.picture.save(meta['title'] + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)) + '.jpg',ContentFile(meta['image']))
+		new_music.picture.save(meta['title'] + u''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)) + '.jpg',ContentFile(meta['image']))
 		
 	if request.FILES.get('lyric'):
 		new_music.lyric = request.FILES['lyric']
