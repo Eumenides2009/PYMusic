@@ -12,7 +12,7 @@
             <p>{{post.content}}</p>
             <div class="post-song">
                 <div class="row">
-                    <img class="img-square pull-left" src="{% url 'musicsharing.views.get_profile_picture' post.user.profile.all.0.id %}" alt="...">
+                    <img class="img-square pull-left" src="{% url 'musicsharing.views.get_picture' post.music.name %}" alt="...">
                     <p class="post-song-title">{{post.music.name}}</p>
                     <!-- <form method="post" >
                         <button type="submit" class="btn btn-success addtosong pull-right">+ Add to Songs</button>
