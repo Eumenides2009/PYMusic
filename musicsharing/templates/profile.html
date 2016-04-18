@@ -112,11 +112,11 @@ Linda Lorenzetti
                     </tbody>
                   </table>
                   {% if profile.user == user %}
-                    <a href="{% url 'musicsharing.views.edit_profile' %}" class="btn btn-primary"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>  Edit</a>
+                    <a href="{% url 'musicsharing.views.edit_profile' %}" class="btn btn-lg btn-block btn-primary"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>  Edit</a>
                   {% elif not follow %}
-                  <a href="{% url 'musicsharing.views.follow' profile.user.username %}" class="btn btn-primary"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>  Follow</a>
+                  <a href="{% url 'musicsharing.views.follow' profile.user.username %}" class="btn btn-lg btn-block btn-primary"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>  Follow</a>
                   {% else %}
-                  <a href="{% url 'musicsharing.views.unfollow' profile.user.username %}" class="btn btn-primary"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>  UnFollow</a>
+                  <a href="{% url 'musicsharing.views.unfollow' profile.user.username %}" class="btn btn-lg btn-block btn-primary"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>  UnFollow</a>
                   {% endif %}
                 </div>
 
@@ -124,15 +124,7 @@ Linda Lorenzetti
 
               </div>
             </div>
-                 <div class="panel-footer">
-                        
-                        <span class="pull-right">
-                            <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-envelope"></i></a>
-                        </span>
-                        <div style="clear:both;"> </div>
-                    </div>
-            
+                 
           </div>
 {% for post in posts %}
 <div class="well post">
@@ -145,9 +137,19 @@ Linda Lorenzetti
             <h4 class="media-heading"><a href="{% url 'musicsharing.views.profile' post.user.username %}">{{post.user.username}}</a><a href="#" data-toggle="modal" data-target="#myModal" class="comment-btn"><input type="hidden" value="{{ post.id }}"></input><span class="glyphicon glyphicon-comment pull-right" aria-hidden="true"></span></a></h4>
             <p class="blog-post-meta"><span>{{ post.date | date:"Y-m-d H:i:s"}}</span></p>
             <p>{{post.content}}</p>
+            <div class="post-song">
+                <div class="row">
+                    <img class="img-square pull-left" src="{% url 'musicsharing.views.get_profile_picture' post.user.profile.all.0.id %}" alt="...">
+                    <p class="post-song-title">{{post.music.name}}</p>
                     <!-- <form method="post" >
-                        <button type="submit" class="btn btn-success addtosong">+ Add to Songs</button>
+                        <button type="submit" class="btn btn-success addtosong pull-right">+ Add to Songs</button>
+                        {% csrf_token %}
                     </form> -->
+                    <p class="post-song-content">
+                            {{post.music.artist}} / {{post.music.album}}
+                    </p>
+                </div>
+            </div>
             <div class="comments" id="comment-list-{{ post.id }}">
                 {% for comment in comments %}
                 {% if comment.post.id == post.id %}
@@ -182,8 +184,7 @@ Linda Lorenzetti
                 </div>
                 <div class="modal-body">
                     <form method="post" action="{% url 'musicsharing.views.comment' %}" id="comment-form-141">
-                        <textarea class="form-control" cols="40" id="id_comment_content" maxlength="160" name="content" rows="3">
-                        </textarea>
+                        <textarea class="form-control" cols="40" id="id_comment_content" maxlength="160" name="content" rows="3"></textarea>
                         {% csrf_token %}
                         <input type="hidden" name="post_id" id="comment-modal-id" value="3"></input>
                         <input type="hidden" name="profile_id" value="{{ user.profile.all.0.id }}"></input>
