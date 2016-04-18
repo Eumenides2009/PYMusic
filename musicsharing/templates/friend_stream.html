@@ -10,9 +10,20 @@
             <h4 class="media-heading"><a href="{% url 'musicsharing.views.profile' post.user.username %}">{{post.user.username}}</a><a href="#" data-toggle="modal" data-target="#myModal" class="comment-btn"><input type="hidden" value="{{ post.id }}"></input><span class="glyphicon glyphicon-comment pull-right" aria-hidden="true"></span></a></h4>
             <p class="blog-post-meta"><span>{{ post.date | date:"Y-m-d H:i:s"}}</span></p>
             <p>{{post.content}}</p>
-                    <!-- <form method="post" >
-                        <button type="submit" class="btn btn-success addtosong">+ Add to Songs</button>
-                    </form> -->
+            <div class="post-song">
+                <div class="row">
+                    <img class="img-square pull-left" src="{% url 'musicsharing.views.get_profile_picture' post.user.profile.all.0.id %}" alt="...">
+                    <p class="post-song-title">Hello</p>
+                    <form method="post" >
+                        <button type="submit" class="btn btn-success addtosong pull-right">+ Add to Songs</button>
+                        {% csrf_token %}
+                    </form>
+                    <p class="post-song-content">
+                            Adele / Hello
+                    </p>
+                </div>
+            </div>
+
             <div class="comments" id="comment-list-142">
                 {% for comment in comments %}
                 {% if comment.post.id == post.id %}
@@ -52,7 +63,6 @@
                         </textarea>
                         {% csrf_token %}
                         <input type="hidden" name="post_id" id="comment-modal-id" value="3"></input>
-                        <!-- <input type="textarea" class="form-control" rows="3" placeholder="Input Comment"></input> -->
                     </form>
                 </div>
                 <div class="modal-footer">
