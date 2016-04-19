@@ -332,8 +332,18 @@ def create_list(request):
 		form = AddPlayListForm(request.POST,request.FILES,instance=new_list)
 
 		if not form.is_valid():
-			print form.errors
-			return redirect('playlist')
+			error = form.errors
+			error_message = []
+			if error.get('picture'):
+				error_message.append('PlayList Image: ' + error['picture'][0])
+
+			if error.get('intro'):
+				error_message.append('Brief Introduction: ' + error['intro'][0])
+
+			if error.get('name'):
+				error_message.append('List Name: ' + error['name'][0])
+
+			return HttpResponse(json.dumps({'message':error_message}),content_type='application/json')
 
 		form.save()
 
