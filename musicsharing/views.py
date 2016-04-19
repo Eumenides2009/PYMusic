@@ -560,14 +560,19 @@ def post(request):
 		form = PostForm(request.POST,instance=post)
 
 		if not form.is_valid():
-			if request.POST.get('post_song'):
-				try:
-					music = Music.objects.get(user=request.user,name=request.POST['post_song'])
-					return TemplateResponse(request,'add_post.html',{'post_form':form,'music':music})
-				except Music.DoesNotExist:
-					return TemplateResponse(request,'add_post.html',{'post_form':form})
-			else:
-				return TemplateResponse(request,'add_post.html',{'post_form':form})
+			error = form.errors
+			error_message = []
+
+			if error.get('content'):
+				error_message.append('Post Content: '  + error['content'][0])
+
+			if error.get('post_song'):
+				error_message.append('Music: ' + error['post_song'][0])
+			elif not Music.objects.filter(user=request.user,name=request.POST['post_song']):
+				error_message.append('Music: ' + 'Can not find this song in your repo')
+
+			return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+			
 			
 		try:
 			music = Music.objects.get(user=request.user,name=form.cleaned_data['post_song'])
@@ -575,7 +580,7 @@ def post(request):
 			form.save()
 			return redirect('friend_stream')
 		except Music.DoesNotExist:
-			return TemplateResponse(request,'add_post.html',{'post_form':form})
+			return HttpResponse(json.dumps({'message':['Music: Can not find this song in your repo']}),content_type='application/json',status=400)
 
 # comment section
 @login_required
