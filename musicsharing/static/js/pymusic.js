@@ -106,7 +106,7 @@ function add_song_to_playlist() {
     var modal_body = $("#addSongModal-body");
     console.log(id);
     console.log(song_name);
-    
+
     var modal = $("#addSongModal");
     var alerts = $("#addSongModal").find(".alert");
     if (alerts.length > 0) {
@@ -120,7 +120,8 @@ function add_song_to_playlist() {
             data: {list_id:id ,song_name:song_name, csrfmiddlewaretoken:csrf},
             async: false,
             success: function(data) {
-                // window.location.href='/playlist'; 
+                window.location.href='/playlist'; 
+                console.log("add song success");
             },
             error: function(data) {
                 console.log("ERROR");

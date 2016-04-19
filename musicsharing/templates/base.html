@@ -103,7 +103,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">Add Playlist</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="addPlaylist-body">
                 <form method="post" action="{% url 'musicsharing.views.create_list' %}" id="add-playlist" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-xs-6">
@@ -149,7 +149,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">Add Post</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="addPost-body">
                 <form method="post" action="{% url 'musicsharing.views.post' %}" id="add-post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-xs-6">
@@ -185,7 +185,7 @@
     <script src="{% static "js/jquery.fs.selecter.min.js" %}"></script>
     <script src="{% static "js/jquery.fs.stepper.min.js" %}"></script>
     <script src="{% static "js/search.js" %}"></script>
-    
+    <script src="{% static "js/addPostPlaylist.js" %}"></script>
     {% block js %}{% endblock %}
 
 </body>
