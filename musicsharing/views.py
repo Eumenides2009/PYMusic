@@ -455,11 +455,17 @@ def delete_song(request):
 @login_required
 @transaction.atomic
 def add_song(request):
+	error_message = []
 	if request.method == 'GET':
 		return HttpResponse(status=400)
 	else:
 		if not request.POST.get('list_id') or not request.POST.get('song_name'):
-			return HttpResponse(status=400)
+			if not request.POST.get('list_id'):
+				error_message.append('Missing List ID')
+
+			if not request.POST.get('song_name'):
+				error_message.append('Song Name: This field is required')
+			return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
 		else:
 			try:
 				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
@@ -469,9 +475,11 @@ def add_song(request):
 					playlist.save()
 					return HttpResponse(status=200)
 				except Music.DoesNotExist:
-					return HttpResponse(status=404) 
+					error_message.append('Can not find this music in your repo')
+					return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=404) 
 			except PlayList.DoesNotExist:
-				return HttpResponse(status=404)
+				error_message.append('This playlist does not exist')
+				return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=404)
 
 # search section
 @login_required
