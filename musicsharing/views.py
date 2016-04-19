@@ -343,7 +343,7 @@ def create_list(request):
 			if error.get('name'):
 				error_message.append('List Name: ' + error['name'][0])
 
-			return HttpResponse(json.dumps({'message':error_message}),content_type='application/json')
+			return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
 
 		form.save()
 
