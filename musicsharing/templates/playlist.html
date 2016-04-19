@@ -1,7 +1,9 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% load math_extend %}
+{% block content %}
     {% for list in playlist %}
-    <div class="col-sm-4">
-    	{% load staticfiles %}
+    {{ forloop.counter0|modulus:"3,0" }}
+    <div class="col-sm-4">  
         <div class="jumbotron need-hover">
         	<div class="jumbotron-photo">
             	<img class="media-object img-rounded" src="{% url 'musicsharing.views.get_list_picture' list.id %}">
@@ -54,6 +56,11 @@
             </div>
         </div>
     </div>
+    {% if forloop.last %}
+        </div>
+    {% else %}
+    {{ forloop.counter0|modulus:"3,1"}}
+    {% endif %}
     {% endfor %}
 
 <!-- Modal -->
@@ -121,5 +128,6 @@
 </div>
 {% endblock %}
 {% block js %}
+{% load staticfiles %}
 <script src="{% static "js/pymusic.js" %}"></script>
 {% endblock %}

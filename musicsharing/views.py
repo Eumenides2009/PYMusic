@@ -66,7 +66,7 @@ def get_music_metadata(file):
 			meta['author'] = None
 			meta['album'] = None
 
-		print file.name
+		
 
 		os.remove(os.path.join(temp_upload_path,file.name))
 
