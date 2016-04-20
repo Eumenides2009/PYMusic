@@ -21,9 +21,9 @@ class Music(models.Model):
 	artist = models.CharField(max_length=160,null=True)
 	album = models.CharField(max_length=160,null=True)
 	content = models.FileField(upload_to='music',validators=[validate_music_file])
-	picture = models.ImageField(upload_to='music_image',default='music_image/default.jpg')
+	picture = models.ImageField(upload_to='music_image',default='music_image/default.jpg',blank=True)
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
-	lyric = models.FileField(upload_to='music_lyric',null=True)
+	lyric = models.FileField(upload_to='music_lyric',null=True,blank=True)
 
 
 	def __unicode__(self):
@@ -66,11 +66,11 @@ class Comment(models.Model):
 	date = models.DateTimeField(auto_now=True)
 
 class PlayList(models.Model):
-	name = models.CharField(max_length=160)
+	name = models.CharField(max_length=20,blank=True)
 	picture = models.ImageField(upload_to='list_image',default='list_image/default.jpg')
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
 	music = models.ManyToManyField(Music)
-	intro = models.CharField(max_length=300,null=True)
+	intro = models.CharField(max_length=140,null=True,blank=True)
 	date = models.DateTimeField(default=timezone.now)
 	count = 0
 
@@ -110,5 +110,5 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
 		if os.path.isfile(instance.picture.path):
 			os.remove(instance.picture.path)
 
-	
+
 

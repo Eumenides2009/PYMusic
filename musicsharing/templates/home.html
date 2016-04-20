@@ -7,7 +7,7 @@
 {% block content %}
 <div class="upload-box">
     <!-- <a href="#"><span class="glyphicon glyphicon-file lyrics" aria-hidden="true"></span></a> -->
-<button type="button" id="modal-button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+<button type="button" id="modal-button" class="btn btn-primary" data-toggle="modal" data-target="#uploadMusic">
   Upload Music
 </button>
 </div>
@@ -19,14 +19,14 @@
     </pre>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="uploadMusic">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Upload Music</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="uploadMusic-body">
         <form method="post" action="{% url 'musicsharing.views.upload' %}" id="upload_music" enctype="multipart/form-data">
     <div class="form-group upload-btn">
         <div class="upload-modal-box">
@@ -45,11 +45,11 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label>Playlist</label>
                 <select name="selecter_playlist" class="selecter_3" id="playlist_choose" data-selecter-options='{"cover":"true"}'>
                 </select>
-            </div>
+            </div> -->
             <input type="hidden" name="list_id" value="{{list_id}}" > 
             {% csrf_token %}
         </div>

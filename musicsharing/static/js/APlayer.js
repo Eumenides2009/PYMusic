@@ -28,8 +28,8 @@
                     for (var i = 0; i < json.length; i++) {
 
                         option.music[i] = json[i];
-                        option.music[i].url = "http://www.pcpal.me/music/" + json[i].title
-                        option.music[i].pic = "http://www.pcpal.me/picture/" + json[i].title
+                        option.music[i].url = "http://127.0.0.1:8000/music/" + json[i].title
+                        option.music[i].pic = "http://127.0.0.1:8000/picture/" + json[i].title
 
                     }
                     console.log(option.music);
