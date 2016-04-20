@@ -37,7 +37,7 @@ function upload_music(event){
     processData: false,
     contentType: false,
     success: function(data) {
-        window.location.href="/home";
+        window.location.href="/";
        
     },
     error: function(data) {

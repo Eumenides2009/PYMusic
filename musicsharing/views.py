@@ -181,7 +181,7 @@ def upload(request):
 
 	new_music.save()	
 
-	return HttpResponse(statuts=200)
+	return HttpResponse(status=200)
 
 @login_required
 def get_audio_index(request):
