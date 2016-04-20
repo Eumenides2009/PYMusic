@@ -42,7 +42,7 @@ class Profile(models.Model):
 		)
 	user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='profile')
 	bio = models.CharField(max_length=400,null=True,blank=True)
-	gender = models.CharField(max_length=10,choices=gender_choice,default='D',blank=True)
+	gender = models.CharField(max_length=15,choices=gender_choice,default='D',blank=True)
 	date = models.DateField(null=True,blank=True)
 	age = models.IntegerField(default=1,validators=[MaxValueValidator(100),MinValueValidator(1)],blank=True,null=True)
 	country = CountryField(blank_label='(select country)',null=True,blank=True)
