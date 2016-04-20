@@ -224,7 +224,8 @@ def edit_profile(request):
 		form = EditProfileForm(request.POST,request.FILES,instance=e_profile)
 
 		if not form.is_valid():
-			return TemplateResponse(request,'edit_profile.html',{})
+			print form.errors
+			return TemplateResponse(request,'edit_profile.html',{'form':form})
 		
 		form.save()
 
