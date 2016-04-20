@@ -27,11 +27,15 @@ import chardet
 temp_upload_path = "/tmp/django_upload"
 
 def add_profile(**kwargs):
+	user = kwargs['user']
+	if hasattr(user, '_wrapped') and hasattr(user, '_setup'):
+		if user._wrapped.__class__ == object:
+			user._setup()
+		user = user._wrapped
 	try:
-
-		profile = Profile.objects.get(user=kwargs['user'])
+		profile = Profile.objects.get(user=user)
 	except Profile.DoesNotExist:
-		profile = Profile(user=kwargs['request'].user)
+		profile = Profile(user=user)
 		profile.save()
 		print 'add new profile'
 	
