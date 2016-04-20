@@ -85,3 +85,23 @@ textarea {
 #postman .btn {
     margin-right: 10px;
 }
+.pm_body {
+    word-wrap: break-word;
+    word-break: normal;
+}
+.pm_date {
+    font-size: 13px;
+}
+.pm_subject {
+    font-weight: bold;
+}
+.pm_message {
+        margin-bottom: 10px;
+}
+a.postman-link {
+    
+    margin-right: 10px;
+}
+table#pm_messages span {
+    word-break: break-all;
+}

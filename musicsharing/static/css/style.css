@@ -365,3 +365,113 @@ span.glyphicon-comment {
 .row {
   width: 100%;
 }
+
+
+
+/*sign in*/
+.sign-in {
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+    overflow: hidden;
+    background-color: rgba(255,255,255,.8);
+}
+#login-dp{
+    min-width: 250px;
+    padding: 20px;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0    
+}
+#login-dp .socialaccount_provider{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+    width: 100%;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc 
+}
+.btn-tw{
+    color: #fff;
+    background-color:#55acee;
+    width: 100%;
+}
+.btn-tw:hover{
+    color: #fff;
+    background-color:#59b5fa;
+}
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.bottom-signin {
+    background-color: rgba(255,255,255,.8);
+    border-top: 1px solid #ddd;
+    clear: both;
+    padding: 14px;
+    width: 600px;
+    margin: 0 auto;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.form-control {
+    color: #434a54;
+    border-color: #aab2bd;
+}
+#login-dp .btn, #login-dp input {
+  height: 43px;
+  vertical-align: center;
+      line-height: 29px;
+}
+#login-dp input {
+    display: block;
+    width: 100%;
+    height: 43px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
