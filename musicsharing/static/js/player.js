@@ -4,8 +4,6 @@ var ap4 = new APlayer({
         autoplay: false,
         showlrc: true,
         theme: '#ad7a86',
-        music: [{
-            
-        }]
+        music: [{}]
     });
     ap4.init();

@@ -19,7 +19,11 @@
                 } else {
                     var music = "";
                     var json = data['name'];
-                    console.log(json);
+                    console.log(option.music);
+                    if (json.length == 0) {
+                        option.music[0].title = "There are no songs, please upload";
+                        option.music[0].author = "";
+                    }
 
                     for (var i = 0; i < json.length; i++) {
 
@@ -28,7 +32,7 @@
                         option.music[i].pic = "http://127.0.0.1:8000/picture/" + json[i].title
 
                     }
-
+                    console.log(option.music);
                 }
             },
             error: function() {
@@ -89,7 +93,8 @@
 
         // fill in HTML
         var eleHTML = '' + '<div class="aplayer-pic">' + '<div class="aplayer-button aplayer-play">' + '<i class="demo-icon aplayer-icon-play"></i>' + '</div>' + '</div>' + '<div class="aplayer-info">' + '<div class="aplayer-music">' + '<span class="aplayer-title"></span>' + '<span class="aplayer-author"></span>' + '</div>' + '<div class="aplayer-lrc">' + '<div class="aplayer-lrc-contents"></div>' + '</div>' + '<div class="aplayer-controller">' + '<div class="aplayer-bar-wrap">' + '<div class="aplayer-bar">' + '<div class="aplayer-loaded" style="width: 0"></div>' + '<div class="aplayer-played" style="width: 0; background: ' + this.option.theme + ';">' + '<span class="aplayer-thumb" style="border: 1px solid ' + this.option.theme + ';"></span>' + '</div>' + '</div>' + '</div>' + '<div class="aplayer-time">' + ' - <span class="aplayer-ptime">00:00</span> / <span class="aplayer-dtime">00:00</span>' + '<div class="aplayer-volume-wrap">' + '<i class="demo-icon aplayer-icon-volume-down"></i>' + '<div class="aplayer-volume-bar-wrap">' + '<div class="aplayer-volume-bar">' + '<div class="aplayer-volume" style="height: 80%; background: ' + this.option.theme + ';"></div>' + '</div>' + '</div>' + '</div>' + '<i class="demo-icon aplayer-icon-loop"></i>' + (this.playIndex > -1 ? '<i class="demo-icon aplayer-icon-menu"></i>' : '') + '</div>' + '</div>' + '</div>';
-        if (this.playIndex > -1) {
+        console.log(this.option.music.length);
+        if (this.playIndex > -1 && this.option.music.length > 0) {
             eleHTML += ''
                 // + '<div class="list-bg">'
                 // +   '<div class="bg">'
@@ -322,7 +327,7 @@
 
             // audio download error
             this.audio.addEventListener('error', function() {
-                _self.element.getElementsByClassName('aplayer-author')[0].innerHTML = ' - ' + 'Error happens ╥﹏╥';
+                // _self.element.getElementsByClassName('aplayer-author')[0].innerHTML = ' - ' + 'Error happens ╥﹏╥';
             });
 
             // multiple music play
@@ -478,6 +483,7 @@
             currentTime = this.audio.currentTime;
         }
         //console.log(this.lrc);
+        if (this.lrc == undefined) return;
         if (this.lrcIndex > this.lrc.length - 1 || currentTime < this.lrc[this.lrcIndex][0] || (!this.lrc[this.lrcIndex + 1] || currentTime >= this.lrc[this.lrcIndex + 1][0])) {
             for (var i = 0; i < this.lrc.length; i++) {
                 if (currentTime >= this.lrc[i][0] && (!this.lrc[i + 1] || currentTime < this.lrc[i + 1][0])) {

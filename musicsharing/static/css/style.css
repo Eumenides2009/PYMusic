@@ -9,7 +9,10 @@ body {
 	position: inherit;
     /*background: url("../img/bg.jpg") no-repeat top center;*/
 }
-
+/*.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    color: #8c8c8c;
+    background-color: #000;
+}*/
 .img-square {
   width: 100%;
     height: 100%;
