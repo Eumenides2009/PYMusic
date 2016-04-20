@@ -42,13 +42,16 @@ class Profile(models.Model):
 		)
 	user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='profile')
 	bio = models.CharField(max_length=400,null=True,blank=True)
-	gender = models.CharField(max_length=10,choices=gender_choice,default='D',blank=True)
+	gender = models.CharField(max_length=15,choices=gender_choice,default='D',blank=True)
 	date = models.DateField(null=True,blank=True)
 	age = models.IntegerField(default=1,validators=[MaxValueValidator(100),MinValueValidator(1)],blank=True,null=True)
 	country = CountryField(blank_label='(select country)',null=True,blank=True)
 	picture = models.ImageField(upload_to='profile_image',blank=True,default="profile_image/default.jpg")
 	nickname = models.CharField(max_length=30,null=True,blank=True)
 	friends = models.ManyToManyField(User,related_name='friends')
+
+	def __unicode__(self):
+		return self.user.username
 
 class Post(models.Model):
 	content = models.CharField(max_length=140)

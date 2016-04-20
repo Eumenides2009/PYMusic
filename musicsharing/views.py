@@ -27,10 +27,15 @@ import chardet
 temp_upload_path = "/tmp/django_upload"
 
 def add_profile(**kwargs):
+	user = kwargs['user']
+	if hasattr(user, '_wrapped') and hasattr(user, '_setup'):
+		if user._wrapped.__class__ == object:
+			user._setup()
+		user = user._wrapped
 	try:
-		profile = Profile.objects.get(user=kwargs['request'].user)
+		profile = Profile.objects.get(user=user)
 	except Profile.DoesNotExist:
-		profile = Profile(user=kwargs['request'].user)
+		profile = Profile(user=user)
 		profile.save()
 		print 'add new profile'
 	
@@ -143,7 +148,7 @@ def upload(request):
 
 	meta = get_music_metadata(request.FILES['music'])
 
-	if not meta:
+	if not meta.get('title'):
 		return TemplateResponse(request,'home.html',{'list_id':request.POST['list_id']})
 
 	
@@ -224,7 +229,7 @@ def edit_profile(request):
 		form = EditProfileForm(request.POST,request.FILES,instance=e_profile)
 
 		if not form.is_valid():
-			return TemplateResponse(request,'edit_profile.html',{})
+			return TemplateResponse(request,'edit_profile.html',{'form':form})
 		
 		form.save()
 
@@ -347,8 +352,13 @@ def create_list(request):
 
 		form.save()
 
-		playlist_collection = PlayList.objects.filter(user=request.user)
-		return redirect('playlist')
+		if request.FILES.get('picture'):
+			new_list.picture = request.FILES['picture']
+
+		print request.POST
+		new_list.save()
+
+		return TemplateResponse(request,'playlist.html',{})
 	
 
 @login_required
