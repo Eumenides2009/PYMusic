@@ -5,17 +5,18 @@ from django.contrib.auth.models import User
 from musicsharing.models import *
 from ajax_select.fields import AutoCompleteSelectField, AutoCompleteSelectMultipleField,AutoCompleteField
 from django.forms import extras
-from django_countries.widgets import CountrySelectWidget
-# class PostForm(forms.ModelForm):
-# 	class Meta:
-# 		model = Post
-# 		fields = ['content']
-# 		widgets = {'content': forms.Textarea(attrs={'placeholder':'New Post Here..','class':'new-post','cols':'100','rows':'3'})}
+from django_countries.widgets import CountrySelectWidget 
 
-# 	def clean(self):
-# 		cleaned_data = super(PostForm,self).clean()
 
-# 		return cleaned_data
+class UploadForm(forms.ModelForm):
+	class Meta:
+		model = Music
+		fields = ['picture','lyric']
+
+	def clean(self):
+		cleaned_data = super(UploadForm,self).clean()
+
+		return cleaned_data
 
 	
 years = [x for x in range(1980,2017)]
@@ -46,6 +47,15 @@ class AddPlayListForm(forms.ModelForm):
 
 		return cleaned_data
 
+class EditPlayListForm(forms.ModelForm):
+	class Meta:
+		model = PlayList
+		fields = ['name','intro']
+
+	def clean(self):
+		cleaned_data = super(EditPlayListForm,self).clean()
+
+		return cleaned_data
 
 class SearchUserForm(forms.ModelForm):
 	class Meta:

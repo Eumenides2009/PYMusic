@@ -142,38 +142,46 @@ def get_picture(request,audio_name):
 @login_required
 @transaction.atomic
 def upload(request):
-	
+	error_message = []
+
+	if request.method == 'GET':
+		error_message.append('Bad Request Method')
+		return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+
 	if not request.FILES.get('music'):
-		return TemplateResponse(request,'home.html',{'list_id':0})
+		error_message.append('Music: This file is required')
+		return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
 
 	meta = get_music_metadata(request.FILES['music'])
 
 	if not meta.get('title'):
-		return TemplateResponse(request,'home.html',{'list_id':request.POST['list_id']})
+		error_message.append('Wrong Music File Type or Corrupted MP3 File')
+		return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
 
 	
 	new_music = Music(name=meta['title'],artist=meta['author'],album=meta['album'],content=request.FILES['music'],user=request.user)
-	
+
+	form = UploadForm(request.POST,request.FILES,new_music,instance=new_music)
+
+	if not form.is_valid():
+		error = form.errors
+			
+		if error.get('picture'):
+			error_message.append('Music Image: ' + error['picture'][0])
+
+		if error.get('lyric'):
+			error_message.append('Lyric ' + error['lyric'][0])
+
+		return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+		
 	if request.FILES.get('picture'):
 		new_music.picture = request.FILES['picture']
 	elif meta.get('image'):
 		new_music.picture.save(meta['title'] + u''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)) + '.jpg',ContentFile(meta['image']))
-		
-	if request.FILES.get('lyric'):
-		new_music.lyric = request.FILES['lyric']
 
 	new_music.save()	
 
-	if request.POST.get('playlist'):
-		try:
-			playlist = PlayList.objects.get(name=request.POST['playlist'])
-			playlist.music.add(new_music)
-			playlist.update_count()
-			playlist.save()
-		except PlayList.DoesNotExist:
-			pass
-
-	return TemplateResponse(request,'home.html',{'list_id':request.POST['list_id']})
+	return HttpResponse(status=200)
 
 @login_required
 def get_audio_index(request):
@@ -303,27 +311,39 @@ def playlist(request):
 @login_required
 @transaction.atomic
 def edit_playlist(request):
+	error_message = []
 	if request.method == 'GET':
-		return redirect('playlist')
+		error_message.append('Bad Request Type')
+		return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
 	else:
 		if not request.POST.get('list_id'):
-			return redirect('playlist')
+			error_message.append('List_id: This field is required')
+			return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
 		else:
 			try:
 				m_playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
 
-				if request.POST.get('list_name'):
-					m_playlist.name = request.POST['list_name']
+				form = EditPlayListForm(request.POST or None,instance=m_playlist)
 
-				if request.POST.get('list_intro'):
-					m_playlist.intro = request.POST['list_intro']
+				if not form.is_valid():
+					error = form.errors
+					error_message = []
 
-				m_playlist.save()
+					if error.get('intro'):
+						error_message.append('Brief Introduction: ' + error['intro'][0])
 
-				return redirect('playlist')
+					if error.get('name'):
+						error_message.append('List Name: ' + error['name'][0])
+
+					return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+
+				form.save()
+
+				return HttpResponse(status=200)
 
 			except PlayList.DoesNotExist:
-				return redirect('playlist')
+				error_message.append('PlayList Does Not Exist')
+				return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
 
 	
 
@@ -348,6 +368,7 @@ def create_list(request):
 			if error.get('name'):
 				error_message.append('List Name: ' + error['name'][0])
 
+			print error_message
 			return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
 
 		form.save()
@@ -355,10 +376,9 @@ def create_list(request):
 		if request.FILES.get('picture'):
 			new_list.picture = request.FILES['picture']
 
-		print request.POST
 		new_list.save()
 
-		return TemplateResponse(request,'playlist.html',{})
+		return HttpResponse(status=200)
 	
 
 @login_required

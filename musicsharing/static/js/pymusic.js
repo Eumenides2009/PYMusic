@@ -144,19 +144,39 @@ function edit_playlist() {
     var list_name = $('#edit-list-name').val();
     var list_intro = $('#edit-list-intro').val();
     var csrf = getCSRFToken();
-    console.log(list_intro);
+    
+    var modal = $("#myModal");
+    var alerts = $("#myModal").find(".alert");
+    if (alerts.length > 0) {
+        for (var i = 0; i < alerts.length; i++) {
+            $(alerts[i]).remove();
+        }
+    }
+    
+    var modal_body = $("#myModal-body");
     $.ajax({
             url: "/edit-playlist",
             type: "post",
-            data: {list_id:id ,list_name:list_name, list_intro:list_intro, csrfmiddlewaretoken:csrf},
+            data: {list_id:id ,name:list_name, intro:list_intro, csrfmiddlewaretoken:csrf},
             async: false,
             success: function(data) {
+                window.location.href='/playlist'; 
             },
-            error: function() {
-
+            error: function(data) {
+                console.log("aaaa")
+            var message = jQuery.parseJSON(data.responseText)["message"];
+            
+            var html = "";
+            for (var i = 0; i < message.length; i++) {
+                html += '<div class="alert alert-warning alert-dismissable" id="add-playlist-alert"> \
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> \
+                    <span>' + message[i] + '</span> \
+                </div> ';
+            }
+            modal_body.prepend(html);
             }
         });
-    window.location.href='/playlist'; 
+    
 }
 
 
