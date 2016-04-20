@@ -50,6 +50,9 @@ class Profile(models.Model):
 	nickname = models.CharField(max_length=30,null=True,blank=True)
 	friends = models.ManyToManyField(User,related_name='friends')
 
+	def __unicode__(self):
+		return self.user.username
+
 class Post(models.Model):
 	content = models.CharField(max_length=140)
 	user = models.ForeignKey(User,on_delete=models.CASCADE)

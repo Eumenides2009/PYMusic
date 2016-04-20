@@ -1,6 +1,7 @@
 from ajax_select import register, LookupChannel
 from django.contrib.auth.models import User
 from musicsharing.models import *
+from django.db.models import Q
 
 @register('user')
 class UserLookup(LookupChannel):
@@ -17,13 +18,19 @@ class UserLookup(LookupChannel):
 @register('search_user')
 class SearchUserLookup(LookupChannel):
 
-	model = User
+	model = Profile
 
 	def get_query(self, q, request):
-		return self.model.objects.filter(username__icontains=q)
+		user = User.objects.filter(username__icontains=q)
+		return self.model.objects.filter(Q(nickname__icontains=q)
+										 | Q(user__in=user))
 
-	def format_item_display(self,item):
-		return u"<span class='tag'>%s</span>" % item.username
+
+	def format_item_display(self,item): 
+		return u"<span class='tag'>%s</span>" % (item.user.username)
+
+	def format_match(self,item):
+		return u"<span class='tag'>Nickname:%s   Username:%s</span>" % (item.nickname,item.user.username)
 
 
 @register('search_song')
