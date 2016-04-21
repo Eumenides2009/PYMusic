@@ -6,6 +6,9 @@ handler400, handler403, handler404, handler500
 )
 
 handler404 = 'musicsharing.views.page_not_found'
+handler500 = 'musicsharing.views.internal_server_error'
+handler403 = 'musicsharing.views.forbidden'
+handler400 = 'musicsharing.views.bad_request'
 
 urlpatterns =  patterns('postman.views',
     url(r'^messages/write/(?:(?P<recipients>[^/#]+)/)?$',
