@@ -98,12 +98,17 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-    {% for msg in messages %}
+  
+    <div class="container">
+          {% for msg in messages %}
+    {% if msg.level_tag == "error" %}
+    <div class="alert alert-danger">
+    {% else %}
     <div class="alert alert-{{msg.level_tag}}">
+    {% endif %}
     {{msg}}
     </div>
     {% endfor %}
-    <div class="container">
         {% block postman_menu %}{% endblock %}
         {% block content %}{% endblock %}
     </div>
