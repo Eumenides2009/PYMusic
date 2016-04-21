@@ -6,7 +6,13 @@ $(document).ready(function() {
         $("#addPostLi")
             .html('<a href="" data-toggle="modal" data-target="#addPost">Add Post</a></li>');
         console.log($(this).html());
-    })
+    });
+    $('.modal').on('hidden.bs.modal', function () {
+        $('.modal-body').find('textarea,input:not([type=hidden])').val('');
+        // $('.modal-body').find('').val('');
+        $('.modal-body').find(".alert").remove();
+    });
+
 }); 
 function comment_btn() {
     var state = this.children[0].getAttribute("value");
