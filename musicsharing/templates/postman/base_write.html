@@ -16,12 +16,29 @@
 <div class="input-group">
         <span class="input-group-addon">Recipient</span>
         {{ form.recipients }}
+        
 </div>
+{% for error in form.recipients.errors %}
+     		<div class="alert alert-warning alert-dismissable">
+     	{{error}}
+    	</div>
+    	{% endfor %}
 <div class="input-group">
         <span class="input-group-addon">Subject</span>
         {{ form.subject }}
+        
 </div>
-{{ form.body }}</table>
+{% for error in form.subject.errors %}
+     <div class="alert alert-warning alert-dismissable">
+     {{error}}
+    </div>
+    {% endfor %}
+{{ form.body }}
+{% for error in form.body.errors %}
+     <div class="alert alert-warning alert-dismissable">
+     {{error}}
+    </div>
+    {% endfor %}</table>
 <button type="submit" class="btn btn-primary">{% trans "Send" %}</button>
 </form>
 </div>
