@@ -475,6 +475,11 @@ span.glyphicon-comment {
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
+#login-dp .ctrlHolder input {
+  width: auto;
+  display: inline;
+  height: auto;
+}
 .modal {
   z-index: 98;
 }
