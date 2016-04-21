@@ -5,10 +5,9 @@ $(document).ready(function() {
     $(".nav").click(function() {
         $("#addPostLi")
             .html('<a href="" data-toggle="modal" data-target="#addPost">Add Post</a></li>');
-        console.log($(this).html());
     })
 
-    console.log($(".modal").find(".form"));
+    
 }); 
 
 function comment_btn() {
