@@ -11,6 +11,7 @@
 <p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
 
 <form action="{% url 'account_email' %}" class="email_list" method="post">
+  {{emailaddress.errors}}
 {% csrf_token %}
 <fieldset class="blockLabels">
 
@@ -29,6 +30,9 @@
       {% if emailaddress.primary %}<span class="primary">{% trans "Primary" %}</span>{% endif %}
 </label>
 </div>
+{% for err in emailaddress.email.errors %}
+        <div class="alert alert-warning alert-dismissable">{{ err }}</div>
+        {% endfor %}
   {% endfor %}
 
 <div class="buttonHolder">
@@ -53,6 +57,9 @@
   <div class="form-group">
         {{ form.email}}
       </div>
+      {% for err in form.email.errors %}
+        <div class="alert alert-warning alert-dismissable">{{ err }}</div>
+        {% endfor %}
         <button name="action_add" class="btn btn-primary btn-block" type="submit">{% trans "Add E-mail" %}</button>
     </form>
     

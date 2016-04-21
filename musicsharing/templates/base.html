@@ -23,6 +23,7 @@
 </head>
 
 <body>
+    
     <div class="list-bg">
         <div class="bg">
         </div>
@@ -97,6 +98,11 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
+    {% for msg in messages %}
+    <div class="alert alert-{{msg.level_tag}}">
+    {{msg}}
+    </div>
+    {% endfor %}
     <div class="container">
         {% block postman_menu %}{% endblock %}
         {% block content %}{% endblock %}

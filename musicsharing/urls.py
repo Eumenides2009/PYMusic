@@ -2,13 +2,14 @@ from django.conf.urls import url,include,patterns
 from musicsharing import views
 from postman.views import WriteView
 
+
 urlpatterns =  patterns('postman.views',
     url(r'^messages/write/(?:(?P<recipients>[^/#]+)/)?$',
         WriteView.as_view(autocomplete_channels=('user')),
         name='write')
 	) + [
-
-	# player
+	
+		# player
 	url(r'^$',views.home,name='home'),
 	url(r'^upload$',views.upload),
 	url(r'^get_lyric/(?P<lyric_name>.+)$',views.get_lyric),
@@ -61,9 +62,9 @@ urlpatterns =  patterns('postman.views',
 	url(r'notifications/',include('pinax.notifications.urls')),
 	url(r'^ajax_select/', include('ajax_select.urls')),
 	url(r'^accounts/',include('allauth.urls')),
-	
 
-	url(r'^errorr$',views.error),
+	# url(r'^',views.page_not_found),
+	
 ] 
 
 

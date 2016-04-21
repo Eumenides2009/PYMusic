@@ -25,7 +25,7 @@ SECRET_KEY = '$$tynw!tp1wb%4q4xr!_mf_)a3$r62@z^41am5zl-s$lgd6e-p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
