@@ -368,6 +368,8 @@
         if (this.option.showlrc) {
             var element = this.element;
             var obj = this;
+            console.log(this.music.title);
+            console.log(this.music);
             $.ajax({
                 url: "/get_lyric/" + this.music.title,
                 type: "get",
@@ -400,7 +402,8 @@
                     }
                 },
                 error: function() {
-
+                    if ( $(".aplayer-lrc-contents").children().length != 0)
+                        $(".aplayer-lrc-contents").children().remove();
                 }
             });
 
