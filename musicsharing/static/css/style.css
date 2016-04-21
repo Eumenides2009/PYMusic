@@ -512,3 +512,11 @@ span.glyphicon-comment {
       margin-bottom: 12px;
       font-weight: normal;
   }
+
+  .progress {
+    background-color: #3bafda;
+    color: #fff;
+  }
+  .percent {
+    margin-left: 10px;
+  }
