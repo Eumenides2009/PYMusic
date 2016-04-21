@@ -77,6 +77,17 @@ def get_music_metadata(file):
 
 	return meta
 
+def json_response_wrapper(status,message=None):
+	print status
+	if status == 200 or status == 404:
+		return HttpResponse(status=status)
+	elif status == 400:
+		if message:
+			print status
+			print message
+			return HttpResponse(json.dumps({'message':message}),content_type='application/json',status=status)
+		else:
+			return HttpResponse(status=status)
 
 @login_required
 def home(request):
@@ -116,7 +127,7 @@ def get_audio(request,audio_name):
 @login_required
 def get_lyric(request,lyric_name):
 	if request.method == 'POST':
-		return HttpResponse(status=400)
+		return json_response_wrapper(400)
 	else:
 		music = get_object_or_404(Music,name=lyric_name,user=request.user)
 
@@ -124,7 +135,7 @@ def get_lyric(request,lyric_name):
 			lyric = music.lyric.read()
 			encoding = chardet.detect(lyric)
 		else:
-			return HttpResponse(status=404)
+			return json_response_wrapper(404)
 
 		return HttpResponse(json.dumps({'content':lyric},ensure_ascii=False),content_type='application/json;charset=' + encoding['encoding'])
 
@@ -146,17 +157,17 @@ def upload(request):
 
 	if request.method == 'GET':
 		error_message.append('Bad Request Method')
-		return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+		return json_response_wrapper(400,error_message)
 
 	if not request.FILES.get('music'):
 		error_message.append('Music: This file is required')
-		return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+		return json_response_wrapper(400,error_message)
 
 	meta = get_music_metadata(request.FILES['music'])
 
 	if not meta.get('title'):
 		error_message.append('Wrong Music File Type or Corrupted MP3 File')
-		return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+		return json_response_wrapper(400,error_message)
 
 	
 	new_music = Music(name=meta['title'],artist=meta['author'],album=meta['album'],content=request.FILES['music'],user=request.user)
@@ -172,7 +183,7 @@ def upload(request):
 		if error.get('lyric'):
 			error_message.append('Lyric ' + error['lyric'][0])
 
-		return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+		return json_response_wrapper(400,error_message)
 		
 	if request.FILES.get('picture'):
 		new_music.picture = request.FILES['picture']
@@ -181,7 +192,7 @@ def upload(request):
 
 	new_music.save()	
 
-	return HttpResponse(status=200)
+	return json_response_wrapper(200)
 
 @login_required
 def get_audio_index(request):
@@ -246,12 +257,12 @@ def edit_profile(request):
 @login_required
 def get_profile_picture(request,profile_id):
 	if request.method == 'POST':
-		return HttpResponse(status=400)
+		return json_response_wrapper(400)
 	else:
 		profile = get_object_or_404(Profile,id=profile_id)
 
 		if not profile.picture:
-			return HttpResponse(status=404)
+			return json_response_wrapper(404)
 
 		return HttpResponse(profile.picture,content_type=guess_type(profile.picture.name))
 
@@ -314,11 +325,11 @@ def edit_playlist(request):
 	error_message = []
 	if request.method == 'GET':
 		error_message.append('Bad Request Type')
-		return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+		return json_response_wrapper(400,error_message)
 	else:
 		if not request.POST.get('list_id'):
 			error_message.append('List_id: This field is required')
-			return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+			return json_response_wrapper(400,error_message)
 		else:
 			try:
 				m_playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
@@ -335,15 +346,15 @@ def edit_playlist(request):
 					if error.get('name'):
 						error_message.append('List Name: ' + error['name'][0])
 
-					return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+					return json_response_wrapper(400,error_message)
 
 				form.save()
 
-				return HttpResponse(status=200)
+				return json_response_wrapper(200)
 
 			except PlayList.DoesNotExist:
 				error_message.append('PlayList Does Not Exist')
-				return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+				return json_response_wrapper(400,error_message)
 
 	
 
@@ -368,8 +379,7 @@ def create_list(request):
 			if error.get('name'):
 				error_message.append('List Name: ' + error['name'][0])
 
-			print error_message
-			return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+			return json_response_wrapper(400,error_message)
 
 		form.save()
 
@@ -378,13 +388,13 @@ def create_list(request):
 
 		new_list.save()
 
-		return HttpResponse(status=200)
+		return json_response_wrapper(200)
 	
 
 @login_required
 def get_list(request,list_id,song_name):
 	if request.method == 'POST':
-		return HttpResponse(status=400)
+		return json_response_wrapper(400)
 	else:
 		print 'list_id' + list_id
 		if list_id == '0':
@@ -419,7 +429,7 @@ def get_list(request,list_id,song_name):
 				return HttpResponse(data,content_type='application/json')
 
 			except PlayList.DoesNotExist:
-				return HttpResponse(status=404)
+				return json_response_wrapper(404)
 
 @login_required
 def get_list_name(request):
@@ -434,14 +444,14 @@ def get_list_name(request):
 @login_required
 def get_list_picture(request,list_id):
 	if request.method == 'POST':
-		return HttpResponse(status=400)
+		return json_response_wrapper(400)
 	else:
 		try:
 			playlist = PlayList.objects.get(id=list_id,user=request.user)
 			return HttpResponse(playlist.picture,content_type=guess_type(playlist.picture.name))
 
 		except PlayList.DoesNotExist:
-			return HttpResponse(status=404)
+			return json_response_wrapper(404)
 
 @login_required
 @transaction.atomic
@@ -465,10 +475,10 @@ def delete_list(request):
 @transaction.atomic
 def delete_song(request):
 	if request.method == 'GET':
-		return HttpResponse(status=400)
+		return json_response_wrapper(400)
 	else:
 		if not request.POST.get('list_id') or not request.POST.get('song_name'):
-			return HttpResponse(status=400)
+			return json_response_wrapper(400)
 		else:
 			try:
 				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
@@ -476,18 +486,19 @@ def delete_song(request):
 					music_to_delete = playlist.music.get(name=request.POST['song_name'])
 					playlist.music.remove(music_to_delete)
 					playlist.save()
-					return HttpResponse(status=200)
+					return json_response_wrapper(200)
 				except Music.DoesNotExist:					
-					return HttpResponse(status=404)
+					return json_response_wrapper(404)
 			except PlayList.DoesNotExist:
-				return HttpResponse(status=404)
+				return json_response_wrapper(404)
 
 @login_required
 @transaction.atomic
 def add_song(request):
 	error_message = []
 	if request.method == 'GET':
-		return HttpResponse(status=400)
+		error_message.append('Bad Request Method')
+		return json_response_wrapper(400,error_message)
 	else:
 		if not request.POST.get('list_id') or not request.POST.get('song_name'):
 			if not request.POST.get('list_id'):
@@ -495,7 +506,7 @@ def add_song(request):
 
 			if not request.POST.get('song_name'):
 				error_message.append('Song Name: This field is required')
-			return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+			return json_response_wrapper(400,error_message)
 		else:
 			try:
 				playlist = PlayList.objects.get(id=request.POST['list_id'],user=request.user)
@@ -503,13 +514,13 @@ def add_song(request):
 					music = Music.objects.get(name=request.POST['song_name'],user=request.user)
 					playlist.music.add(music)
 					playlist.save()
-					return HttpResponse(status=200)
+					return json_response_wrapper(200)
 				except Music.DoesNotExist:
 					error_message.append('Can not find this music in your repo')
-					return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=404) 
+					return json_response_wrapper(400,error_message)
 			except PlayList.DoesNotExist:
 				error_message.append('This playlist does not exist')
-				return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=404)
+				return json_response_wrapper(400,error_message)
 
 # search section
 @login_required
@@ -592,7 +603,8 @@ def get_comment(request):
 @transaction.atomic
 def post(request):
 	if request.method == 'GET':
-		return HttpResponse(status=400)
+		error_message=['Bad Request Method']
+		return json_response_wrapper(400,error_message)
 	else:
 		post = Post(user=request.user)
 		form = PostForm(request.POST,instance=post)
@@ -609,34 +621,44 @@ def post(request):
 			elif not Music.objects.filter(user=request.user,name=request.POST['post_song']):
 				error_message.append('Music: ' + 'Can not find this song in your repo')
 
-			return HttpResponse(json.dumps({'message':error_message}),content_type='application/json',status=400)
+			return json_response_wrapper(400,error_message)
 			
 			
 		try:
 			music = Music.objects.get(user=request.user,name=form.cleaned_data['post_song'])
 			post.music = music 
 			form.save()
-			return redirect('friend_stream')
+			return json_response_wrapper(200)
 		except Music.DoesNotExist:
-			return HttpResponse(json.dumps({'message':['Music: Can not find this song in your repo']}),content_type='application/json',status=400)
+			return json_response_wrapper(400,['Can not find this music in your repo'])
 
 # comment section
 @login_required
 @transaction.atomic
 def comment(request):
+	error_message = []
 	if request.method == 'GET':
-		return HttpResponse(status=400)
+		error_message.append('Bad Request Method')
+		return json_response_wrapper(400,error_message)
 	else:
-		if not request.POST.get('post_id') or not request.POST.get('content') or request.POST['content'] == '':
-			return HttpResponse(status=400)
+		if not request.POST.get('post_id'):
+			error_message.append('Post ID: This field is required')
+			return json_response_wrapper(400,error_message)
 		else:
 			try:
 				post = Post.objects.get(id=request.POST['post_id'])
-				comment = Comment(content=request.POST['content'],user=request.user,post=post)
-				comment.save()
+				comment = Comment(user=request.user,post=post)
+				form = CommentForm(request.POST,instance=comment)
+
+				if not form.is_valid():
+					error_message.append(form.errors['content'][0])
+					return json_response_wrapper(400,error_message)
+
+				form.save()
 				return HttpResponse(json.dumps({'time':datetime.strftime(comment.date,'%Y-%m-%d %H:%M:%S')}),content_type="application/json")
 			except Post.DoesNotExist:
-				return HttpResponse(status=400)
+				error_message.append('Can not find this post')
+				return json_response_wrapper(400,error_message)
 
 
 

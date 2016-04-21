@@ -66,7 +66,7 @@ class Comment(models.Model):
 	date = models.DateTimeField(auto_now=True)
 
 class PlayList(models.Model):
-	name = models.CharField(max_length=20,blank=True)
+	name = models.CharField(max_length=20)
 	picture = models.ImageField(upload_to='list_image',default='list_image/default.jpg')
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
 	music = models.ManyToManyField(Music)

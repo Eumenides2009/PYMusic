@@ -29,13 +29,11 @@ function addComment(event) {
     var csrf = $(this).find('input[name="csrfmiddlewaretoken"]').val();
     var modal = $("#myModal");
 
-    
+    var modal_body = $("#myModal-body");
+    console.log(modal_body);
     $.post("/comment", {'content':comment_content, 'post_id':post_id, 'csrfmiddlewaretoken':csrf})
         .done(function(data){
         
-            //displayComment(post_id);
-            console.log("completed");
-
             modal.modal('toggle');
             form.each(function(){
                 this.reset();
@@ -60,6 +58,19 @@ function addComment(event) {
             
             $('#comment-list-'+ post_id).append(html);
         
+    })
+    .error(function(data){
+        var message = jQuery.parseJSON(data.responseText)["message"];
+            var html = "";
+            for (var i = 0; i < message.length; i++) {
+                html += '<div class="alert alert-warning alert-dismissable" id="add-playlist-alert"> \
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> \
+                    <span>' + message[i] + '</span> \
+                </div> ';
+            }
+            modal_body.prepend(html);
+
+
     });
 }
 

@@ -38,6 +38,7 @@ class EditProfileForm(forms.ModelForm):
 		return cleaned_data
 
 class AddPlayListForm(forms.ModelForm):
+
 	class Meta:
 		model = PlayList
 		fields = ['name','intro','picture']
@@ -100,6 +101,14 @@ class PostForm(forms.ModelForm):
 
 		return cleaned_data
 
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = Comment
+		fields = ['content']
+
+	def clean(self):
+		cleaned_data = super(CommentForm,self).clean()
+		return cleaned_data
 
 # class CommentForm(forms.ModelForm):
 # 	class Meta:

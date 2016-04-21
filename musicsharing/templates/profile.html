@@ -13,50 +13,6 @@
 </ul>
 {% endif %} -->
 
-<!-- <div id="profile" class="form-edit-profile">
-	<form method="post" action="{% url 'musicsharing.views.edit_profile'%}">
-	{% load staticfiles %}
-    <div class="icon-center">
-    <img class="events-object img-rounded icon" src="{% url 'musicsharing.views.get_profile_picture' profile.id %}">
-</div>
-    <h1>{{profile.user.username}}</h1>
-    <ul class="list--horz list--centered list--block list--comfy">
-    <li class="profile__bio">
-        <a data-modal="" class="media--inline content--tertiary" href="#bio-modal"><span class="media__img icon-user"></span>
-        <div class="media__body">About</div>
-        </a>
-        <div class="modal__container modal--scrollable mfp-hide" id="bio-modal">
-            <div class="modal__header">
-                <h3 class="modal__title">
-Linda Lorenzetti
-<span class=" btn--important btn--badge btn--xsmall">Hero</span>
-</h3>
-            </div>
-            <div class="modal__body content--secondary linebreaks auto_link">elearning enthusiast, presentation specialist, life-long learner, Articulate user.</div>
-        </div>
-    </li>
-    <li class="profile__location">
-        <div class="media--inline">
-            <span class="media__img icon-location"></span>
-            <div class="media__body">Toronto</div>
-        </div>
-    </li>
-    <li class="profile__link">
-        <a title="http://www.e-adventurer.com" target="_blank" class="media--inline content--tertiary" href="http://www.e-adventurer.com"><span class="media__img icon-globe"></span>
-<div class="media__body">Website</div>
-</a></li>
-    <li class="profile__contact">
-        <a data-login-required="true" data-modal="" data-modal-reset="off" class="media--inline content--tertiary" href="#contact-modal"><span class="media__img icon-envelope"></span>
-<div class="media__body">Contact Me</div>
-</a></li>
-</ul>
-    {% if profile.user.username != user.username %}
-    <button type="submit" id="submit-edit-list" class="btn btn-lg btn-primary btn-block">Follow</button>
-    {% endif %}
-    {% csrf_token %}
-</form>
-</div> -->
-
           <div class="panel panel-info">
             <div class="panel-heading">
               <h3 class="panel-title">{{profile.user.username}}</h3>
@@ -68,18 +24,6 @@ Linda Lorenzetti
                 <div class="col-md-8">
                 <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="{% url 'musicsharing.views.get_profile_picture' profile.id %}" class="img-circle img-square img-thumbnail"> </div>
                 
-                <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
-                  <dl>
-                    <dt>DEPARTMENT:</dt>
-                    <dd>Administrator</dd>
-                    <dt>HIRE DATE</dt>
-                    <dd>11/12/2013</dd>
-                    <dt>DATE OF BIRTH</dt>
-                       <dd>11/12/2013</dd>
-                    <dt>GENDER</dt>
-                    <dd>Male</dd>
-                  </dl>
-                </div>-->
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
                     <tbody>
@@ -182,7 +126,7 @@ Linda Lorenzetti
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Comment</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="myModal-body">
                     <form method="post" action="{% url 'musicsharing.views.comment' %}" id="comment-form-141">
                         <textarea class="form-control" cols="40" id="id_comment_content" maxlength="160" name="content" rows="3"></textarea>
                         {% csrf_token %}
