@@ -41,7 +41,6 @@ def add_profile(**kwargs):
 	except Profile.DoesNotExist:
 		profile = Profile(user=user)
 		profile.save()
-		print 'add new profile'
 	
 
 user_signed_up.connect(add_profile)
@@ -82,13 +81,10 @@ def get_music_metadata(file):
 	return meta
 
 def json_response_wrapper(status,message=None):
-	print status
 	if status == 200 or status == 404:
 		return HttpResponse(status=status)
 	elif status == 400:
 		if message:
-			print status
-			print message
 			return HttpResponse(json.dumps({'message':message}),content_type='application/json',status=status)
 		else:
 			return HttpResponse(status=status)
@@ -296,6 +292,8 @@ def remove_song_repo(request):
 		else:
 			return redirect('manage_songs')
 
+@login_required
+@transaction.atomic
 def edit_song(request):
 	if request.method == 'GET' or not request.POST.get('origin_name'):
 		return HttpResponse(status=400)
@@ -590,21 +588,6 @@ def my_friend(request):
 
 	return TemplateResponse(request,'my_friend.html',{'friends':friends})
 
-@login_required
-def get_comment(request):
-	pass
-
-
-
-# def add_post(request,musicname):
-# 	try:
-# 		music = Music.objects.get(user=request.user,name=musicname)
-# 		post_form = PostForm(initial={'music_name':music.name})
-# 		return TemplateResponse(request,'add_post.html',{'post_form':post_form,'music':music})
-# 	except Music.DoesNotExist:
-# 		music = None
-# 		post_form = PostForm()
-# 		return TemplateResponse(request,'add_post.html',{'post_form':post_form})
 
 # post section	
 @login_required
@@ -630,8 +613,7 @@ def post(request):
 				error_message.append('Music: ' + 'Can not find this song in your repo')
 
 			return json_response_wrapper(400,error_message)
-			
-			
+						
 		try:
 			music = Music.objects.get(user=request.user,name=form.cleaned_data['post_song'])
 			post.music = music 
@@ -669,10 +651,14 @@ def comment(request):
 				return json_response_wrapper(400,error_message)
 
 
+def page_not_found(request):
+	return render(request,'404.html',{})
 
-@login_required
-def auth_return(request):
-	pass
+def bad_request(request):
+	return render(request,'400.html',{})
 
-def error(request):
-	return TemplateResponse(request,'error.html',{})
+def forbidden(request):
+	return render(request,'403.html',{})
+
+def internal_server_error(request):
+	return render(request,'500.html',{})

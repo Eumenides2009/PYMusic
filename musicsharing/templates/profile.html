@@ -45,9 +45,11 @@
                       </tr>
                       <tr>
                         <td>Email</td>
-                        {% if profile.user.email %}
+                        {% if profile.user.email and profile.user == user %}
                         <td><a href="mailto:{{profile.user.email}}">{{profile.user.email}}</a>&nbsp; &nbsp; |&nbsp; &nbsp;  <a href="/accounts/email"> Set Your Email </a></td> 
-                        {% else %}
+                        {% elif profile.user.emal %}
+                        <td><a href="mailto:{{profile.user.email}}">{{profile.user.email}}</a>
+                        {% elif profile.user == user %}
                         <td><a href="/accounts/email"> Set Your Email </a></td>                     
                         {% endif %}
                         
