@@ -32,6 +32,10 @@ def add_profile(**kwargs):
 		if user._wrapped.__class__ == object:
 			user._setup()
 		user = user._wrapped
+
+	if not user.is_staff:
+		user.is_staff = True
+		user.save()
 	try:
 		profile = Profile.objects.get(user=user)
 	except Profile.DoesNotExist:
