@@ -173,6 +173,9 @@ def upload(request):
 		error_message.append('Wrong Music File Type or Corrupted MP3 File')
 		return json_response_wrapper(400,error_message)
 
+	if Music.objects.filter(name=meta['title'],user=request.user).exists():
+		error_message.append('Sorry, this music seems to be already uploaded')
+		return json_response_wrapper(400,error_message)
 	
 	new_music = Music(name=meta['title'],artist=meta['author'],album=meta['album'],content=request.FILES['music'],user=request.user)
 
@@ -185,7 +188,7 @@ def upload(request):
 			error_message.append('Music Image: ' + error['picture'][0])
 
 		if error.get('lyric'):
-			error_message.append('Lyric ' + error['lyric'][0])
+			error_message.append('Lyric: ' + error['lyric'][0])
 
 		return json_response_wrapper(400,error_message)
 		
