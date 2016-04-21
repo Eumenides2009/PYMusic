@@ -666,3 +666,5 @@ def comment(request):
 def auth_return(request):
 	pass
 
+def error(request):
+	return TemplateResponse(request,'error.html',{})

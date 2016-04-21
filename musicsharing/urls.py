@@ -63,7 +63,7 @@ urlpatterns =  patterns('postman.views',
 	url(r'^accounts/',include('allauth.urls')),
 	
 
-		
+	url(r'^errorr$',views.error),
 ] 
 
 
