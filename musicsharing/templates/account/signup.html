@@ -7,20 +7,39 @@
 {% block content %}
 <div class="sign-in" id="login-dp">
 <h3>{% trans "Sign Up" %}</h3>
-
 <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
   <div class="form-group">
-     {{ form.username }}
+     {{ form.username }} 
+     {% for error in form.username.errors %}
+     <div class="alert alert-warning alert-dismissable">
+     {{error}}
+    </div>
+    {% endfor %}
   </div>
   <div class="form-group">
      {{ form.email }}
+     {% for error in form.email.errors %}
+     <div class="alert alert-warning alert-dismissable">
+     {{error}}
+    </div>
+    {% endfor %}
   </div>
   <div class="form-group">
      {{ form.password1 }}
+     {% for error in form.password1.errors %}
+     <div class="alert alert-warning alert-dismissable">
+     {{error}}
+    </div>
+    {% endfor %}
   </div>
   <div class="form-group">
   {{ form.password2 }}
+  {% for error in form.password2.errors %}
+     <div class="alert alert-warning alert-dismissable">
+     {{error}}
+    </div>
+    {% endfor %}
   </div>
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
