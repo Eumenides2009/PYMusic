@@ -7,7 +7,6 @@ $(document).ready(function() {
             .html('<a href="" data-toggle="modal" data-target="#addPost">Add Post</a></li>');
     });
     $('.modal').on('hidden.bs.modal', function () {
-        alert("hidden");
         $('.modal-body').find('textarea,input:not([type=hidden])').val('');
         // $('.modal-body').find('').val('');
         $('.modal-body').find(".alert").remove();
