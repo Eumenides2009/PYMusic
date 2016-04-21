@@ -1,7 +1,11 @@
 from django.conf.urls import url,include,patterns
 from musicsharing import views
 from postman.views import WriteView
+from django.conf.urls import (
+handler400, handler403, handler404, handler500
+)
 
+handler404 = 'musicsharing.views.page_not_found'
 
 urlpatterns =  patterns('postman.views',
     url(r'^messages/write/(?:(?P<recipients>[^/#]+)/)?$',
@@ -63,7 +67,6 @@ urlpatterns =  patterns('postman.views',
 	url(r'^ajax_select/', include('ajax_select.urls')),
 	url(r'^accounts/',include('allauth.urls')),
 
-	# url(r'^',views.page_not_found),
 	
 ] 
 
