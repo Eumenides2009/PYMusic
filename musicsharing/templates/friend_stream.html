@@ -57,7 +57,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Comment</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="myModal-body">
                     <form method="post" action="{% url 'musicsharing.views.comment' %}" id="comment-form-141">
                         <textarea class="form-control" cols="40" id="id_comment_content" maxlength="160" name="content" rows="3"></textarea>
                         {% csrf_token %}
