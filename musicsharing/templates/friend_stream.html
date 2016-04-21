@@ -34,7 +34,7 @@
                     <div class="col-md-11">
                         <div class="post-comments">
                             <p class="blog-post-meta">{{ comment.date | date:"Y-m-d H:i:s"}} &nbsp;<a href="{% url 'musicsharing.views.profile' comment.user.username %}">{{comment.user.username}}</a> says : </p>
-                            <p>
+                            <p class="comment-content">
                                 {{comment.content}}
                             </p>
                         </div>
