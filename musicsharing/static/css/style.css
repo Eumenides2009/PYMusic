@@ -520,3 +520,10 @@ span.glyphicon-comment {
   .percent {
     margin-left: 10px;
   }
+
+table.table-user-information td.bio {
+  word-break: break-all;
+}
+.comment-content {
+  word-break: break-all;
+}
