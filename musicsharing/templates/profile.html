@@ -46,10 +46,11 @@
                       <tr>
                         <td>Email</td>
                         {% if profile.user.email %}
-                        <td><a href="mailto:{{profile.user.email}}">{{profile.user.email}}</a></td>
+                        <td><a href="mailto:{{profile.user.email}}">{{profile.user.email}}</a>&nbsp; &nbsp; |&nbsp; &nbsp;  <a href="/accounts/email"> Set Your Email </a></td> 
                         {% else %}
-                        <td><a href="/accounts/email"> Set Your Email </a></td>
+                        <td><a href="/accounts/email"> Set Your Email </a></td>                     
                         {% endif %}
+                        
                       </tr>
                         <td>Bio</td>
                         <td>{{profile.bio}}
