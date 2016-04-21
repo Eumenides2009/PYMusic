@@ -8,61 +8,56 @@
         <div class="upload-modal-box">
             <a class="file-input-wrapper custom-file-input file-input-wrapper btn btn-primary" data-original-title="" title=""><span><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Upload Photo</span>{{form.picture}}</a>
         </div>
+        {% for err in form.picture.errors %}
+        <div class="alert alert-warning alert-dismissable">{{ err }}</div>
+        {% endfor %}
     </div>
     <div class="input-group">
         <span class="input-group-addon">Nickname</span>
         {{ form.nickname }} 
-        {% for err in form.nickname.errors %}
-        <span class="error_message">{{ err }}</span>
-        {% endfor %}
     </div>
+        {% for err in form.nickname.errors %}
+        <div class="alert alert-warning alert-dismissable">{{ err }}</div>
+        {% endfor %}
     <div class="input-group">
         <span class="input-group-addon">Age</span>
         {{ form.age }} 
-        {% for err in form.age.errors %}
-        <span class="error_message">{{ err }}</span>
-        {% endfor %}
     </div>
+    {% for err in form.age.errors %}
+        <div class="alert alert-warning alert-dismissable">{{ err }}</div>
+        {% endfor %}
     <div class="input-group">
         <span class="input-group-addon">Bio</span>
         {{ form.bio }} 
-        {% for err in form.bio.errors %}
-        <span class="error_message">{{ err }}</span>
-        {% endfor %}
+        
     </div>
+    {% for err in form.bio.errors %}
+        <div class="alert alert-warning alert-dismissable">{{ err }}</div>
+        {% endfor %}
     <div class="input-group">
         <span class="input-group-addon">Gender</span>
         <div class="styled-select blue semi-square">
             {{ form.gender }}
-            {% for err in form.gender.errors %}
-            <span class="error_message">{{ err }}</span>
-            {% endfor %}
         </div>
+        {% for err in form.gender.errors %}
+        <div class="alert alert-warning alert-dismissable">{{ err }}</div>
+        {% endfor %}
     </div>
     <div class="input-group">
         <span class="input-group-addon">Country</span>
         <div class="styled-select blue semi-square">
             {{ form.country }}
-            {% for err in form.country.errors %}
-            <span class="error_message">{{ err }}</span>
-            {% endfor %}
+            
         </div>   
+        {% for err in form.country.errors %}
+        <div class="alert alert-warning alert-dismissable">{{ err }}</div>
+        {% endfor %}
     </div>
     <button type="submit" id="submit-edit-list" class="btn btn-lg btn-primary btn-block">Submit</button>
     {% csrf_token %}
 </form>
 </div>
-{% if messages %}
-<ul class="messages">
-    {% for msg in messages %}       
-    <li>
-        <div class="alert alert-{{msg.level_tag}}" role="alert">
- 	{{msg.message}}
-	</div>
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
+
 
 </div>
 {% endblock %}
