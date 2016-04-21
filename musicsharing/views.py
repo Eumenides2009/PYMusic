@@ -329,6 +329,7 @@ def playlist(request):
 @login_required
 @transaction.atomic
 def edit_playlist(request):
+	print 'vdij'
 	error_message = []
 	if request.method == 'GET':
 		error_message.append('Bad Request Type')

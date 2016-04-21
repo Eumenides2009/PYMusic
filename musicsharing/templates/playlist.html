@@ -72,6 +72,7 @@
                 <h4 class="modal-title">Edit Playlist Info</h4>
             </div>
             <div class="modal-body" id="myModal-body">
+                <form action="{% url 'musicsharing.views.create_list' %}" method="post" enctype="multipart/form-data" id="edit-list-form">
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="form-group">
@@ -86,12 +87,14 @@
                             <label>Brief Introduction</label>
                             <textarea id="edit-list-intro" class="form-control" rows="3" maxlength="100" name="intro"></textarea>
                         </div>
+                        {% csrf_token %}
                     </div>
                 </div>
+            </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="submit-edit-list" class="btn btn-success">Submit</button>
+                <button type="button" id="submit-edit-list" form="edit-list-form" class="btn btn-success">Submit</button>
             </div>
         </div>
     </div>

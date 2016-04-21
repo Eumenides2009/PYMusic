@@ -30,7 +30,15 @@ function addComment(event) {
     var modal = $("#myModal");
 
     var modal_body = $("#myModal-body");
-    console.log(modal_body);
+    
+
+    var alerts = $("#myModal").find(".alert");
+
+    if (alerts.length > 0) {
+        for (var i = 0; i < alerts.length; i++) {
+            $(alerts[i]).remove();
+        }
+    }
     $.post("/comment", {'content':comment_content, 'post_id':post_id, 'csrfmiddlewaretoken':csrf})
         .done(function(data){
         

@@ -62,8 +62,8 @@ $(document).ready(function() {
                     }
                     html += "</tbody>" +
                         '</table>';
-                        console.log(table_now.html());
-                        console.log(html);
+                  //      console.log(table_now.html());
+                    //    console.log(html);
                     table_now.html(html);
                 }
             },
@@ -145,6 +145,7 @@ function edit_playlist() {
     var list_intro = $('#edit-list-intro').val();
     var csrf = getCSRFToken();
     
+    console.log(csrf);
     var modal = $("#myModal");
     var alerts = $("#myModal").find(".alert");
     if (alerts.length > 0) {
@@ -212,10 +213,14 @@ function delete_song_in_playlist() {
 
 function getCSRFToken() {
     var cookies = document.cookie.split(";");
+    console.log(cookies.length);
     for (var i = 0; i < cookies.length; i++) {
-        if (cookies[i].startsWith("csrftoken=")) {
-            return cookies[i].substring("csrftoken=".length, cookies[i].length);
+    
+        if (cookies[i].trim().startsWith("csrftoken=")) {
+       
+            return cookies[i].trim().substring("csrftoken=".length, cookies[i].length);
         }
     }
+    console.log("why");
     return "unknown";
 }
