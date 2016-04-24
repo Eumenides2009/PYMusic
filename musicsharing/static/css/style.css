@@ -3,7 +3,8 @@ html {
 	overflow: inherit;
 }
 body {
-	background-color: rgb(241, 242, 246);
+	/*background-color: rgb(241, 242, 246);*/
+  background-color: #eee;
 	height: 100%;
 	overflow: scroll;
 	position: inherit;
@@ -13,6 +14,21 @@ body {
     color: #8c8c8c;
     background-color: #000;
 }*/
+@media (min-width: 768px){
+.navbar {
+    border-radius: 0px;
+}
+}
+.navbar-default .navbar-nav>li>a{
+  color: #337ab7;
+}
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    color: #337ab7;
+    background-color: #eee;
+}
+.navbar-default .navbar-nav>li>a:hover {
+  color:#2a6496;
+}
 .img-square {
   width: 100%;
     height: 100%;
@@ -23,11 +39,11 @@ ul.messages {
   padding-left: 0px;
 }
 .bg {
-    background: url("http://blog.transfer-iphone-recovery.com/images/photo-with-blur-background.jpg") 30% 30% / cover;
+    background: url("http://krswallpaper.com/wp-content/uploads/2015/11/Blurred-White-Flower-Download-Wallpaper.jpg") 30% 30% / cover;
     box-shadow: 0 10px 150px rgba(0,0,0,.3)inset;
 }
 .black .bg {
-    background: rgba(0,0,0,.48);
+    /*background: rgba(0,0,0,.48);*/
 }
 .list-bg , .bg{
     width: 100%;
@@ -315,8 +331,8 @@ h4.media-heading {
   padding: 15px;
 }
 .comments img {
-  width: 45px;
-  height: 45px;
+  /*width: 45px;
+  height: 45px;*/
 }
 img.media-object {
   width: 100%;
@@ -341,6 +357,7 @@ span.glyphicon-comment {
     border: 1px #D8D0D0 dotted;
     background-color: rgba(255, 255, 255, 0.92);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0px 1px 0px rgba(0,0,0,.07);
+    margin: 0px;
 }
 .post-song img {
   width: 80px;
@@ -356,7 +373,7 @@ span.glyphicon-comment {
 }
 .post-song-content {
   font-size: 13px;
-  margin-right: 180px;
+  /*margin-right: 180px;*/
 }
 .post-song span.glyphicon {
   position: relative;
@@ -527,7 +544,7 @@ span.glyphicon-comment {
 table.table-user-information td.bio {
   word-break: break-all;
 }
-.comment-content {
+.Ct {
   word-break: break-all;
 }
 
@@ -553,4 +570,258 @@ table.table-user-information td.bio {
 }
 .division .line.l {
     left: 0;
+}
+
+
+
+
+
+/*post*/
+.panel-google-plus {
+    position: relative;
+    border-radius: 0px;
+    border: 1px solid rgb(216, 216, 216);
+    font-family: 'Roboto', sans-serif;
+}
+.panel-google-plus > .dropdown {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+}
+.panel-google-plus > .dropdown > span > span {
+    font-size: 10px;   
+}
+.panel-google-plus > .dropdown > .dropdown-menu {
+    left: initial;
+    right: 0px;
+    border-radius: 2px;
+}
+.panel-google-plus > .panel-google-plus-tags {
+    position: absolute;
+    top: 35px;
+    right: -3px;
+}
+.panel-google-plus > .panel-google-plus-tags > ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+.panel-google-plus > .panel-google-plus-tags > ul:hover {
+    box-shadow: 0px 0px 3px rgb(0, 0, 0);   
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.25);   
+}
+.panel-google-plus > .panel-google-plus-tags > ul > li {
+    display: block;
+    right: 0px;
+    width: 0px;
+    padding: 5px 0px 5px 0px;
+    background-color: rgb(245, 245, 245);
+    font-size: 12px;
+    overflow: hidden;
+}
+.panel-google-plus > .panel-google-plus-tags > ul > li::after {
+    content:"";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 100%;
+  border-right: 3px solid rgb(66, 127, 237);
+}
+.panel-google-plus > .panel-google-plus-tags > ul:hover > li,
+.panel-google-plus > .panel-google-plus-tags > ul > li:first-child {
+    padding: 5px 15px 5px 10px;
+    width: auto;
+    cursor: pointer;
+    margin-left: auto;
+}
+.panel-google-plus > .panel-google-plus-tags > ul:hover > li {
+    background-color: rgb(255, 255, 255);   
+}
+.panel-google-plus > .panel-google-plus-tags > ul > li:hover {
+    background-color: rgb(66, 127, 237);
+    color: rgb(255, 255, 255);
+}
+.panel-google-plus > .panel-heading,
+.panel-google-plus > .panel-footer {
+    background-color: rgb(255, 255, 255);
+    border-width: 0px; 
+}
+.panel-google-plus > .panel-heading {
+    margin-top: 10px;    
+    padding-bottom: 5px; 
+}
+.panel-google-plus > .panel-heading > img { 
+    margin-right: 15px;
+}
+.panel-google-plus > .panel-heading > h3 {
+    margin: 0px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.panel-google-plus > .panel-heading > h5 {
+    color: rgb(153, 153, 153);
+    font-size: 12px;
+    font-weight: 400;
+}
+.panel-google-plus > .panel-body {
+    padding-top: 5px;
+    font-size: 13px;
+}
+.panel-google-plus > .panel-body > .panel-google-plus-image {
+    display: block;
+    text-align: center;
+    background-color: rgb(245, 245, 245);
+    border: 1px solid rgb(217, 217, 217);
+}
+.panel-google-plus > .panel-body > .panel-google-plus-image > img {
+    max-width: 100%;
+}
+
+.panel-google-plus > .panel-footer {
+    font-size: 14px;
+    font-weight: 700;
+    min-height: 54px;
+}
+.panel-google-plus > .panel-footer > .btn {
+    float: left;
+    margin-right: 8px;
+}
+.panel-google-plus > .panel-footer > .input-placeholder {
+    display: block;
+    margin-left: 53px;
+    color: rgb(153, 153, 153);
+    font-size: 12px;
+    font-weight: 400;
+    padding: 8px 6px 7px;
+    border: 1px solid rgb(217, 217, 217);
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+}
+.panel-google-plus.panel-google-plus-show-comment > .panel-footer > .input-placeholder {
+    display: none;   
+}
+.panel-google-plus > .panel-google-plus-comment {
+    display: none;
+    padding: 10px 20px 15px;
+    border-top: 1px solid rgb(229, 229, 229);
+    background-color: rgb(245, 245, 245);
+}
+.panel-google-plus.panel-google-plus-show-comment > .panel-google-plus-comment {
+    display: block;
+}
+/*.panel-google-plus > .panel-google-plus-comment > img {
+    float: left;   
+}*/
+.panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea {
+    float: right;
+    width: calc(100% - 56px);
+}
+.panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > textarea {
+    display: block;
+    /*margin-left: 60px;
+    width: calc(100% - 56px);*/
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(217, 217, 217);
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+    resize: vertical;
+}
+.panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn {
+    margin-top: 10px;
+    margin-right: 8px;
+    width: 100%;
+}
+@media (min-width: 992px) {
+    .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn {
+        width: auto;
+    }    
+}
+
+.img-46 {
+  width: 46px;
+  height: 46px;
+}
+.panel-google-plus .btn {
+    border-radius: 3px;   
+}
+.panel-google-plus .btn-default {
+    border: 1px solid rgb(217, 217, 217);
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+}
+.panel-google-plus .btn-default:hover, 
+.panel-google-plus .btn-default:focus, 
+.panel-google-plus .btn-default:active {
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(0, 0, 0);    
+}
+
+
+
+/*comment*/
+.img-28 {
+  height: 28px;
+  width: 28px;
+}
+.Rg {
+    color: rgb(153, 153, 153);
+    font-size: 12px;
+    font-weight: 400;
+}
+.lg {
+    border-bottom: 0;
+    margin: 0 0 0 0;
+    min-height: 0;
+    padding: 0 20px 16px 58px;
+    vertical-align: top;
+}
+.Wh {
+    border: none;
+    margin: 4px 0 0 -38px;
+}
+.Wh, .SC {
+    float: left;
+}
+.Aq {
+    color: #404040;
+    font-size: 13px;
+  }
+
+/*drop down */
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+color:#262626;text-decoration:none;background-color:#ddd;
+}
+.navbar-default .btn-link:focus, .navbar-default .btn-link:hover, .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover, .navbar-default .navbar-link:hover {
+    color: #222;
+    background-color: transparent;
 }
