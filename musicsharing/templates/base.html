@@ -47,7 +47,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/">Player <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/"><i class="fa fa-music"></i>  Player <span class="sr-only">(current)</span></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Playlist <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -56,8 +56,8 @@
                             <li><a href="#" data-toggle="modal" data-target="#addPlaylist">Add Playlist</a></li>
                         </ul>
                     </li>
-                    <li><a href="/friend-stream">Friend Stream</a></li>
-                    <li id = "addPostLi"><a href="#" data-toggle="modal" data-target="#addPost">Add Post</a></li>
+                    <li><a href="/friend-stream"><i class="fa fa-users"></i> Friend Stream</a></li>
+                    <li id = "addPostLi"><a href="#" data-toggle="modal" data-target="#addPost"><i class="fa fa-comment"></i> Post</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <form class="navbar-form navbar-left" role="search" method="get" action="/search">
@@ -119,10 +119,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Add Playlist</h4>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Add Playlist</h4>
             </div>
+            <form method="post" action="{% url 'musicsharing.views.create_list' %}" id="add-playlist" enctype="multipart/form-data">
             <div class="modal-body" id="addPlaylist-body">
-                <form method="post" action="{% url 'musicsharing.views.create_list' %}" id="add-playlist" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-xs-6">
                             <div class="form-group">
@@ -149,8 +149,9 @@
                         </div>
                     </div>
                     {% csrf_token %}
-                </form>
+                
             </div>
+            </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="submit" form="add-playlist" class="btn btn-success" id="submit-playlist">Submit</button>
@@ -165,7 +166,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Add Post</h4>
+                <h4 class="modal-title"><i class="fa fa-comment"></i> Add Post</a></h4>
             </div>
             <div class="modal-body" id="addPost-body">
                 <form method="post" action="{% url 'musicsharing.views.post' %}" id="add-post" enctype="multipart/form-data">
@@ -196,7 +197,7 @@
     </div>
 </div>
     <!-- Bootstrap -->
-    <script src="{% static "js/jquery-1.11.0.min.js"></script>
+    <script src="{% static "js/jquery-1.11.0.min.js" %}"></script>
     <script src="{% static "js/site.min.js" %}"></script>
     <!-- Bootflat's JS files.-->
     <script src="{% static "js/icheck.min.js" %}"></script>
@@ -207,4 +208,4 @@
     {% block js %}{% endblock %}
 
 </body>
-</h
+</html>

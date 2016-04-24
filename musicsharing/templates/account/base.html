@@ -1,1 +1,51 @@
-{% extends "base.html" %}
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>
+        PYMusic
+    </title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="favicon.ico" /> 
+
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static "img/icon.png" %}" /> 
+    <link href="{% static "ajax_select/css/ajax_select.css" %}" type="text/css" media="all" rel="stylesheet" />
+    <script type="text/javascript" src="{% static "ajax_select/js/bootstrap.js" %}"></script>
+    <script type="text/javascript" src="{% static "ajax_select/js/ajax_select.js" %}"></script>
+    <link rel="stylesheet" href="{% static "css/site.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    
+    {% block css %}{% endblock %}
+    {% block extrahead %}{% endblock %}
+</head>
+
+<body>
+	    <div class="container">
+          {% for msg in messages %}
+    {% if msg.level_tag == "error" %}
+    <div class="alert alert-danger">
+    {% else %}
+    <div class="alert alert-{{msg.level_tag}}">
+    {% endif %}
+    {{msg}}
+    </div>
+    {% endfor %}
+        {% block postman_menu %}{% endblock %}
+        {% block content %}{% endblock %}
+    </div>
+    <!-- Bootstrap -->
+    <script src="{% static "js/jquery-1.11.0.min.js" %}"></script>
+    <script src="{% static "js/site.min.js" %}"></script>
+    <!-- Bootflat's JS files.-->
+    <script src="{% static "js/icheck.min.js" %}"></script>
+    <script src="{% static "js/jquery.fs.selecter.min.js" %}"></script>
+    <script src="{% static "js/jquery.fs.stepper.min.js" %}"></script>
+    <script src="{% static "js/search.js" %}"></script>
+    <script src="{% static "js/addPostPlaylist.js" %}"></script>
+    {% block js %}{% endblock %}
+
+</body>
+</html>

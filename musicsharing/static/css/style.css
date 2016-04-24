@@ -362,15 +362,13 @@ span.glyphicon-comment {
   position: relative;
   left: 0px;
 }
-.row {
-  width: 100%;
-}
+
 
 
 
 /*sign in*/
 .sign-in {
-  width: 600px;
+  /*width: 600px;*/
   margin: 0 auto;
   padding: 20px;
     overflow: hidden;
@@ -381,8 +379,11 @@ span.glyphicon-comment {
     padding: 20px;
     overflow:hidden;
     background-color:rgba(255,255,255,.8);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+#login-dp .modal-footer {
+  padding-top: 0px;
 }
 #login-dp .help-block{
     font-size:12px    
@@ -438,16 +439,16 @@ span.glyphicon-comment {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-.bottom-signin {
-    background-color: rgba(255,255,255,.8);
+/*.bottom-signin {
+    background-color: rgb(255,255,255);
     border-top: 1px solid #ddd;
     clear: both;
     padding: 14px;
     width: 600px;
     margin: 0 auto;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}*/
 .form-control {
     color: #434a54;
     border-color: #aab2bd;
@@ -483,7 +484,9 @@ span.glyphicon-comment {
 .modal {
   z-index: 98;
 }
-
+#loginModal .modal-footer, #addPost .modal-footer, #addPlaylist .modal-footer{
+  padding-top: 0px;
+}
 
 /*error*/
  .clear{
@@ -514,11 +517,11 @@ span.glyphicon-comment {
   }
 
   .progress {
-    background-color: #3bafda;
-    color: #fff;
+    /*background-color: #3bafda;*/
+    color: #4E4E4E;
   }
   .percent {
-    margin-left: 10px;
+    margin-left: 15px;
   }
 
 table.table-user-information td.bio {
@@ -526,4 +529,28 @@ table.table-user-information td.bio {
 }
 .comment-content {
   word-break: break-all;
+}
+
+
+
+.division .line {
+    border-top: 1px solid #e0e0e0;
+    position: absolute;
+    top: 10px;
+    width: 38%;
+}
+.division {
+    float: none;
+    margin: 0 auto 0;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    margin: 10px 0;
+}
+.division .line.r {
+    right: 0;
+}
+.division .line.l {
+    left: 0;
 }

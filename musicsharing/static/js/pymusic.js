@@ -88,8 +88,9 @@ function change_search_state() {
 }
 function edit_playlist_btn() {
     var state = this.children[0].getAttribute("value");
+
     var modal = $("#myModal input");
-    var input = $($("#myModal input")[1]);
+    var input = $("#playlist-id-in-modal");
     input.val(state);
 }
 function add_song_to_list_btn() {

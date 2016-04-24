@@ -8,21 +8,33 @@
 {% block content %}
 
 <!-- <h1>{% trans "Sign In" %}</h1> -->
-<div class="sign-in" id="login-dp">
+
+<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h1 class="text-center"><i class="fa fa-users"></i> Login</h1>
+      </div>
+      <div class="modal-body">
+          <div class="sign-in" id="login-dp">
   <!-- <div class="row"> -->
               <!-- <div class="col-md-12"> -->
 {% get_providers as socialaccount_providers %}
 
 {% if socialaccount_providers %}
-<p>Login via</p>
+
 
 <div class="socialaccount_ballot">
-
+ 
   <!-- <ul class="socialaccount_providers"> -->
     {% include "socialaccount/snippets/provider_list.html" with process="login" %}
   <!-- </ul> -->
-
-  <div class="login-or">{% trans 'or' %}</div>
+  <div class="division">
+                      <div class="line l"></div>
+                      <span>{% trans 'or' %}</span>
+                      <div class="line r"></div>
+                </div>
+  <!-- <div class="login-or">{% trans 'or' %}</div> -->
 
 </div>
 
@@ -49,10 +61,18 @@
   <button class="primaryAction btn btn-primary btn-block" type="submit">{% trans "Sign In" %}</button>
 </form>
 </div>
-<div class="bottom-signin text-center">
+<!-- <div class="bottom-signin text-center">
     New here ? <a href="{{ signup_url }}"><b>Join Us</b></a>
+</div> -->
+      </div>
+      <div class="modal-footer">
+          <div class="col-md-12 bottom-signin text-center">
+          New here ? <a href="{{ signup_url }}"><b>Join Us</b></a>
+      </div>  
+      </div>
+  </div>
+  </div>
 </div>
-
 <!-- </div> -->
 <!-- </div> -->
 {% endblock %}
