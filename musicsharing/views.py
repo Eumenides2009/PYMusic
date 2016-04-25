@@ -224,16 +224,20 @@ def profile(request,username):
 		posts = Post.objects.filter(user__username=username).order_by('-date')
 		comments = Comment.objects.filter(post__in=posts.all()).order_by('date')
 		follow = False
+		followers = Profile.objects.filter(friends__username=username).count()
+		followees = profile.friends.all().count()
 		if User.objects.get(username=username) in request.user.profile.get().friends.all():
 			follow = True
-		return TemplateResponse(request,'profile.html',{'profile':profile,'posts':posts, 'comments':comments,'follow':follow})
+		return TemplateResponse(request,'profile.html',{'profile':profile,'posts':posts, 'comments':comments,'follow':follow, 'followers':followers, 'followees':followees})
 	except Profile.DoesNotExist:
 		if username != "":
 			messages.info(request,'User ' + username + ' does not exists')
 		profile = Profile.objects.get(user=request.user)
 		posts = Post.objects.filter(user=request.user).order_by('-date')
 		comments = Comment.objects.filter(post__in=posts.all()).order_by('date')
-		return TemplateResponse(request,'profile.html',{'profile':profile,'posts':posts,'comments':comments})
+		followers = Profile.objects.filter(friends=request.user).count()
+		followees = profile.friends.all().count()
+		return TemplateResponse(request,'profile.html',{'profile':profile,'posts':posts,'comments':comments, 'followers':followers, 'followees':followees})
 
 
 @login_required
@@ -327,7 +331,7 @@ def playlist(request):
 @login_required
 @transaction.atomic
 def edit_playlist(request):
-	print 'vdij'
+	
 	error_message = []
 	if request.method == 'GET':
 		error_message.append('Bad Request Type')
