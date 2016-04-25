@@ -11,6 +11,7 @@
 {% endblock %}
 {% block content %}
 {% for post in posts %}
+{% if forloop.counter0|divisibleby:"2" %}
 <div class="row">
     <div class="col-md-1">
     </div>
@@ -76,6 +77,7 @@
                 </div>
             </div>
         </div>
+        {% else %}
         <div class="[ col-xs-12 col-sm-5 ]">
         <div class="[ panel panel-default ] panel-google-plus">
             <div class="panel-heading">
@@ -139,6 +141,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 {% endfor %}
 
 
