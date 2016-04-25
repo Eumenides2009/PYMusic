@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
-
+{% block bg %}
+    <div class="list-bg">
+        <div class="bg">
+        </div>
+    </div>
+    <div class="list-bg black">
+        <div class="bg">
+        </div>
+    </div>
+{% endblock %}
 {% block content %}
+
 <!-- {% if messages %}
 <ul class="messages">
     {% for msg in messages %}       
@@ -41,11 +51,11 @@
 <h4 class="white"><i class="fa fa-birthday-cake" aria-hidden="true"></i> {{profile.age}}</h4>
 <h4 class="white"><i class="fa fa-heart" aria-hidden="true"></i> {{profile.gender}}</h4>
                             {% if profile.user == user %}
-                    <a href="{% url 'musicsharing.views.edit_profile' %}" class="btn btn-labeled btn-default"><span class="btn-label"><i class="fa fa-pencil" aria-hidden="true"></i></span>  Edit</a>
+                    <a href="{% url 'musicsharing.views.edit_profile' %}" class="btn btn-labeled btn-info"><span class="btn-label"><i class="fa fa-pencil" aria-hidden="true"></i></span>  Edit</a>
                   {% elif not follow %}
-                  <a href="{% url 'musicsharing.views.follow' profile.user.username %}" class="btn btn-labeled btn-default"> <span class="btn-label"><i class="fa fa-star" aria-hidden="true"></i></span>  Follow</a>
+                  <a href="{% url 'musicsharing.views.follow' profile.user.username %}" class="btn btn-labeled btn-info"> <span class="btn-label"><i class="fa fa-star" aria-hidden="true"></i></span>  Follow</a>
                   {% else %}
-                  <a href="{% url 'musicsharing.views.unfollow' profile.user.username %}" class="btn btn-labeled btn-default"> <span class="btn-label"><i class="fa fa-star" aria-hidden="true"></i></span>  UnFollow</a>
+                  <a href="{% url 'musicsharing.views.unfollow' profile.user.username %}" class="btn btn-labeled btn-info"> <span class="btn-label"><i class="fa fa-star" aria-hidden="true"></i></span>  UnFollow</a>
                   {% endif %}
                     </div>
                 </div>
