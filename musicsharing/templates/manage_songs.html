@@ -1,4 +1,15 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block bg %}
+    <div class="list-bg">
+        <div class="bg">
+        </div>
+    </div>
+    <div class="list-bg black">
+        <div class="bg">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
 <div class="panel panel-info">
     <div class="panel-heading">Manage Songs</div>
     <table class="table">

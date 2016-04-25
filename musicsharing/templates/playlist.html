@@ -1,4 +1,14 @@
 {% extends "base.html" %} 
+{% block bg %}
+    <div class="list-bg">
+        <div class="bg">
+        </div>
+    </div>
+    <div class="list-bg black">
+        <div class="bg">
+        </div>
+    </div>
+{% endblock %}
 {% load math_extend %}
 {% block content %}
     {% for list in playlist %}
