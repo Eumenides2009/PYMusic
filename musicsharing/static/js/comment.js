@@ -21,6 +21,8 @@ $(function () {
         if ($panel.hasClass('panel-google-plus-show-comment')) {
             $comment.find('textarea').focus();
         }
+
+        // $(".panel-footer").css("min-height", "0px");
    });
    $('.panel-google-plus-comment > .panel-google-plus-textarea > form > textarea').on('keyup', function(event) {
         var $comment = $(this).closest('.panel-google-plus-comment');

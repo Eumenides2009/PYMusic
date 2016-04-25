@@ -685,7 +685,7 @@ table.table-user-information td.bio {
 .panel-google-plus > .panel-footer {
     font-size: 14px;
     font-weight: 700;
-    min-height: 54px;
+    /*min-height: 54px;*/
 }
 .panel-google-plus > .panel-footer > .btn {
     float: left;
@@ -693,7 +693,7 @@ table.table-user-information td.bio {
 }
 .panel-google-plus > .panel-footer > .input-placeholder {
     display: block;
-    margin-left: 53px;
+    /*margin-left: 53px;*/
     color: rgb(153, 153, 153);
     font-size: 12px;
     font-weight: 400;
@@ -701,6 +701,9 @@ table.table-user-information td.bio {
     border: 1px solid rgb(217, 217, 217);
     border-radius: 2px;
     box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+}
+.panel-google-plus > .panel-footer > .btn {
+  display: none;
 }
 .panel-google-plus.panel-google-plus-show-comment > .panel-footer > .input-placeholder {
     display: none;   
@@ -886,6 +889,7 @@ div.user-menu-container a, div.user-menu-container .btn  {
 div.user-menu-container .thumbnail {
    width:100%;
    min-height:200px;
+   height: 292px;
    border: 0px!important;
    padding: 0px;
    border-radius: 0;
@@ -937,18 +941,24 @@ div.user-menu-content {
     color: #323232;
 }
 
-ul.user-menu-list {
+.user-menu-list {
     list-style: none;
     margin-top: 20px;
     margin-bottom: 0;
     padding: 10px;
     border: 1px solid #eee;
 }
-ul.user-menu-list>li {
+.user-menu-list>h5 {
     padding-bottom: 8px;
-    text-align: center;
+    font-size: 15px;
+    font-weight: 300;
+    word-break: break-all;
+    margin-bottom: 5px;
 }
-
+.user-menu-list>h3 {
+  margin-top: 10px;
+  font-size: 24px;
+}
 div.user-menu div.user-menu-content:not(.active){
   display: none;
 }
@@ -975,7 +985,7 @@ div.user-menu div.user-menu-content:not(.active){
 }
 
 .user-image {
-  max-height:200px;
+  max-height:292px;
   overflow:hidden;
 }
 
@@ -1046,7 +1056,9 @@ div.user-menu div.user-menu-content:not(.active){
     padding: 15px;
     margin-top: 15px;
 }
-
+.user-menu-container {
+  margin-bottom: 20px;
+}
 /*.square, .btn {
     border-radius: 0px!important;
 }*/
@@ -1061,6 +1073,7 @@ h4.white {
 h3.bloc {
   border-left: 3px solid #fff;
     padding-left: 12px;
+    word-break: break-all;
 }
 .styled-select img{
   display: none;

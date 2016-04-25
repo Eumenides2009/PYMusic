@@ -10,12 +10,13 @@
     </div>
 {% endblock %}
 {% block content %}
-{% for post in posts %}
-{% if forloop.counter0|divisibleby:"2" %}
+
 <div class="row">
     <div class="col-md-1">
     </div>
     <div class="[ col-xs-12 col-sm-5 ]">
+{% for post in posts %}
+{% if forloop.counter0|divisibleby:"2" %}
         <div class="[ panel panel-default ] panel-google-plus">
             <div class="panel-heading">
                 <img class="pull-left img-circle  img-46" src="{% url 'musicsharing.views.get_profile_picture' post.user.profile.all.0.id %}">
@@ -76,9 +77,12 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
+        {% endif %}
+        {% endfor %}
         </div>
-        {% else %}
         <div class="[ col-xs-12 col-sm-5 ]">
+        {% for post in posts %}
+        {% if forloop.counter0|divisibleby:"2" %}
         <div class="[ panel panel-default ] panel-google-plus">
             <div class="panel-heading">
                 <img class="pull-left img-circle  img-46" src="{% url 'musicsharing.views.get_profile_picture' post.user.profile.all.0.id %}">
@@ -139,12 +143,11 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-        </div>
-    </div>
+ 
     {% endif %}
 {% endfor %}
-
-
+   </div>
+</div>
 {% endblock %}
 {% block js %}
 {% load staticfiles %}
