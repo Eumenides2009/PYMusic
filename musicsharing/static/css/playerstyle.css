@@ -65,7 +65,7 @@ p {
     height: inherit;
 }
 .aplayer-pic {
-    border-top-left-radius: 15px;
+    border-top-left-radius: 5px;
 }
 .aplayer .aplayer-lrc {
     background: transparent;

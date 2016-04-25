@@ -4,7 +4,8 @@
 	Make your own design in <settings.STATIC_ROOT>/postman/css/postman.css
 */
 #postman {
-	background: rgba(255, 255, 255, 0.65);
+	/*background: rgba(255, 255, 255, 0.65);*/
+    background-color: #fff;
     padding: 40px;
     min-height: 400px;
     border-radius: 5px;

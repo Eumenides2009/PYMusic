@@ -4,6 +4,16 @@
 <link rel="stylesheet" href="{% static "css/APlayer.min.css" %}">
 <link rel="stylesheet" href="{% static "css/playerstyle.css" %}">
 {% endblock %}
+{% block bg %}
+    <div class="list-bg">
+        <div class="bg">
+        </div>
+    </div>
+    <div class="list-bg black">
+        <div class="bg">
+        </div>
+    </div>
+{% endblock %}
 {% block content %}
 <div class="upload-box">
     <!-- <a href="#"><span class="glyphicon glyphicon-file lyrics" aria-hidden="true"></span></a> -->
@@ -43,10 +53,14 @@
             <a class="file-input-wrapper custom-file-input file-input-wrapper btn btn-warning" data-original-title="" title=""><span><span class="glyphicon glyphicon-headphones" aria-hidden="true"></span> Upload Lyrics</span><input id="fileToUploadOne" type="file" title="Upload lyrics" size="45" name="lyric" class="custom-file-input file-input-wrapper btn btn-default btn-warning"></a>
         </div>
     </div>
-    <div class="progress">
-        <div class="bar"></div >
+    <div class="progress progress-striped">
+        <div class="progress-bar progress-bar-warning" style="width: 0%"></div>
         <div class="percent">0%</div >
     </div>
+    <!-- <div class="progress">
+        <div class="bar"></div >
+        <div class="percent">0%</div >
+    </div> -->
     
     <div id="status"></div>
 
@@ -82,10 +96,11 @@
 <script>
 (function() {
     
-var bar = $('.bar');
+var bar = $('.progress-bar');
 var percent = $('.percent');
 var status = $('#status');
-   
+var progress = $('.progress-bar');
+console.log(progress);
 $('#upload_music').ajaxForm({
     beforeSend: function() {
         status.empty();
@@ -105,6 +120,8 @@ $('#upload_music').ajaxForm({
         percent.html(percentVal);
     },
   complete: function(xhr) {
+    bar.width('0%');
+    percent.html('0%');
     // status.html(xhr.responseText);
   }
 }); 

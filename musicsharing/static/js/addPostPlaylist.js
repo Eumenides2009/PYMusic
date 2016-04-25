@@ -4,7 +4,7 @@ $(document).ready(function() {
     
     $(".nav").click(function() {
         $("#addPostLi")
-            .html('<a href="" data-toggle="modal" data-target="#addPost">Add Post</a></li>');
+            .html('<a href="" data-toggle="modal" data-target="#addPost"><i class="fa fa-comment"></i></a></li>');
     });
     $('.modal').on('hidden.bs.modal', function () {
         $('.modal-body').find('textarea,input:not([type=hidden])').val('');

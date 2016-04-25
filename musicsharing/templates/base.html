@@ -6,10 +6,11 @@
     <title>
         PYMusic
     </title>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <link rel="shortcut icon" href="favicon.ico" /> 
 
     {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="shortcut icon" href="favicon.ico" /> 
+
     <link rel="shortcut icon" href="{% static "img/icon.png" %}" /> 
     <link href="{% static "ajax_select/css/ajax_select.css" %}" type="text/css" media="all" rel="stylesheet" />
     <script type="text/javascript" src="{% static "ajax_select/js/bootstrap.js" %}"></script>
@@ -24,15 +25,8 @@
 
 <body>
     
-    <div class="list-bg">
-        <div class="bg">
-        </div>
-    </div>
-    <div class="list-bg black">
-        <div class="bg">
-        </div>
-    </div>
-    <nav class="navbar navbar-inverse">
+    {% block bg %}{% endblock %}
+    <nav class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -46,20 +40,38 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="/">Player <span class="sr-only">(current)</span></a></li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/"><i class="fa fa-music"></i><span class="sr-only">(current)</span></a></li>
+                    <li id = "addPostLi"><a href="#" data-toggle="modal" data-target="#addPost"><i class="fa fa-comment"></i></a></li>
+                    <li><a href="/friend-stream"><i class="fa fa-users"></i></a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Playlist <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> &nbsp;<i class="fa fa-caret-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="/playlist">My PlayLists</a></li>
                             <li><a href="/manage-songs">Manage Songs</a></li>
                             <li><a href="#" data-toggle="modal" data-target="#addPlaylist">Add Playlist</a></li>
                         </ul>
                     </li>
-                    <li><a href="/friend-stream">Friend Stream</a></li>
-                    <li id = "addPostLi"><a href="#" data-toggle="modal" data-target="#addPost">Add Post</a></li>
+                    
+
+                    <li><a href="/messages"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 
+                            {% if user.profile.all.0.nickname %}
+                            {{ user.profile.all.0.nickname }} 
+                            {% else %}
+                            {{ user.username }}
+                            {% endif %}
+                             &nbsp;<i class="fa fa-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/profile">My Profile</a></li>
+                            <li><a href="/edit-profile">Edit Profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/accounts/logout">Sign out</a></li>
+                        </ul>
+                    </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav">
                     <form class="navbar-form navbar-left" role="search" method="get" action="/search">
                         <div class="form-search search-only">
                             <!-- <ul class="nav navbar-nav"> -->
@@ -76,34 +88,23 @@
                             <button type="submit" class="btn btn-default">Submit</button>
                         </div>
                     </form>
-                    <li><a href="/messages"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 
-                            {% if user.profile.all.0.nickname %}
-                            {{ user.profile.all.0.nickname }} 
-                            {% else %}
-                            {{ user.username }}
-                            {% endif %}
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/profile">My Profile</a></li>
-                            <li><a href="/edit-profile">Edit Profile</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="/accounts/logout">Sign out</a></li>
-                        </ul>
-                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
     </nav>
-    {% for msg in messages %}
+  
+    <div class="container">
+          {% for msg in messages %}
+    {% if msg.level_tag == "error" %}
+    <div class="alert alert-danger">
+    {% else %}
     <div class="alert alert-{{msg.level_tag}}">
+    {% endif %}
     {{msg}}
     </div>
     {% endfor %}
-    <div class="container">
         {% block postman_menu %}{% endblock %}
         {% block content %}{% endblock %}
     </div>
@@ -114,10 +115,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Add Playlist</h4>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Add Playlist</h4>
             </div>
+            <form method="post" action="{% url 'musicsharing.views.create_list' %}" id="add-playlist" enctype="multipart/form-data">
             <div class="modal-body" id="addPlaylist-body">
-                <form method="post" action="{% url 'musicsharing.views.create_list' %}" id="add-playlist" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-xs-6">
                             <div class="form-group">
@@ -144,8 +145,9 @@
                         </div>
                     </div>
                     {% csrf_token %}
-                </form>
+                
             </div>
+            </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="submit" form="add-playlist" class="btn btn-success" id="submit-playlist">Submit</button>
@@ -160,7 +162,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Add Post</h4>
+                <h4 class="modal-title"><i class="fa fa-comment"></i> Add Post</a></h4>
             </div>
             <div class="modal-body" id="addPost-body">
                 <form method="post" action="{% url 'musicsharing.views.post' %}" id="add-post" enctype="multipart/form-data">
@@ -191,7 +193,7 @@
     </div>
 </div>
     <!-- Bootstrap -->
-    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="{% static "js/jquery-1.11.0.min.js" %}"></script>
     <script src="{% static "js/site.min.js" %}"></script>
     <!-- Bootflat's JS files.-->
     <script src="{% static "js/icheck.min.js" %}"></script>
@@ -202,4 +204,4 @@
     {% block js %}{% endblock %}
 
 </body>
-</h
+</html>
