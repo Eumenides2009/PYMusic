@@ -534,10 +534,12 @@ def search(request):
 	if request.method == 'POST':
 		return redirect('home')
 	else:
+		params = request.GET.keys()
+		if 'selecter_basic' not in params or 'search_song' not in params or 'search_user' not in params or 'id' not in params:
+			return redirect('home')
 		if request.GET['selecter_basic'] == '1':
 			return redirect('profile',username=request.GET['search_user'])
-		else:
-			
+		else:			
 			return redirect('/?id=-1&search_song=' + request.GET['search_song'])
 
 
